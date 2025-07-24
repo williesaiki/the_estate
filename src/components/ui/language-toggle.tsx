@@ -15,7 +15,7 @@ export function LanguageToggle({ className, language, onToggle }: LanguageToggle
     <div
       className={cn(
         "flex w-16 h-8 p-1 rounded-full cursor-pointer transition-all duration-300",
-        "bg-transparent border border-white/20 backdrop-blur-sm",
+        "bg-transparent border border-border/30 backdrop-blur-sm",
         className
       )}
       onClick={onToggle}
@@ -27,8 +27,8 @@ export function LanguageToggle({ className, language, onToggle }: LanguageToggle
           className={cn(
             "flex justify-center items-center w-6 h-6 rounded-full transition-transform duration-300 text-xs font-bold",
             isPolish 
-              ? "transform translate-x-0 bg-white/10 backdrop-blur-sm text-white" 
-              : "transform translate-x-8 bg-white/20 backdrop-blur-sm text-white"
+              ? "transform translate-x-0 bg-primary/20 backdrop-blur-sm text-primary" 
+              : "transform translate-x-8 bg-primary/20 backdrop-blur-sm text-primary"
           )}
         >
           {isPolish ? "PL" : "EN"}
@@ -37,8 +37,8 @@ export function LanguageToggle({ className, language, onToggle }: LanguageToggle
           className={cn(
             "flex justify-center items-center w-6 h-6 rounded-full transition-transform duration-300 text-xs font-medium",
             isPolish 
-              ? "bg-transparent text-white/60" 
-              : "transform -translate-x-8 text-white/60"
+              ? "bg-transparent text-muted-foreground" 
+              : "transform -translate-x-8 text-muted-foreground"
           )}
         >
           {isPolish ? "EN" : "PL"}

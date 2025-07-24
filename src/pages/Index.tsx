@@ -4,8 +4,12 @@ import OffersSlider from '@/components/OffersSlider';
 import HomePreview from '@/components/HomePreview';
 import Testimonials from '@/components/Testimonials';
 import Footer from '@/components/Footer';
+import { useEstiCRMOffers } from '@/hooks/useEstiCRMOffers';
 
 const Index = () => {
+  // Preload offers data in the background
+  useEstiCRMOffers();
+  
   return (
     <div className="min-h-screen bg-background">
       <Navbar />

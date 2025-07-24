@@ -2,13 +2,15 @@ import React from 'react';
 import { ArrowRight, Home, Users, Package, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { mockProperties, mockTeamMembers, mockProducts } from '@/data/mockData';
+import { mockTeamMembers, mockProducts } from '@/data/mockData';
 import { useApp } from '@/contexts/AppContext';
 import { translations } from '@/lib/translations';
+import { useEstiCRMOffers } from '@/hooks/useEstiCRMOffers';
 
 const HomePreview = () => {
   const { language } = useApp();
   const t = translations[language];
+  const { offers, loading, error } = useEstiCRMOffers();
 
   const previewSections = [
     {
@@ -23,9 +25,13 @@ const HomePreview = () => {
       title: t.offers.title,
       icon: Home,
       description: 'Ekskluzywne nieruchomości w najlepszych lokalizacjach',
-      preview: `${mockProperties.length} aktualnych ofert mieszkań i domów premium w Warszawie`,
+      preview: loading 
+        ? 'Ładowanie aktualnych ofert...' 
+        : error 
+          ? 'Sprawdź nasze ekskluzywne oferty nieruchomości' 
+          : `${offers.length} aktualnych ofert mieszkań i domów premium w Warszawie`,
       link: '/offers',
-      stats: `${mockProperties.length} ofert`
+      stats: loading ? 'Ładowanie...' : error ? 'Oferty dostępne' : `${offers.length} ofert`
     },
     {
       title: t.products.title,
