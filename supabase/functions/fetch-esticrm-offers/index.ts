@@ -46,17 +46,41 @@ serve(async (req) => {
     }
 
     const data = await response.json();
-    console.log('Successfully fetched offers:', data.length || 0, 'offers');
+    console.log('Raw API response:', JSON.stringify(data, null, 2));
+
+    // EstiCRM może zwracać różne struktury - sprawdzamy co dostajemy
+    let offersArray = [];
+    
+    if (Array.isArray(data)) {
+      offersArray = data;
+    } else if (data && Array.isArray(data.data)) {
+      offersArray = data.data;
+    } else if (data && Array.isArray(data.offers)) {
+      offersArray = data.offers;
+    } else if (data && Array.isArray(data.results)) {
+      offersArray = data.results;
+    } else {
+      console.error('Unexpected API response structure:', data);
+      return new Response(
+        JSON.stringify({ error: 'Invalid API response structure', received: data }), 
+        { 
+          status: 500, 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        }
+      );
+    }
+    
+    console.log('Successfully fetched offers:', offersArray.length, 'offers');
 
     // Parse query parameters for agent filtering
     const url_obj = new URL(req.url);
     const agentId = url_obj.searchParams.get('agent_id');
     
-    let filteredOffers = data;
+    let filteredOffers = offersArray;
     
     // Filter by agent_id if provided
     if (agentId) {
-      filteredOffers = data.filter((offer: any) => 
+      filteredOffers = offersArray.filter((offer: any) => 
         offer.agent_id === agentId || offer.user_id === agentId
       );
       console.log(`Filtered offers for agent ${agentId}:`, filteredOffers.length, 'offers');
