@@ -1,17 +1,39 @@
 import React, { useState } from 'react';
-import { MapPin, Home, Square, Plus, Filter } from 'lucide-react';
+import { MapPin, Home, Square, Plus, Filter, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { mockProperties } from '@/data/mockData';
 import { useApp } from '@/contexts/AppContext';
 import { translations } from '@/lib/translations';
+import { useEstiCRMOffers } from '@/hooks/useEstiCRMOffers';
 
 const Offers = () => {
   const { language } = useApp();
   const t = translations[language];
-  const [filteredProperties] = useState(mockProperties);
+  const { offers, loading, error } = useEstiCRMOffers();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="flex justify-center items-center min-h-[60vh]">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="flex justify-center items-center min-h-[60vh]">
+          <p className="text-red-500">Błąd podczas ładowania ofert: {error}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -88,7 +110,7 @@ const Offers = () => {
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {filteredProperties.map((property, index) => (
+            {offers.map((property, index) => (
               <div 
                 key={property.id} 
                 className="property-card group"
