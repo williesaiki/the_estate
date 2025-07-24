@@ -26,13 +26,13 @@ const OffersFilter: React.FC<OffersFilterProps> = ({ offers, onFiltersChange }) 
   const [filters, setFilters] = useState<FilterState>({
     searchTerm: '',
     transactionType: 'all',
-    location: '',
+    location: 'all',
     marketType: 'all',
     priceFrom: '',
     priceTo: '',
     areaFrom: '',
     areaTo: '',
-    propertyType: '',
+    propertyType: 'all',
   });
 
   // Extract unique locations from offers
@@ -63,13 +63,13 @@ const OffersFilter: React.FC<OffersFilterProps> = ({ offers, onFiltersChange }) 
     const clearedFilters: FilterState = {
       searchTerm: '',
       transactionType: 'all',
-      location: '',
+      location: 'all',
       marketType: 'all',
       priceFrom: '',
       priceTo: '',
       areaFrom: '',
       areaTo: '',
-      propertyType: '',
+      propertyType: 'all',
     };
     setFilters(clearedFilters);
     onFiltersChange(clearedFilters);
@@ -141,7 +141,7 @@ const OffersFilter: React.FC<OffersFilterProps> = ({ offers, onFiltersChange }) 
               <SelectValue placeholder="Wybierz" />
             </SelectTrigger>
             <SelectContent className="bg-background border border-border">
-              <SelectItem value="">Wszystkie</SelectItem>
+              <SelectItem value="all">Wszystkie</SelectItem>
               {availableLocations.map((location) => (
                 <SelectItem key={location} value={location}>
                   {location}
@@ -245,7 +245,7 @@ const OffersFilter: React.FC<OffersFilterProps> = ({ offers, onFiltersChange }) 
               <SelectValue placeholder="Wybierz" />
             </SelectTrigger>
             <SelectContent className="bg-background border border-border">
-              <SelectItem value="">Wszystkie</SelectItem>
+              <SelectItem value="all">Wszystkie</SelectItem>
               {availablePropertyTypes.map((type) => (
                 <SelectItem key={type} value={type}>
                   {type}

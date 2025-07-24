@@ -22,13 +22,13 @@ const Offers = () => {
   const [filters, setFilters] = useState<FilterState>({
     searchTerm: '',
     transactionType: 'all',
-    location: '',
+    location: 'all',
     marketType: 'all',
     priceFrom: '',
     priceTo: '',
     areaFrom: '',
     areaTo: '',
-    propertyType: '',
+    propertyType: 'all',
   });
 
   // Filter offers based on current filters
@@ -41,12 +41,12 @@ const Offers = () => {
       }
 
       // Location filter
-      if (filters.location && offer.location !== filters.location) {
+      if (filters.location && filters.location !== 'all' && offer.location !== filters.location) {
         return false;
       }
 
       // Property type filter
-      if (filters.propertyType && offer.type !== filters.propertyType) {
+      if (filters.propertyType && filters.propertyType !== 'all' && offer.type !== filters.propertyType) {
         return false;
       }
 
