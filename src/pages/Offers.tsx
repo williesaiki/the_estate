@@ -185,7 +185,7 @@ const Offers = () => {
                   </h3>
 
                   {/* Price */}
-                  <div className="text-2xl font-bold text-primary mb-4">
+                  <div className="text-2xl font-bold text-white mb-4">
                     {property.price.toLocaleString()} PLN
                   </div>
 
