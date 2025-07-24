@@ -98,7 +98,7 @@ const OffersSlider = () => {
                     
                     {/* Content */}
                     <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 text-white">
-                      <div className="max-w-2xl">
+                      <div className="max-w-2xl ml-12 md:ml-16">
                         <h3 className="text-3xl md:text-4xl font-serif font-light mb-4">
                           {property.title}
                         </h3>
@@ -119,15 +119,11 @@ const OffersSlider = () => {
                           </div>
                         </div>
                         
-                        <p className="text-lg text-white/80 mb-8 line-clamp-2">
-                          {property.description}
-                        </p>
-                        
                         <div className="flex items-center justify-between">
-                          <div className="text-3xl font-bold text-primary">
+                          <div className="text-3xl font-bold text-white">
                             {property.price.toLocaleString()} zł
                           </div>
-                          <Button className="btn-luxury">
+                          <Button className="btn-luxury ml-8">
                             {t.offers.viewOffer}
                           </Button>
                         </div>
