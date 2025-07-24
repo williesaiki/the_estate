@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, MapPin, Home, Square } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MapPin, Home, Square, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { mockProperties } from '@/data/mockData';
+import { useEstiCRMOffers } from '@/hooks/useEstiCRMOffers';
 import { useApp } from '@/contexts/AppContext';
 import { translations } from '@/lib/translations';
 
@@ -9,9 +9,19 @@ const OffersSlider = () => {
   const { language } = useApp();
   const t = translations[language];
   const [currentSlide, setCurrentSlide] = useState(0);
-  const properties = mockProperties.slice(0, 3); // Show first 3 properties
+  const { offers: allOffers, loading, error } = useEstiCRMOffers();
+
+  // Filter offers with price per m2 above 24,000 PLN and show first 3
+  const properties = allOffers
+    .filter(offer => {
+      const pricePerM2 = offer.price / offer.area;
+      return pricePerM2 > 24000;
+    })
+    .slice(0, 3);
 
   useEffect(() => {
+    if (properties.length === 0) return;
+    
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % properties.length);
     }, 5000);
@@ -26,6 +36,35 @@ const OffersSlider = () => {
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + properties.length) % properties.length);
   };
+
+  if (loading) {
+    return (
+      <section id="offers" className="py-20 bg-gradient-subtle">
+        <div className="container mx-auto px-6">
+          <div className="flex justify-center items-center min-h-[400px]">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error || properties.length === 0) {
+    return (
+      <section id="offers" className="py-20 bg-gradient-subtle">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif font-light text-foreground mb-6 animate-fade-in">
+              {t.offers.title}
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-in-up">
+              {error ? 'Błąd podczas ładowania ofert' : 'Sprawdź nasze ekskluzywne oferty premium'}
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="offers" className="py-20 bg-gradient-subtle">
