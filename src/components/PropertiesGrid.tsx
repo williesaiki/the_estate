@@ -101,23 +101,6 @@ const PropertiesGrid = () => {
                   {property.price.toLocaleString()} PLN
                 </div>
 
-                {/* Amenities */}
-                {property.amenities.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {property.amenities.slice(0, 3).map((amenity) => (
-                      <span key={amenity} className="pill-button text-xs">
-                        {amenity}
-                      </span>
-                    ))}
-                    {property.amenities.length > 3 && (
-                      <span className="pill-button flex items-center space-x-1 text-xs">
-                        <Plus className="h-3 w-3" />
-                        <span>{property.amenities.length - 3} więcej</span>
-                      </span>
-                    )}
-                  </div>
-                )}
-
                 {/* Agent Info */}
                 {property.agent_name && (
                   <div className="bg-muted/50 rounded-lg p-3 mb-4">
