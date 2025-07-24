@@ -59,6 +59,17 @@ const OffersFilter: React.FC<OffersFilterProps> = ({ offers, onFiltersChange }) 
     onFiltersChange(newFilters);
   };
 
+  const handlePriceChange = (key: 'priceFrom' | 'priceTo', value: string) => {
+    // Remove all non-digits
+    const numericValue = value.replace(/\D/g, '');
+    handleFilterChange(key, numericValue);
+  };
+
+  const formatPriceDisplay = (value: string) => {
+    if (!value) return '';
+    return parseInt(value).toLocaleString('pl-PL');
+  };
+
   const clearAllFilters = () => {
     const clearedFilters: FilterState = {
       searchTerm: '',
@@ -200,16 +211,16 @@ const OffersFilter: React.FC<OffersFilterProps> = ({ offers, onFiltersChange }) 
           </label>
           <div className="flex space-x-2">
             <Input
-              type="number"
+              type="text"
               placeholder="Od"
-              value={filters.priceFrom}
-              onChange={(e) => handleFilterChange('priceFrom', e.target.value)}
+              value={formatPriceDisplay(filters.priceFrom)}
+              onChange={(e) => handlePriceChange('priceFrom', e.target.value)}
             />
             <Input
-              type="number"
+              type="text"
               placeholder="Do"
-              value={filters.priceTo}
-              onChange={(e) => handleFilterChange('priceTo', e.target.value)}
+              value={formatPriceDisplay(filters.priceTo)}
+              onChange={(e) => handlePriceChange('priceTo', e.target.value)}
             />
           </div>
         </div>
@@ -257,7 +268,7 @@ const OffersFilter: React.FC<OffersFilterProps> = ({ offers, onFiltersChange }) 
       </div>
 
       {/* Action Buttons */}
-      <div className="flex justify-between mt-6 pt-4 border-t border-border">
+      <div className="flex justify-end mt-6 pt-4 border-t border-border">
         <Button
           variant="outline"
           onClick={clearAllFilters}

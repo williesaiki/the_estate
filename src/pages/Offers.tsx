@@ -140,23 +140,23 @@ const Offers = () => {
 
       {/* Filters */}
       <section className="py-12 bg-background">
-        <div className="container mx-auto px-6 max-w-7xl">
+        <div className="container mx-auto px-4 max-w-[1400px]">
           <OffersFilter offers={offers} onFiltersChange={handleFiltersChange} />
         </div>
       </section>
 
       {/* Properties Grid */}
       <section className="py-16">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 max-w-[1400px]">
           {/* Results Counter */}
-          <div className="max-w-7xl mx-auto mb-8">
+          <div className="mb-8">
             <p className="text-muted-foreground">
               Znaleziono <span className="font-semibold text-foreground">{filteredOffers.length}</span> 
               {filteredOffers.length === 1 ? ' ofertę' : filteredOffers.length < 5 ? ' oferty' : ' ofert'}
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {filteredOffers.map((property, index) => (
               <div 
                 key={property.id} 
