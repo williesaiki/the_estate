@@ -9,12 +9,17 @@ const Navbar = () => {
   const { language, setLanguage, theme, toggleTheme } = useApp();
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHeroScrolled, setIsHeroScrolled] = useState(false);
   const t = translations[language];
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-      setIsScrolled(scrollPercentage > 30);
+      const scrollY = window.scrollY;
+      const heroHeight = window.innerHeight; // Hero is h-screen (100vh)
+      const heroScrolled50 = scrollY > (heroHeight * 0.5); // 50% of hero height
+      
+      setIsScrolled(scrollY > 30);
+      setIsHeroScrolled(heroScrolled50);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -25,6 +30,21 @@ const Navbar = () => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Determine text colors based on theme and scroll position
+  const getTextClasses = () => {
+    if (theme === 'dark') {
+      // Dark theme: always light text when not scrolled past hero
+      return isHeroScrolled 
+        ? 'text-foreground/80 hover:text-primary' 
+        : 'text-white/90 hover:text-white';
+    } else {
+      // Light theme: dark text always, except in hero section (when not scrolled 50%)
+      return isHeroScrolled 
+        ? 'text-foreground/80 hover:text-primary' 
+        : 'text-white/90 hover:text-white';
     }
   };
 
@@ -40,7 +60,7 @@ const Navbar = () => {
               src="https://cdn.prod.website-files.com/64f34c2162f4f8d189da8e6c/64f34c2162f4f8d189da8e68_Group.svg" 
               alt="Logo" 
               className={`h-8 w-auto transition-all duration-300 ${
-                isScrolled 
+                isHeroScrolled 
                   ? 'filter brightness-0 dark:brightness-100' 
                   : 'filter brightness-100'
               }`}
@@ -51,51 +71,31 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-8">
             <Link 
               to="/about"
-              className={`transition-colors duration-200 font-medium ${
-                isScrolled 
-                  ? 'text-foreground/80 hover:text-primary' 
-                  : 'text-white/90 hover:text-white'
-              }`}
+              className={`transition-colors duration-200 font-medium ${getTextClasses()}`}
             >
               {t.nav.about}
             </Link>
             <Link 
               to="/offers"
-              className={`transition-colors duration-200 font-medium ${
-                isScrolled 
-                  ? 'text-foreground/80 hover:text-primary' 
-                  : 'text-white/90 hover:text-white'
-              }`}
+              className={`transition-colors duration-200 font-medium ${getTextClasses()}`}
             >
               {t.nav.offers}
             </Link>
             <Link 
               to="/team"
-              className={`transition-colors duration-200 font-medium ${
-                isScrolled 
-                  ? 'text-foreground/80 hover:text-primary' 
-                  : 'text-white/90 hover:text-white'
-              }`}
+              className={`transition-colors duration-200 font-medium ${getTextClasses()}`}
             >
               {t.nav.team}
             </Link>
             <Link 
               to="/products"
-              className={`transition-colors duration-200 font-medium ${
-                isScrolled 
-                  ? 'text-foreground/80 hover:text-primary' 
-                  : 'text-white/90 hover:text-white'
-              }`}
+              className={`transition-colors duration-200 font-medium ${getTextClasses()}`}
             >
               {t.nav.products}
             </Link>
             <Link 
               to="/contact"
-              className={`transition-colors duration-200 font-medium ${
-                isScrolled 
-                  ? 'text-foreground/80 hover:text-primary' 
-                  : 'text-white/90 hover:text-white'
-              }`}
+              className={`transition-colors duration-200 font-medium ${getTextClasses()}`}
             >
               {t.nav.contact}
             </Link>
@@ -108,11 +108,7 @@ const Navbar = () => {
               variant="ghost"
               size="sm"
               onClick={() => setLanguage(language === 'pl' ? 'en' : 'pl')}
-              className={`flex items-center space-x-1 transition-colors duration-200 ${
-                isScrolled 
-                  ? 'text-foreground/80 hover:text-primary' 
-                  : 'text-white/90 hover:text-white'
-              }`}
+              className={`flex items-center space-x-1 transition-colors duration-200 ${getTextClasses()}`}
             >
               <Globe className="h-4 w-4" />
               <span className="text-sm font-medium">{language.toUpperCase()}</span>
@@ -123,11 +119,7 @@ const Navbar = () => {
               variant="ghost"
               size="sm"
               onClick={toggleTheme}
-              className={`transition-colors duration-200 ${
-                isScrolled 
-                  ? 'text-foreground/80 hover:text-primary' 
-                  : 'text-white/90 hover:text-white'
-              }`}
+              className={`transition-colors duration-200 ${getTextClasses()}`}
             >
               {theme === 'light' ? (
                 <Moon className="h-4 w-4" />
