@@ -20,19 +20,24 @@ const Offers = () => {
   const [selectedOffer, setSelectedOffer] = useState<EstiCRMOffer | null>(null);
 
   useEffect(() => {
+    console.log('Offers useEffect - id:', id, 'offers length:', offers.length);
     if (id && offers.length > 0) {
       const offer = offers.find(o => o.id === id);
+      console.log('Found offer:', offer);
       setSelectedOffer(offer || null);
     } else if (!id) {
+      console.log('No id, clearing selected offer');
       setSelectedOffer(null);
     }
   }, [id, offers]);
 
   const handleOfferClick = (offer: EstiCRMOffer) => {
+    console.log('Clicking offer:', offer.id);
     navigate(`/offers/${offer.id}`);
   };
 
   const handleCloseModal = () => {
+    console.log('Closing modal');
     navigate('/offers');
   };
 
