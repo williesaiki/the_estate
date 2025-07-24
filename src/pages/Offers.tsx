@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Home, Square, Plus, Filter, Loader2 } from 'lucide-react';
+import { MapPin, Home, Square, Plus, Filter, Loader2, User, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Navbar from '@/components/Navbar';
@@ -122,57 +122,80 @@ const Offers = () => {
                     src={property.image} 
                     alt={property.title}
                     className="property-image"
+                    onError={(e) => {
+                      e.currentTarget.src = '/placeholder.svg';
+                    }}
                   />
                   <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
-                    {property.price.toLocaleString()} zł
+                    {property.price.toLocaleString()} PLN
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-200">
-                    {property.title}
-                  </h3>
-                  
-                  <div className="flex items-center space-x-1 mb-4 text-muted-foreground">
+                  {/* Location */}
+                  <div className="flex items-center space-x-1 mb-2 text-muted-foreground">
                     <MapPin className="h-4 w-4" />
-                    <span>{property.location}</span>
+                    <span className="font-medium">{property.location}</span>
                   </div>
 
                   {/* Property Details */}
-                  <div className="flex items-center space-x-4 mb-4 text-sm text-muted-foreground">
+                  <div className="flex items-center space-x-4 mb-3 text-sm text-muted-foreground">
                     <div className="flex items-center space-x-1">
                       <Home className="h-4 w-4" />
-                      <span>{property.rooms} {t.offers.rooms}</span>
+                      <span>{property.rooms} {property.rooms === 1 ? 'pokój' : 'pokoje'}</span>
                     </div>
                     <div className="flex items-center space-x-1">
                       <Square className="h-4 w-4" />
-                      <span>{property.area} m²</span>
+                      <span>{property.area.toFixed(2)} m²</span>
                     </div>
                     {property.floor && (
                       <span>{property.floor}. piętro</span>
                     )}
                   </div>
 
-                  {/* Description */}
-                  <p className="text-muted-foreground mb-6 text-sm line-clamp-2">
-                    {property.description}
-                  </p>
+                  {/* Title/Description */}
+                  <h3 className="text-lg font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-200 line-clamp-2">
+                    {property.title}
+                  </h3>
+
+                  {/* Price */}
+                  <div className="text-2xl font-bold text-primary mb-4">
+                    {property.price.toLocaleString()} PLN
+                  </div>
 
                   {/* Amenities */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {property.amenities.slice(0, 3).map((amenity) => (
-                      <span key={amenity} className="pill-button">
-                        {amenity}
-                      </span>
-                    ))}
-                    {property.amenities.length > 3 && (
-                      <span className="pill-button flex items-center space-x-1">
-                        <Plus className="h-3 w-3" />
-                        <span>{property.amenities.length - 3} {t.offers.more}</span>
-                      </span>
-                    )}
-                  </div>
+                  {property.amenities.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {property.amenities.slice(0, 3).map((amenity) => (
+                        <span key={amenity} className="pill-button text-xs">
+                          {amenity}
+                        </span>
+                      ))}
+                      {property.amenities.length > 3 && (
+                        <span className="pill-button flex items-center space-x-1 text-xs">
+                          <Plus className="h-3 w-3" />
+                          <span>{property.amenities.length - 3} więcej</span>
+                        </span>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Agent Info */}
+                  {property.agent_name && (
+                    <div className="bg-muted/50 rounded-lg p-3 mb-4">
+                      <div className="flex items-center space-x-2 text-sm">
+                        <User className="h-4 w-4 text-muted-foreground" />
+                        <span className="font-medium">{property.agent_name}</span>
+                      </div>
+                      {property.agent_phone && (
+                        <div className="flex items-center space-x-2 text-sm text-muted-foreground mt-1">
+                          <Phone className="h-4 w-4" />
+                          <span>{property.agent_phone}</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {/* Action Button */}
                   <Button className="btn-luxury w-full group-hover:shadow-gold transition-all duration-300">

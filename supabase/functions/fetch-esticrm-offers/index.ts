@@ -111,6 +111,16 @@ serve(async (req) => {
         // Take first 200 characters
         description = description.substring(0, 200) + (description.length > 200 ? '...' : '');
       }
+
+      // Get photos - check different possible photo fields
+      let imageUrl = '/placeholder.svg';
+      if (offer.photos && Array.isArray(offer.photos) && offer.photos.length > 0) {
+        imageUrl = offer.photos[0].url || offer.photos[0].path || offer.photos[0];
+      } else if (offer.main_photo) {
+        imageUrl = offer.main_photo;
+      } else if (offer.gallery && Array.isArray(offer.gallery) && offer.gallery.length > 0) {
+        imageUrl = offer.gallery[0].url || offer.gallery[0].path || offer.gallery[0];
+      }
       
       const transformed = {
         id: offer.id || offer.offer_id || offer.estateOfferUuid,
@@ -122,8 +132,11 @@ serve(async (req) => {
         floor: offer.apartmentFloor || offer.floor,
         description: description,
         amenities: amenities,
-        image: offer.photos?.[0]?.url || offer.main_photo || '/placeholder.svg',
+        image: imageUrl,
         agent_id: offer.contactId || offer.agent_id || offer.user_id,
+        agent_name: `${offer.contactFirstname || ''} ${offer.contactLastname || ''}`.trim() || 'Pośrednik',
+        agent_phone: offer.contactPhone,
+        agent_email: offer.contactEmail,
         status: offer.status
       };
       
