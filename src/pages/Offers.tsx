@@ -1,18 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapPin, Home, Square, Plus, Filter, Loader2, User, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PropertyImageCarousel from '@/components/PropertyImageCarousel';
+import OfferDetailsModal from '@/components/OfferDetailsModal';
 import { useApp } from '@/contexts/AppContext';
 import { translations } from '@/lib/translations';
-import { useEstiCRMOffers } from '@/hooks/useEstiCRMOffers';
+import { useEstiCRMOffers, EstiCRMOffer } from '@/hooks/useEstiCRMOffers';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const Offers = () => {
   const { language } = useApp();
   const t = translations[language];
   const { offers, loading, error } = useEstiCRMOffers();
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [selectedOffer, setSelectedOffer] = useState<EstiCRMOffer | null>(null);
+
+  useEffect(() => {
+    if (id && offers.length > 0) {
+      const offer = offers.find(o => o.id === id);
+      setSelectedOffer(offer || null);
+    } else if (!id) {
+      setSelectedOffer(null);
+    }
+  }, [id, offers]);
+
+  const handleOfferClick = (offer: EstiCRMOffer) => {
+    navigate(`/offers/${offer.id}`);
+  };
+
+  const handleCloseModal = () => {
+    navigate('/offers');
+  };
 
   if (loading) {
     return (
@@ -174,7 +196,10 @@ const Offers = () => {
                   )}
 
                   {/* Action Button */}
-                  <Button className="btn-luxury w-full group-hover:shadow-gold transition-all duration-300">
+                  <Button 
+                    className="btn-luxury w-full group-hover:shadow-gold transition-all duration-300"
+                    onClick={() => handleOfferClick(property)}
+                  >
                     {t.offers.viewOffer}
                   </Button>
                 </div>
@@ -192,6 +217,13 @@ const Offers = () => {
       </section>
 
       <Footer />
+      
+      {/* Offer Details Modal */}
+      <OfferDetailsModal 
+        offer={selectedOffer}
+        isOpen={!!selectedOffer}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 };
