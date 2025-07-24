@@ -1,1 +1,4 @@
 project_id = "lwjyvcfwiibzndgfzuwg"
+
+[functions.fetch-esticrm-offers]
+verify_jwt = false

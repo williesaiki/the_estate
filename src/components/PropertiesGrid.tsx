@@ -1,13 +1,38 @@
 import React from 'react';
-import { MapPin, Home, Square, Plus } from 'lucide-react';
+import { MapPin, Home, Square, Plus, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { mockProperties } from '@/data/mockData';
 import { useApp } from '@/contexts/AppContext';
 import { translations } from '@/lib/translations';
+import { useEstiCRMOffers } from '@/hooks/useEstiCRMOffers';
 
 const PropertiesGrid = () => {
   const { language } = useApp();
   const t = translations[language];
+  const { offers, loading, error } = useEstiCRMOffers();
+
+  if (loading) {
+    return (
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-6">
+          <div className="flex justify-center items-center min-h-[400px]">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-6">
+          <div className="text-center">
+            <p className="text-red-500">Błąd podczas ładowania ofert: {error}</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-20 bg-background">
@@ -22,7 +47,7 @@ const PropertiesGrid = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {mockProperties.map((property, index) => (
+          {offers.map((property, index) => (
             <div 
               key={property.id} 
               className="property-card group"
