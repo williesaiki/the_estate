@@ -4,12 +4,16 @@ import { useApp } from '@/contexts/AppContext';
 import { translations } from '@/lib/translations';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { LanguageToggle } from '@/components/ui/language-toggle';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Menu, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const Navbar = () => {
   const { language, setLanguage, theme, toggleTheme } = useApp();
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHeroScrolled, setIsHeroScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const t = translations[language];
 
   useEffect(() => {
@@ -112,8 +116,8 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Controls */}
-          <div className="flex items-center space-x-4">
+          {/* Desktop Controls */}
+          <div className="hidden md:flex items-center space-x-4">
             {/* Language Toggle */}
             <LanguageToggle
               language={language}
@@ -127,6 +131,90 @@ const Navbar = () => {
               onToggle={toggleTheme}
               className="transition-opacity duration-200"
             />
+          </div>
+
+          {/* Mobile Menu */}
+          <div className="md:hidden flex items-center space-x-2">
+            <LanguageToggle
+              language={language}
+              onToggle={() => setLanguage(language === 'pl' ? 'en' : 'pl')}
+              className="transition-opacity duration-200"
+            />
+            
+            <ThemeToggle
+              isDark={theme === 'dark'}
+              onToggle={toggleTheme}
+              className="transition-opacity duration-200"
+            />
+
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="sm" className={`p-2 ${getTextClasses()}`}>
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-80 p-0">
+                <div className="flex flex-col h-full bg-background">
+                  {/* Header */}
+                  <div className="flex items-center justify-between p-6 border-b">
+                    <img 
+                      src="https://cdn.prod.website-files.com/64f34c2162f4f8d189da8e6c/64f34c2162f4f8d189da8e68_Group.svg" 
+                      alt="Logo" 
+                      className="h-8 w-auto filter brightness-0 dark:brightness-100"
+                    />
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="p-2"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <X className="h-5 w-5" />
+                    </Button>
+                  </div>
+
+                  {/* Navigation Links */}
+                  <div className="flex-1 py-6">
+                    <nav className="space-y-2 px-6">
+                      <Link 
+                        to="/about"
+                        className="block py-3 text-lg font-medium text-foreground/80 hover:text-primary transition-colors border-b border-border/20"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {t.nav.about}
+                      </Link>
+                      <Link 
+                        to="/offers"
+                        className="block py-3 text-lg font-medium text-foreground/80 hover:text-primary transition-colors border-b border-border/20"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {t.nav.offers}
+                      </Link>
+                      <Link 
+                        to="/team"
+                        className="block py-3 text-lg font-medium text-foreground/80 hover:text-primary transition-colors border-b border-border/20"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {t.nav.team}
+                      </Link>
+                      <Link 
+                        to="/products"
+                        className="block py-3 text-lg font-medium text-foreground/80 hover:text-primary transition-colors border-b border-border/20"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {t.nav.products}
+                      </Link>
+                      <Link 
+                        to="/contact"
+                        className="block py-3 text-lg font-medium text-foreground/80 hover:text-primary transition-colors border-b border-border/20"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {t.nav.contact}
+                      </Link>
+                    </nav>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </div>
