@@ -22,8 +22,10 @@ const Offers = () => {
   useEffect(() => {
     console.log('Offers useEffect - id:', id, 'offers length:', offers.length);
     if (id && offers.length > 0) {
-      const offer = offers.find(o => o.id === id);
+      // Convert both to strings to ensure comparison works
+      const offer = offers.find(o => String(o.id) === String(id));
       console.log('Found offer:', offer);
+      console.log('Comparing:', offers.map(o => ({ id: o.id, type: typeof o.id })));
       setSelectedOffer(offer || null);
     } else if (!id) {
       console.log('No id, clearing selected offer');
@@ -141,15 +143,18 @@ const Offers = () => {
             {offers.map((property, index) => (
               <div 
                 key={property.id} 
-                className="property-card group"
+                className="property-card group cursor-pointer"
                 style={{ animationDelay: `${index * 0.1}s` }}
+                onClick={() => handleOfferClick(property)}
               >
                 {/* Image Carousel */}
-                <PropertyImageCarousel
-                  images={property.images && property.images.length > 0 ? property.images : [property.image]}
-                  title={property.title}
-                  price={property.price}
-                />
+                <div onClick={(e) => e.stopPropagation()}>
+                  <PropertyImageCarousel
+                    images={property.images && property.images.length > 0 ? property.images : [property.image]}
+                    title={property.title}
+                    price={property.price}
+                  />
+                </div>
 
                 {/* Content */}
                 <div className="p-6">
@@ -203,7 +208,10 @@ const Offers = () => {
                   {/* Action Button */}
                   <Button 
                     className="btn-luxury w-full group-hover:shadow-gold transition-all duration-300"
-                    onClick={() => handleOfferClick(property)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleOfferClick(property);
+                    }}
                   >
                     {t.offers.viewOffer}
                   </Button>
