@@ -30,10 +30,7 @@ serve(async (req) => {
 
     const url = `https://client-api.esticrm.pl/apiClient/offer/list?company=${company}&token=${token}&office_id=${officeId}`;
     
-    console.log('EstiCRM API URL:', url);
-    console.log('Company:', company);
-    console.log('Token length:', token ? token.length : 'undefined');
-    console.log('Office ID:', officeId);
+    console.log('Fetching offers from EstiCRM:', url);
     
     const response = await fetch(url);
     
