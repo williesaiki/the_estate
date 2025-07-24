@@ -38,12 +38,12 @@ const Navbar = () => {
     // Special logic only for landing page (home page)
     if (location.pathname === '/') {
       if (theme === 'dark') {
-        return isHeroScrolled 
+        return isScrolled 
           ? 'text-foreground/80 hover:text-primary' 
           : 'text-white/90 hover:text-white';
       } else {
         // Light theme on landing: white text in hero, dark text after scroll
-        return isHeroScrolled 
+        return isScrolled 
           ? 'text-foreground/80 hover:text-primary' 
           : 'text-white/90 hover:text-white';
       }
