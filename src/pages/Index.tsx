@@ -1,10 +1,8 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import OffersSlider from '@/components/OffersSlider';
-import PropertiesGrid from '@/components/PropertiesGrid';
-import AboutTeam from '@/components/AboutTeam';
+import HomePreview from '@/components/HomePreview';
 import Testimonials from '@/components/Testimonials';
-import Products from '@/components/Products';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -13,10 +11,8 @@ const Index = () => {
       <Navbar />
       <Hero />
       <OffersSlider />
-      <PropertiesGrid />
-      <AboutTeam />
+      <HomePreview />
       <Testimonials />
-      <Products />
       <Footer />
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Moon, Sun, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useApp } from '@/contexts/AppContext';
@@ -6,6 +7,7 @@ import { translations } from '@/lib/translations';
 
 const Navbar = () => {
   const { language, setLanguage, theme, toggleTheme } = useApp();
+  const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const t = translations[language];
 
@@ -33,46 +35,46 @@ const Navbar = () => {
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center">
+          <Link to="/" className="flex items-center">
             <img 
               src="https://cdn.prod.website-files.com/64f34c2162f4f8d189da8e6c/64f34c2162f4f8d189da8e68_Group.svg" 
               alt="Logo" 
               className="h-8 w-auto filter brightness-0 dark:brightness-100"
             />
-          </div>
+          </Link>
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
-            <button 
-              onClick={() => scrollToSection('about')}
+            <Link 
+              to="/about"
               className="text-foreground/80 hover:text-primary transition-colors duration-200 font-medium"
             >
               {t.nav.about}
-            </button>
-            <button 
-              onClick={() => scrollToSection('offers')}
+            </Link>
+            <Link 
+              to="/offers"
               className="text-foreground/80 hover:text-primary transition-colors duration-200 font-medium"
             >
               {t.nav.offers}
-            </button>
-            <button 
-              onClick={() => scrollToSection('team')}
+            </Link>
+            <Link 
+              to="/team"
               className="text-foreground/80 hover:text-primary transition-colors duration-200 font-medium"
             >
               {t.nav.team}
-            </button>
-            <button 
-              onClick={() => scrollToSection('products')}
+            </Link>
+            <Link 
+              to="/products"
               className="text-foreground/80 hover:text-primary transition-colors duration-200 font-medium"
             >
               {t.nav.products}
-            </button>
-            <button 
-              onClick={() => scrollToSection('contact')}
+            </Link>
+            <Link 
+              to="/contact"
               className="text-foreground/80 hover:text-primary transition-colors duration-200 font-medium"
             >
               {t.nav.contact}
-            </button>
+            </Link>
           </div>
 
           {/* Controls */}
