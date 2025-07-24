@@ -1,0 +1,54 @@
+import React from 'react';
+import { ChevronDown } from 'lucide-react';
+import { useApp } from '@/contexts/AppContext';
+import { translations } from '@/lib/translations';
+
+const Hero = () => {
+  const { language } = useApp();
+  const t = translations[language];
+
+  const scrollToOffers = () => {
+    const element = document.getElementById('offers');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src="/lovable-uploads/eebb6314-e808-4fdf-bce2-c794d2ab21ee.png"
+          alt="Luxury Interior"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/30" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 text-center text-white px-6">
+        <h1 className="hero-title mb-6">
+          {t.hero.title}
+        </h1>
+        <p className="text-xl md:text-2xl font-light mb-12 opacity-90 animate-fade-in-up">
+          {t.hero.subtitle}
+        </p>
+        
+        {/* Scroll Indicator */}
+        <button 
+          onClick={scrollToOffers}
+          className="scroll-indicator mx-auto animate-bounce cursor-pointer hover:scale-110 transition-transform duration-300"
+          aria-label="Scroll to offers"
+        >
+          <ChevronDown className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-white/70" size={16} />
+        </button>
+      </div>
+
+      {/* Gradient Overlay */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-5" />
+    </section>
+  );
+};
+
+export default Hero;
