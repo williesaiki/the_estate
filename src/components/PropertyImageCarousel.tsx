@@ -46,19 +46,19 @@ const PropertyImageCarousel: React.FC<PropertyImageCarouselProps> = ({
       <Button 
         variant="ghost" 
         size="icon" 
-        className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white text-gray-800 shadow-lg border border-gray-200 transition-all duration-300 h-8 w-8 rounded-full z-20" 
+        className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/80 hover:bg-black text-white shadow-lg border-2 border-white h-10 w-10 rounded-full z-50" 
         onClick={prevImage}
       >
-        <ChevronLeft className="h-4 w-4" />
+        <ChevronLeft className="h-5 w-5" />
       </Button>
 
       <Button 
         variant="ghost" 
         size="icon" 
-        className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/95 hover:bg-white text-gray-800 shadow-lg border border-gray-200 transition-all duration-300 h-8 w-8 rounded-full z-20" 
+        className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/80 hover:bg-black text-white shadow-lg border-2 border-white h-10 w-10 rounded-full z-50" 
         onClick={nextImage}
       >
-        <ChevronRight className="h-4 w-4" />
+        <ChevronRight className="h-5 w-5" />
       </Button>
 
       {/* Image indicators */}
