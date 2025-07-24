@@ -87,8 +87,10 @@ serve(async (req) => {
     }
 
     // Transform EstiCRM offers to our format
-    const transformedOffers = filteredOffers.map((offer: any) => {
-      console.log('Transforming offer:', JSON.stringify(offer, null, 2));
+    const transformedOffers = filteredOffers.map((offer: any, index: number) => {
+      if (index === 0) {
+        console.log('Sample offer structure:', JSON.stringify(offer, null, 2));
+      }
       
       // Parse amenities from tagList
       let amenities = [];
@@ -112,41 +114,50 @@ serve(async (req) => {
         description = description.substring(0, 200) + (description.length > 200 ? '...' : '');
       }
 
-      // Get photos - EstiCRM may have different photo structure
-      let imageUrl = 'https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=400&h=300&fit=crop';
+      // Get photos - based on EstiCRM API structure
+      let imageUrl = `https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=400&h=300&fit=crop&sig=${offer.id}`;
       
-      // Log photo fields to understand the structure
-      console.log('Photo fields in offer:', {
-        photos: offer.photos,
-        gallery: offer.gallery,
-        mainPhoto: offer.mainPhoto,
-        main_photo: offer.main_photo,
-        images: offer.images,
-        photoUrl: offer.photoUrl,
-        imageUrl: offer.imageUrl,
-        photo: offer.photo
-      });
-      
-      // Try different possible photo fields from EstiCRM
-      if (offer.photos && Array.isArray(offer.photos) && offer.photos.length > 0) {
-        const firstPhoto = offer.photos[0];
-        if (typeof firstPhoto === 'string') {
-          imageUrl = firstPhoto;
-        } else if (firstPhoto && (firstPhoto.url || firstPhoto.path || firstPhoto.src)) {
-          imageUrl = firstPhoto.url || firstPhoto.path || firstPhoto.src;
-        }
-      } else if (offer.gallery && Array.isArray(offer.gallery) && offer.gallery.length > 0) {
+      // Check for EstiCRM specific photo fields
+      if (offer.gallery && Array.isArray(offer.gallery) && offer.gallery.length > 0) {
         const firstPhoto = offer.gallery[0];
-        if (typeof firstPhoto === 'string') {
-          imageUrl = firstPhoto;
-        } else if (firstPhoto && (firstPhoto.url || firstPhoto.path || firstPhoto.src)) {
-          imageUrl = firstPhoto.url || firstPhoto.path || firstPhoto.src;
+        imageUrl = firstPhoto.url || firstPhoto.path || firstPhoto;
+      } else if (offer.photos && Array.isArray(offer.photos) && offer.photos.length > 0) {
+        const firstPhoto = offer.photos[0];
+        imageUrl = firstPhoto.url || firstPhoto.path || firstPhoto;
+      } else if (offer.photoGallery && Array.isArray(offer.photoGallery) && offer.photoGallery.length > 0) {
+        const firstPhoto = offer.photoGallery[0];
+        imageUrl = firstPhoto.url || firstPhoto.path || firstPhoto;
+      } else if (offer.images && Array.isArray(offer.images) && offer.images.length > 0) {
+        const firstPhoto = offer.images[0];
+        imageUrl = firstPhoto.url || firstPhoto.path || firstPhoto;
+      } else if (offer.attachments && Array.isArray(offer.attachments)) {
+        const photoAttachment = offer.attachments.find((att: any) => 
+          att.type === 'photo' || att.type === 'image' || 
+          (att.name && (att.name.endsWith('.jpg') || att.name.endsWith('.jpeg') || att.name.endsWith('.png')))
+        );
+        if (photoAttachment) {
+          imageUrl = photoAttachment.url || photoAttachment.path || photoAttachment.src;
         }
       } else if (offer.mainPhoto || offer.main_photo || offer.photo || offer.imageUrl || offer.photoUrl) {
         imageUrl = offer.mainPhoto || offer.main_photo || offer.photo || offer.imageUrl || offer.photoUrl;
       }
       
-      console.log('Final image URL:', imageUrl);
+      // Ensure full URL
+      if (imageUrl && imageUrl.startsWith('/')) {
+        imageUrl = `https://client-api.esticrm.pl${imageUrl}`;
+      }
+      
+      if (index === 0) {
+        console.log('Photo fields found:', {
+          gallery: !!offer.gallery,
+          photos: !!offer.photos,
+          photoGallery: !!offer.photoGallery,
+          images: !!offer.images,
+          attachments: !!offer.attachments,
+          mainPhoto: !!offer.mainPhoto,
+          finalImageUrl: imageUrl
+        });
+      }
       
       const transformed = {
         id: offer.id || offer.offer_id || offer.estateOfferUuid,
@@ -166,7 +177,6 @@ serve(async (req) => {
         status: offer.status
       };
       
-      console.log('Transformed offer:', JSON.stringify(transformed, null, 2));
       return transformed;
     });
 
