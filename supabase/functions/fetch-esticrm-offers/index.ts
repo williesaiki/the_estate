@@ -116,32 +116,44 @@ serve(async (req) => {
 
       // Get photos - EstiCRM uses 'pictures' field
       let imageUrl = `https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=400&h=300&fit=crop&sig=${offer.id}`;
+      let images: string[] = [];
       
       // Check EstiCRM specific photo fields - 'pictures' is the main field
       if (offer.pictures && Array.isArray(offer.pictures) && offer.pictures.length > 0) {
+        images = offer.pictures;
         imageUrl = offer.pictures[0]; // First photo from EstiCRM
       } else if (offer.images && Array.isArray(offer.images) && offer.images.length > 0) {
+        images = offer.images;
         imageUrl = offer.images[0];
       } else if (offer.zdjecia && Array.isArray(offer.zdjecia) && offer.zdjecia.length > 0) {
+        images = offer.zdjecia;
         imageUrl = offer.zdjecia[0];
       } else if (offer.gallery && Array.isArray(offer.gallery) && offer.gallery.length > 0) {
-        const firstPhoto = offer.gallery[0];
-        imageUrl = firstPhoto.url || firstPhoto.path || firstPhoto;
+        images = offer.gallery.map((photo: any) => photo.url || photo.path || photo);
+        imageUrl = images[0];
       } else if (offer.photos && Array.isArray(offer.photos) && offer.photos.length > 0) {
-        const firstPhoto = offer.photos[0];
-        imageUrl = firstPhoto.url || firstPhoto.path || firstPhoto;
+        images = offer.photos.map((photo: any) => photo.url || photo.path || photo);
+        imageUrl = images[0];
       }
       
-      // Ensure full URL - if relative path, make it absolute
+      // Ensure full URLs - if relative path, make it absolute
       if (imageUrl && imageUrl.startsWith('/')) {
         imageUrl = `https://cdn.esticrm.pl${imageUrl}`;
       }
+      
+      images = images.map(img => {
+        if (img && img.startsWith('/')) {
+          return `https://cdn.esticrm.pl${img}`;
+        }
+        return img;
+      });
       
       if (index === 0) {
         console.log('Photo fields found:', {
           pictures: offer.pictures ? `Array of ${offer.pictures.length} photos` : 'not found',
           images: offer.images ? `Array of ${offer.images.length} photos` : 'not found',
           zdjecia: offer.zdjecia ? `Array of ${offer.zdjecia.length} photos` : 'not found',
+          totalImages: images.length,
           firstImageUrl: imageUrl
         });
       }
@@ -157,6 +169,7 @@ serve(async (req) => {
         description: description,
         amenities: amenities,
         image: imageUrl,
+        images: images.length > 0 ? images : [imageUrl], // Include all images or fallback to single image
         agent_id: offer.contactId || offer.agent_id || offer.user_id,
         agent_name: `${offer.contactFirstname || ''} ${offer.contactLastname || ''}`.trim() || 'Pośrednik',
         agent_phone: offer.contactPhone,
