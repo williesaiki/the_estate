@@ -38,26 +38,14 @@ const PropertyImageCarousel: React.FC<PropertyImageCarouselProps> = ({
     }} />
       
       {/* Price tag */}
-      <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
-        {price.toLocaleString()} PLN
-      </div>
+      
 
       {/* Navigation buttons */}
-      <Button 
-        variant="ghost" 
-        size="icon" 
-        className="absolute left-2 top-1/2 -translate-y-1/2 bg-transparent hover:bg-black/20 text-white shadow-lg h-10 w-10 rounded-full z-50" 
-        onClick={prevImage}
-      >
+      <Button variant="ghost" size="icon" className="absolute left-2 top-1/2 -translate-y-1/2 bg-transparent hover:bg-black/20 text-white shadow-lg h-10 w-10 rounded-full z-50" onClick={prevImage}>
         <ChevronLeft className="h-5 w-5 drop-shadow-lg" />
       </Button>
 
-      <Button 
-        variant="ghost" 
-        size="icon" 
-        className="absolute right-2 top-1/2 -translate-y-1/2 bg-transparent hover:bg-black/20 text-white shadow-lg h-10 w-10 rounded-full z-50" 
-        onClick={nextImage}
-      >
+      <Button variant="ghost" size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 bg-transparent hover:bg-black/20 text-white shadow-lg h-10 w-10 rounded-full z-50" onClick={nextImage}>
         <ChevronRight className="h-5 w-5 drop-shadow-lg" />
       </Button>
 
