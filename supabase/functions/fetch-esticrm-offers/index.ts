@@ -87,20 +87,49 @@ serve(async (req) => {
     }
 
     // Transform EstiCRM offers to our format
-    const transformedOffers = filteredOffers.map((offer: any) => ({
-      id: offer.id || offer.offer_id,
-      title: offer.title || offer.name || 'Bez tytułu',
-      location: offer.location || offer.address || 'Warszawa',
-      price: parseFloat(offer.price) || 0,
-      rooms: parseInt(offer.rooms) || parseInt(offer.room_count) || 1,
-      area: parseFloat(offer.area) || parseFloat(offer.surface) || 50,
-      floor: offer.floor,
-      description: offer.description || offer.short_description || '',
-      amenities: offer.amenities || [],
-      image: offer.photos?.[0]?.url || offer.main_photo || '/placeholder.svg',
-      agent_id: offer.agent_id || offer.user_id,
-      status: offer.status
-    }));
+    const transformedOffers = filteredOffers.map((offer: any) => {
+      console.log('Transforming offer:', JSON.stringify(offer, null, 2));
+      
+      // Parse amenities from tagList
+      let amenities = [];
+      if (offer.tagList) {
+        amenities = offer.tagList.split(',').map((tag: string) => tag.trim()).filter((tag: string) => tag.length > 0);
+      }
+      
+      // Get best title
+      const title = offer.portalTitle || offer.portalWwwTitle || offer.typeName || 'Mieszkanie';
+      
+      // Get best location
+      const location = offer.locationPlaceName || 
+                      `${offer.locationCityName || 'Warszawa'}${offer.locationPrecinctName ? ` ${offer.locationPrecinctName}` : ''}`;
+      
+      // Parse description and clean HTML
+      let description = offer.description || offer.descriptionWebsite || '';
+      if (description) {
+        // Remove HTML tags
+        description = description.replace(/<[^>]*>/g, '').replace(/&[^;]*;/g, ' ').trim();
+        // Take first 200 characters
+        description = description.substring(0, 200) + (description.length > 200 ? '...' : '');
+      }
+      
+      const transformed = {
+        id: offer.id || offer.offer_id || offer.estateOfferUuid,
+        title: title,
+        location: location,
+        price: parseFloat(offer.price) || 0,
+        rooms: offer.apartmentRoomNumber || parseInt(offer.rooms) || parseInt(offer.room_count) || 1,
+        area: parseFloat(offer.areaTotal) || parseFloat(offer.area) || parseFloat(offer.surface) || 50,
+        floor: offer.apartmentFloor || offer.floor,
+        description: description,
+        amenities: amenities,
+        image: offer.photos?.[0]?.url || offer.main_photo || '/placeholder.svg',
+        agent_id: offer.contactId || offer.agent_id || offer.user_id,
+        status: offer.status
+      };
+      
+      console.log('Transformed offer:', JSON.stringify(transformed, null, 2));
+      return transformed;
+    });
 
     return new Response(
       JSON.stringify(transformedOffers), 
