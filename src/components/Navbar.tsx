@@ -35,16 +35,31 @@ const Navbar = () => {
 
   // Determine text colors based on theme and scroll position
   const getTextClasses = () => {
-    if (theme === 'dark') {
-      // Dark theme: always light text when not scrolled past hero
-      return isHeroScrolled 
-        ? 'text-foreground/80 hover:text-primary' 
-        : 'text-white/90 hover:text-white';
+    // Special logic only for landing page (home page)
+    if (location.pathname === '/') {
+      if (theme === 'dark') {
+        return isHeroScrolled 
+          ? 'text-foreground/80 hover:text-primary' 
+          : 'text-white/90 hover:text-white';
+      } else {
+        // Light theme on landing: white text in hero, dark text after scroll
+        return isHeroScrolled 
+          ? 'text-foreground/80 hover:text-primary' 
+          : 'text-white/90 hover:text-white';
+      }
     } else {
-      // Light theme: dark text always, except in hero section (when not scrolled 50%)
+      // For all other pages: normal text colors
+      return 'text-foreground/80 hover:text-primary';
+    }
+  };
+
+  const getLogoClasses = () => {
+    if (location.pathname === '/') {
       return isHeroScrolled 
-        ? 'text-foreground/80 hover:text-primary' 
-        : 'text-white/90 hover:text-white';
+        ? 'filter brightness-0 dark:brightness-100' 
+        : 'filter brightness-100';
+    } else {
+      return 'filter brightness-0 dark:brightness-100';
     }
   };
 
@@ -59,11 +74,7 @@ const Navbar = () => {
             <img 
               src="https://cdn.prod.website-files.com/64f34c2162f4f8d189da8e6c/64f34c2162f4f8d189da8e68_Group.svg" 
               alt="Logo" 
-              className={`h-8 w-auto transition-all duration-300 ${
-                isHeroScrolled 
-                  ? 'filter brightness-0 dark:brightness-100' 
-                  : 'filter brightness-100'
-              }`}
+              className={`h-8 w-auto transition-all duration-300 ${getLogoClasses()}`}
             />
           </Link>
 
