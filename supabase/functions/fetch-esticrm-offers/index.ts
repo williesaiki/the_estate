@@ -112,15 +112,41 @@ serve(async (req) => {
         description = description.substring(0, 200) + (description.length > 200 ? '...' : '');
       }
 
-      // Get photos - check different possible photo fields
-      let imageUrl = '/placeholder.svg';
+      // Get photos - EstiCRM may have different photo structure
+      let imageUrl = 'https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=400&h=300&fit=crop';
+      
+      // Log photo fields to understand the structure
+      console.log('Photo fields in offer:', {
+        photos: offer.photos,
+        gallery: offer.gallery,
+        mainPhoto: offer.mainPhoto,
+        main_photo: offer.main_photo,
+        images: offer.images,
+        photoUrl: offer.photoUrl,
+        imageUrl: offer.imageUrl,
+        photo: offer.photo
+      });
+      
+      // Try different possible photo fields from EstiCRM
       if (offer.photos && Array.isArray(offer.photos) && offer.photos.length > 0) {
-        imageUrl = offer.photos[0].url || offer.photos[0].path || offer.photos[0];
-      } else if (offer.main_photo) {
-        imageUrl = offer.main_photo;
+        const firstPhoto = offer.photos[0];
+        if (typeof firstPhoto === 'string') {
+          imageUrl = firstPhoto;
+        } else if (firstPhoto && (firstPhoto.url || firstPhoto.path || firstPhoto.src)) {
+          imageUrl = firstPhoto.url || firstPhoto.path || firstPhoto.src;
+        }
       } else if (offer.gallery && Array.isArray(offer.gallery) && offer.gallery.length > 0) {
-        imageUrl = offer.gallery[0].url || offer.gallery[0].path || offer.gallery[0];
+        const firstPhoto = offer.gallery[0];
+        if (typeof firstPhoto === 'string') {
+          imageUrl = firstPhoto;
+        } else if (firstPhoto && (firstPhoto.url || firstPhoto.path || firstPhoto.src)) {
+          imageUrl = firstPhoto.url || firstPhoto.path || firstPhoto.src;
+        }
+      } else if (offer.mainPhoto || offer.main_photo || offer.photo || offer.imageUrl || offer.photoUrl) {
+        imageUrl = offer.mainPhoto || offer.main_photo || offer.photo || offer.imageUrl || offer.photoUrl;
       }
+      
+      console.log('Final image URL:', imageUrl);
       
       const transformed = {
         id: offer.id || offer.offer_id || offer.estateOfferUuid,
