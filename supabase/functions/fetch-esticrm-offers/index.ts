@@ -174,7 +174,9 @@ serve(async (req) => {
         agent_name: `${offer.contactFirstname || ''} ${offer.contactLastname || ''}`.trim() || 'Pośrednik',
         agent_phone: offer.contactPhone,
         agent_email: offer.contactEmail,
-        status: offer.status
+        status: offer.status,
+        latitude: offer.locationLatitude ? parseFloat(offer.locationLatitude) : undefined,
+        longitude: offer.locationLongitude ? parseFloat(offer.locationLongitude) : undefined
       };
       
       return transformed;

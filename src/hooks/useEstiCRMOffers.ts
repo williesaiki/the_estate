@@ -18,6 +18,8 @@ export interface EstiCRMOffer {
   agent_phone?: string;
   agent_email?: string;
   status: number;
+  latitude?: number;
+  longitude?: number;
 }
 
 export const useEstiCRMOffers = (agentId?: string) => {

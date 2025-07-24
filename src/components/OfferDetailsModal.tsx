@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, MapPin, Home, Square, User, Phone, Mail, Expand } from 'lucide-react';
 import { EstiCRMOffer } from '@/hooks/useEstiCRMOffers';
+import PropertyMap from './PropertyMap';
 
 interface OfferDetailsModalProps {
   offer: EstiCRMOffer | null;
@@ -38,7 +39,7 @@ const OfferDetailsModal: React.FC<OfferDetailsModalProps> = ({ offer, isOpen, on
     <>
       {/* Main Modal */}
       <Dialog open={isOpen && !isGalleryFullscreen} onOpenChange={onClose}>
-        <DialogContent className="max-w-[90vw] max-h-[90vh] overflow-auto">
+        <DialogContent className="max-w-[95vw] max-h-[95vh] overflow-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl font-serif text-foreground">
               {offer.title}
@@ -175,6 +176,15 @@ const OfferDetailsModal: React.FC<OfferDetailsModalProps> = ({ offer, isOpen, on
                     ))}
                   </div>
                 </div>
+              )}
+
+              {/* Location Map */}
+              {offer.latitude && offer.longitude && (
+                <PropertyMap 
+                  latitude={offer.latitude} 
+                  longitude={offer.longitude}
+                  propertyTitle={offer.title}
+                />
               )}
 
               {/* Agent Info */}
