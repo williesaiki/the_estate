@@ -8,8 +8,8 @@ export const translations = {
       contact: 'Kontakt'
     },
     hero: {
-      title: 'Zmieniamy przestrzenie w miejsca, które nazywasz domem',
-      subtitle: 'The Estate Warsaw'
+      title: 'The Estate Warsaw',
+      subtitle: 'Ekskluzywne nieruchomości w sercu Warszawy'
     },
     offers: {
       title: 'Nasze Oferty',
