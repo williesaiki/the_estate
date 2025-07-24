@@ -59,14 +59,14 @@ export default {
 				serif: ['Playfair Display', 'Georgia', 'serif'],
 			},
 			backgroundImage: {
-				'gradient-luxury': 'var(--gradient-gold)',
+				'gradient-luxury': 'var(--gradient-luxury)',
 				'gradient-dark': 'var(--gradient-dark)',
 				'gradient-subtle': 'var(--gradient-subtle)',
 			},
 			boxShadow: {
 				'luxury': 'var(--shadow-luxury)',
 				'card': 'var(--shadow-card)',
-				'gold': 'var(--shadow-gold)',
+				'primary': 'var(--shadow-primary)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

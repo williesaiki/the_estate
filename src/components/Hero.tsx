@@ -1,5 +1,4 @@
 import React from 'react';
-import { ChevronDown } from 'lucide-react';
 import { useApp } from '@/contexts/AppContext';
 import { translations } from '@/lib/translations';
 
@@ -34,15 +33,6 @@ const Hero = () => {
         <p className="text-xl md:text-2xl font-light mb-12 opacity-90 animate-fade-in-up">
           {t.hero.subtitle}
         </p>
-        
-        {/* Scroll Indicator */}
-        <button 
-          onClick={scrollToOffers}
-          className="scroll-indicator mx-auto animate-bounce cursor-pointer hover:scale-110 transition-transform duration-300"
-          aria-label="Scroll to offers"
-        >
-          <ChevronDown className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-white/70" size={16} />
-        </button>
       </div>
 
       {/* Gradient Overlay */}

@@ -39,7 +39,11 @@ const Navbar = () => {
             <img 
               src="https://cdn.prod.website-files.com/64f34c2162f4f8d189da8e6c/64f34c2162f4f8d189da8e68_Group.svg" 
               alt="Logo" 
-              className="h-8 w-auto filter brightness-0 dark:brightness-100"
+              className={`h-8 w-auto transition-all duration-300 ${
+                isScrolled 
+                  ? 'filter brightness-0 dark:brightness-100' 
+                  : 'filter brightness-100'
+              }`}
             />
           </Link>
 
@@ -47,31 +51,51 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-8">
             <Link 
               to="/about"
-              className="text-foreground/80 hover:text-primary transition-colors duration-200 font-medium"
+              className={`transition-colors duration-200 font-medium ${
+                isScrolled 
+                  ? 'text-foreground/80 hover:text-primary' 
+                  : 'text-white/90 hover:text-white'
+              }`}
             >
               {t.nav.about}
             </Link>
             <Link 
               to="/offers"
-              className="text-foreground/80 hover:text-primary transition-colors duration-200 font-medium"
+              className={`transition-colors duration-200 font-medium ${
+                isScrolled 
+                  ? 'text-foreground/80 hover:text-primary' 
+                  : 'text-white/90 hover:text-white'
+              }`}
             >
               {t.nav.offers}
             </Link>
             <Link 
               to="/team"
-              className="text-foreground/80 hover:text-primary transition-colors duration-200 font-medium"
+              className={`transition-colors duration-200 font-medium ${
+                isScrolled 
+                  ? 'text-foreground/80 hover:text-primary' 
+                  : 'text-white/90 hover:text-white'
+              }`}
             >
               {t.nav.team}
             </Link>
             <Link 
               to="/products"
-              className="text-foreground/80 hover:text-primary transition-colors duration-200 font-medium"
+              className={`transition-colors duration-200 font-medium ${
+                isScrolled 
+                  ? 'text-foreground/80 hover:text-primary' 
+                  : 'text-white/90 hover:text-white'
+              }`}
             >
               {t.nav.products}
             </Link>
             <Link 
               to="/contact"
-              className="text-foreground/80 hover:text-primary transition-colors duration-200 font-medium"
+              className={`transition-colors duration-200 font-medium ${
+                isScrolled 
+                  ? 'text-foreground/80 hover:text-primary' 
+                  : 'text-white/90 hover:text-white'
+              }`}
             >
               {t.nav.contact}
             </Link>
@@ -84,7 +108,11 @@ const Navbar = () => {
               variant="ghost"
               size="sm"
               onClick={() => setLanguage(language === 'pl' ? 'en' : 'pl')}
-              className="flex items-center space-x-1 text-foreground/80 hover:text-primary"
+              className={`flex items-center space-x-1 transition-colors duration-200 ${
+                isScrolled 
+                  ? 'text-foreground/80 hover:text-primary' 
+                  : 'text-white/90 hover:text-white'
+              }`}
             >
               <Globe className="h-4 w-4" />
               <span className="text-sm font-medium">{language.toUpperCase()}</span>
@@ -95,7 +123,11 @@ const Navbar = () => {
               variant="ghost"
               size="sm"
               onClick={toggleTheme}
-              className="text-foreground/80 hover:text-primary"
+              className={`transition-colors duration-200 ${
+                isScrolled 
+                  ? 'text-foreground/80 hover:text-primary' 
+                  : 'text-white/90 hover:text-white'
+              }`}
             >
               {theme === 'light' ? (
                 <Moon className="h-4 w-4" />

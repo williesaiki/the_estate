@@ -6,25 +6,25 @@
 
 @layer base {
   :root {
-    /* Premium Color Palette */
+    /* Premium Color Palette - Elegant Silver & Blue */
     --background: 0 0% 100%;
     --foreground: 220 13% 18%;
     
-    /* Premium Gold Accents */
-    --primary: 45 100% 65%;
-    --primary-foreground: 220 13% 18%;
-    --primary-hover: 45 100% 58%;
+    /* Premium Silver Accents */
+    --primary: 220 20% 25%;
+    --primary-foreground: 0 0% 98%;
+    --primary-hover: 220 25% 20%;
     
     /* Elegant Dark Blues */
     --secondary: 220 13% 18%;
     --secondary-foreground: 0 0% 98%;
     
     /* Warm Neutrals */
-    --muted: 45 20% 96%;
+    --muted: 220 13% 95%;
     --muted-foreground: 220 13% 45%;
     
-    --accent: 45 100% 65%;
-    --accent-foreground: 220 13% 18%;
+    --accent: 220 20% 25%;
+    --accent-foreground: 0 0% 98%;
     
     /* Card & Surface Colors */
     --card: 0 0% 100%;
@@ -36,7 +36,7 @@
     /* Interactive Elements */
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 45 100% 65%;
+    --ring: 220 20% 25%;
     
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -44,14 +44,14 @@
     --radius: 0.75rem;
     
     /* Premium Gradients */
-    --gradient-gold: linear-gradient(135deg, hsl(45, 100%, 65%) 0%, hsl(35, 100%, 55%) 100%);
+    --gradient-luxury: linear-gradient(135deg, hsl(220, 20%, 25%) 0%, hsl(220, 25%, 20%) 100%);
     --gradient-dark: linear-gradient(135deg, hsl(220, 13%, 18%) 0%, hsl(220, 13%, 25%) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(45, 20%, 98%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(220, 13%, 98%) 100%);
     
     /* Premium Shadows */
     --shadow-luxury: 0 25px 50px -12px hsl(220, 13%, 18%, 0.15);
     --shadow-card: 0 10px 25px -8px hsl(220, 13%, 18%, 0.1);
-    --shadow-gold: 0 8px 30px -8px hsl(45, 100%, 65%, 0.3);
+    --shadow-primary: 0 8px 30px -8px hsl(220, 20%, 25%, 0.3);
     
     /* Animation Variables */
     --transition-luxury: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
@@ -62,9 +62,9 @@
     --background: 220 13% 9%;
     --foreground: 0 0% 98%;
     
-    --primary: 45 100% 65%;
-    --primary-foreground: 220 13% 9%;
-    --primary-hover: 45 100% 58%;
+    --primary: 220 20% 25%;
+    --primary-foreground: 0 0% 98%;
+    --primary-hover: 220 25% 20%;
     
     --secondary: 220 13% 15%;
     --secondary-foreground: 0 0% 98%;
@@ -72,8 +72,8 @@
     --muted: 220 13% 15%;
     --muted-foreground: 220 13% 65%;
     
-    --accent: 45 100% 65%;
-    --accent-foreground: 220 13% 9%;
+    --accent: 220 20% 25%;
+    --accent-foreground: 0 0% 98%;
     
     --card: 220 13% 12%;
     --card-foreground: 0 0% 98%;
@@ -83,20 +83,20 @@
     
     --border: 220 13% 18%;
     --input: 220 13% 18%;
-    --ring: 45 100% 65%;
+    --ring: 220 20% 25%;
     
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 98%;
     
     /* Dark Mode Gradients */
-    --gradient-gold: linear-gradient(135deg, hsl(45, 100%, 65%) 0%, hsl(35, 100%, 55%) 100%);
+    --gradient-luxury: linear-gradient(135deg, hsl(220, 20%, 25%) 0%, hsl(220, 25%, 20%) 100%);
     --gradient-dark: linear-gradient(135deg, hsl(220, 13%, 9%) 0%, hsl(220, 13%, 15%) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(220, 13%, 12%) 0%, hsl(220, 13%, 9%) 100%);
     
     /* Dark Mode Shadows */
     --shadow-luxury: 0 25px 50px -12px hsl(0, 0%, 0%, 0.5);
     --shadow-card: 0 10px 25px -8px hsl(0, 0%, 0%, 0.3);
-    --shadow-gold: 0 8px 30px -8px hsl(45, 100%, 65%, 0.4);
+    --shadow-primary: 0 8px 30px -8px hsl(220, 20%, 25%, 0.4);
   }
 }
 
@@ -120,7 +120,7 @@
     @apply bg-primary text-primary-foreground hover:bg-primary-hover;
     @apply px-8 py-4 rounded-lg font-medium;
     @apply transition-all duration-300 ease-out;
-    @apply shadow-gold hover:shadow-xl hover:scale-105;
+    @apply shadow-primary hover:shadow-xl hover:scale-105;
     @apply transform-gpu;
   }
   
@@ -149,7 +149,7 @@
   
   /* Hero Text Animations */
   .hero-title {
-    @apply text-6xl md:text-8xl font-serif font-light text-foreground;
+    @apply text-6xl md:text-8xl font-serif font-light text-white;
     @apply animate-fade-in;
   }
   
@@ -174,17 +174,5 @@
     @apply bg-muted text-muted-foreground px-4 py-2 rounded-full text-sm;
     @apply hover:bg-accent hover:text-accent-foreground;
     @apply transition-all duration-200 ease-out;
-  }
-  
-  /* Scroll Indicator */
-  .scroll-indicator {
-    @apply w-6 h-10 border-2 border-foreground/30 rounded-full;
-    @apply flex justify-center relative;
-  }
-  
-  .scroll-indicator::before {
-    content: '';
-    @apply w-1 h-3 bg-foreground/50 rounded-full;
-    @apply absolute top-2 animate-pulse;
   }
 }
