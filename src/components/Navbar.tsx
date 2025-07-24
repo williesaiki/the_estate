@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Moon, Sun, Globe } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { useApp } from '@/contexts/AppContext';
 import { translations } from '@/lib/translations';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { LanguageToggle } from '@/components/ui/language-toggle';
 
 const Navbar = () => {
   const { language, setLanguage, theme, toggleTheme } = useApp();
@@ -115,29 +115,18 @@ const Navbar = () => {
           {/* Controls */}
           <div className="flex items-center space-x-4">
             {/* Language Toggle */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setLanguage(language === 'pl' ? 'en' : 'pl')}
-              className={`flex items-center space-x-1 transition-colors duration-200 ${getTextClasses()}`}
-            >
-              <Globe className="h-4 w-4" />
-              <span className="text-sm font-medium">{language.toUpperCase()}</span>
-            </Button>
+            <LanguageToggle
+              language={language}
+              onToggle={() => setLanguage(language === 'pl' ? 'en' : 'pl')}
+              className="transition-opacity duration-200"
+            />
 
             {/* Theme Toggle */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleTheme}
-              className={`transition-colors duration-200 ${getTextClasses()}`}
-            >
-              {theme === 'light' ? (
-                <Moon className="h-4 w-4" />
-              ) : (
-                <Sun className="h-4 w-4" />
-              )}
-            </Button>
+            <ThemeToggle
+              isDark={theme === 'dark'}
+              onToggle={toggleTheme}
+              className="transition-opacity duration-200"
+            />
           </div>
         </div>
       </div>
