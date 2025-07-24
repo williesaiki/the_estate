@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { MapPin, Home, Square, Plus, Filter, Loader2, User, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PropertyImageCarousel from '@/components/PropertyImageCarousel';
 import OfferDetailsModal from '@/components/OfferDetailsModal';
+import OffersFilter, { FilterState } from '@/components/OffersFilter';
 import { useApp } from '@/contexts/AppContext';
 import { translations } from '@/lib/translations';
 import { useEstiCRMOffers, EstiCRMOffer } from '@/hooks/useEstiCRMOffers';
@@ -18,6 +19,60 @@ const Offers = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [selectedOffer, setSelectedOffer] = useState<EstiCRMOffer | null>(null);
+  const [filters, setFilters] = useState<FilterState>({
+    searchTerm: '',
+    transactionType: 'all',
+    location: '',
+    marketType: 'all',
+    priceFrom: '',
+    priceTo: '',
+    areaFrom: '',
+    areaTo: '',
+    propertyType: '',
+  });
+
+  // Filter offers based on current filters
+  const filteredOffers = useMemo(() => {
+    return offers.filter(offer => {
+      // Search term filter
+      if (filters.searchTerm && !offer.title.toLowerCase().includes(filters.searchTerm.toLowerCase()) && 
+          !String(offer.id).includes(filters.searchTerm)) {
+        return false;
+      }
+
+      // Location filter
+      if (filters.location && offer.location !== filters.location) {
+        return false;
+      }
+
+      // Property type filter
+      if (filters.propertyType && offer.type !== filters.propertyType) {
+        return false;
+      }
+
+      // Price range filter
+      if (filters.priceFrom && offer.price < parseFloat(filters.priceFrom)) {
+        return false;
+      }
+      if (filters.priceTo && offer.price > parseFloat(filters.priceTo)) {
+        return false;
+      }
+
+      // Area range filter
+      if (filters.areaFrom && offer.area < parseFloat(filters.areaFrom)) {
+        return false;
+      }
+      if (filters.areaTo && offer.area > parseFloat(filters.areaTo)) {
+        return false;
+      }
+
+      return true;
+    });
+  }, [offers, filters]);
+
+  const handleFiltersChange = (newFilters: FilterState) => {
+    setFilters(newFilters);
+  };
 
   useEffect(() => {
     console.log('Offers useEffect - id:', id, 'offers length:', offers.length);
@@ -85,62 +140,24 @@ const Offers = () => {
 
       {/* Filters */}
       <section className="py-12 bg-background">
-        <div className="container mx-auto px-6">
-          <div className="card-luxury max-w-4xl mx-auto">
-            <div className="flex items-center space-x-2 mb-6">
-              <Filter className="h-5 w-5 text-primary" />
-              <h3 className="text-lg font-semibold text-foreground">Filtry wyszukiwania</h3>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Lokalizacja" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="mokotow">Mokotów</SelectItem>
-                  <SelectItem value="srodmiescie">Śródmieście</SelectItem>
-                  <SelectItem value="wilanow">Wilanów</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Liczba pokoi" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1">1 pokój</SelectItem>
-                  <SelectItem value="2">2 pokoje</SelectItem>
-                  <SelectItem value="3">3 pokoje</SelectItem>
-                  <SelectItem value="4">4+ pokoje</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Cena" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="500k">do 500k</SelectItem>
-                  <SelectItem value="1m">500k - 1M</SelectItem>
-                  <SelectItem value="2m">1M - 2M</SelectItem>
-                  <SelectItem value="3m">2M+</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Button className="btn-luxury">
-                Szukaj
-              </Button>
-            </div>
-          </div>
+        <div className="container mx-auto px-6 max-w-7xl">
+          <OffersFilter offers={offers} onFiltersChange={handleFiltersChange} />
         </div>
       </section>
 
       {/* Properties Grid */}
       <section className="py-16">
         <div className="container mx-auto px-6">
+          {/* Results Counter */}
+          <div className="max-w-7xl mx-auto mb-8">
+            <p className="text-muted-foreground">
+              Znaleziono <span className="font-semibold text-foreground">{filteredOffers.length}</span> 
+              {filteredOffers.length === 1 ? ' ofertę' : filteredOffers.length < 5 ? ' oferty' : ' ofert'}
+            </p>
+          </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {offers.map((property, index) => (
+            {filteredOffers.map((property, index) => (
               <div 
                 key={property.id} 
                 className="property-card group cursor-pointer"

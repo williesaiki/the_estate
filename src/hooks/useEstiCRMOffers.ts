@@ -20,6 +20,7 @@ export interface EstiCRMOffer {
   status: number;
   latitude?: number;
   longitude?: number;
+  type?: string; // Property type from EstiCRM
 }
 
 export const useEstiCRMOffers = (agentId?: string) => {

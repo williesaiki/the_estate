@@ -39,7 +39,7 @@ const OfferDetailsModal: React.FC<OfferDetailsModalProps> = ({ offer, isOpen, on
     <>
       {/* Main Modal */}
       <Dialog open={isOpen && !isGalleryFullscreen} onOpenChange={onClose}>
-        <DialogContent className="max-w-[95vw] max-h-[95vh] overflow-auto">
+        <DialogContent className="max-w-[90vw] max-h-[80vh] overflow-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl font-serif text-foreground">
               {offer.title}

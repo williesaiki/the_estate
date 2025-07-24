@@ -176,7 +176,8 @@ serve(async (req) => {
         agent_email: offer.contactEmail,
         status: offer.status,
         latitude: offer.locationLatitude ? parseFloat(offer.locationLatitude) : undefined,
-        longitude: offer.locationLongitude ? parseFloat(offer.locationLongitude) : undefined
+        longitude: offer.locationLongitude ? parseFloat(offer.locationLongitude) : undefined,
+        type: offer.typeName || 'Mieszkanie'
       };
       
       return transformed;
