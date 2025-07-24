@@ -12,6 +12,7 @@ export interface EstiCRMOffer {
   description: string;
   amenities: string[];
   image: string;
+  images?: string[]; // Array of additional images
   agent_id: string;
   agent_name?: string;
   agent_phone?: string;

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import PropertyImageCarousel from '@/components/PropertyImageCarousel';
 import { useApp } from '@/contexts/AppContext';
 import { translations } from '@/lib/translations';
 import { useEstiCRMOffers } from '@/hooks/useEstiCRMOffers';
@@ -116,20 +117,12 @@ const Offers = () => {
                 className="property-card group"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                {/* Image */}
-                <div className="relative overflow-hidden rounded-t-2xl">
-                  <img 
-                    src={property.image} 
-                    alt={property.title}
-                    className="property-image"
-                    onError={(e) => {
-                      e.currentTarget.src = '/placeholder.svg';
-                    }}
-                  />
-                  <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
-                    {property.price.toLocaleString()} PLN
-                  </div>
-                </div>
+                {/* Image Carousel */}
+                <PropertyImageCarousel
+                  images={property.images && property.images.length > 0 ? property.images : [property.image]}
+                  title={property.title}
+                  price={property.price}
+                />
 
                 {/* Content */}
                 <div className="p-6">
