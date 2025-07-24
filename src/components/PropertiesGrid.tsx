@@ -8,7 +8,13 @@ import { useEstiCRMOffers } from '@/hooks/useEstiCRMOffers';
 const PropertiesGrid = () => {
   const { language } = useApp();
   const t = translations[language];
-  const { offers, loading, error } = useEstiCRMOffers();
+  const { offers: allOffers, loading, error } = useEstiCRMOffers();
+
+  // Filter offers with price per m2 above 24,000 PLN
+  const offers = allOffers.filter(offer => {
+    const pricePerM2 = offer.price / offer.area;
+    return pricePerM2 > 24000;
+  }).slice(0, 6); // Show only first 6 premium offers
 
   if (loading) {
     return (
