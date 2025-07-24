@@ -114,48 +114,35 @@ serve(async (req) => {
         description = description.substring(0, 200) + (description.length > 200 ? '...' : '');
       }
 
-      // Get photos - based on EstiCRM API structure
+      // Get photos - EstiCRM uses 'pictures' field
       let imageUrl = `https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=400&h=300&fit=crop&sig=${offer.id}`;
       
-      // Check for EstiCRM specific photo fields
-      if (offer.gallery && Array.isArray(offer.gallery) && offer.gallery.length > 0) {
+      // Check EstiCRM specific photo fields - 'pictures' is the main field
+      if (offer.pictures && Array.isArray(offer.pictures) && offer.pictures.length > 0) {
+        imageUrl = offer.pictures[0]; // First photo from EstiCRM
+      } else if (offer.images && Array.isArray(offer.images) && offer.images.length > 0) {
+        imageUrl = offer.images[0];
+      } else if (offer.zdjecia && Array.isArray(offer.zdjecia) && offer.zdjecia.length > 0) {
+        imageUrl = offer.zdjecia[0];
+      } else if (offer.gallery && Array.isArray(offer.gallery) && offer.gallery.length > 0) {
         const firstPhoto = offer.gallery[0];
         imageUrl = firstPhoto.url || firstPhoto.path || firstPhoto;
       } else if (offer.photos && Array.isArray(offer.photos) && offer.photos.length > 0) {
         const firstPhoto = offer.photos[0];
         imageUrl = firstPhoto.url || firstPhoto.path || firstPhoto;
-      } else if (offer.photoGallery && Array.isArray(offer.photoGallery) && offer.photoGallery.length > 0) {
-        const firstPhoto = offer.photoGallery[0];
-        imageUrl = firstPhoto.url || firstPhoto.path || firstPhoto;
-      } else if (offer.images && Array.isArray(offer.images) && offer.images.length > 0) {
-        const firstPhoto = offer.images[0];
-        imageUrl = firstPhoto.url || firstPhoto.path || firstPhoto;
-      } else if (offer.attachments && Array.isArray(offer.attachments)) {
-        const photoAttachment = offer.attachments.find((att: any) => 
-          att.type === 'photo' || att.type === 'image' || 
-          (att.name && (att.name.endsWith('.jpg') || att.name.endsWith('.jpeg') || att.name.endsWith('.png')))
-        );
-        if (photoAttachment) {
-          imageUrl = photoAttachment.url || photoAttachment.path || photoAttachment.src;
-        }
-      } else if (offer.mainPhoto || offer.main_photo || offer.photo || offer.imageUrl || offer.photoUrl) {
-        imageUrl = offer.mainPhoto || offer.main_photo || offer.photo || offer.imageUrl || offer.photoUrl;
       }
       
-      // Ensure full URL
+      // Ensure full URL - if relative path, make it absolute
       if (imageUrl && imageUrl.startsWith('/')) {
-        imageUrl = `https://client-api.esticrm.pl${imageUrl}`;
+        imageUrl = `https://cdn.esticrm.pl${imageUrl}`;
       }
       
       if (index === 0) {
         console.log('Photo fields found:', {
-          gallery: !!offer.gallery,
-          photos: !!offer.photos,
-          photoGallery: !!offer.photoGallery,
-          images: !!offer.images,
-          attachments: !!offer.attachments,
-          mainPhoto: !!offer.mainPhoto,
-          finalImageUrl: imageUrl
+          pictures: offer.pictures ? `Array of ${offer.pictures.length} photos` : 'not found',
+          images: offer.images ? `Array of ${offer.images.length} photos` : 'not found',
+          zdjecia: offer.zdjecia ? `Array of ${offer.zdjecia.length} photos` : 'not found',
+          firstImageUrl: imageUrl
         });
       }
       
