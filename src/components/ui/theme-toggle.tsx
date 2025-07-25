@@ -7,14 +7,19 @@ interface ThemeToggleProps {
   className?: string
   isDark: boolean
   onToggle: () => void
+  toggleColors?: {
+    text: string
+    border: string
+  }
 }
 
-export function ThemeToggle({ className, isDark, onToggle }: ThemeToggleProps) {
+export function ThemeToggle({ className, isDark, onToggle, toggleColors }: ThemeToggleProps) {
+  const colors = toggleColors || { text: 'text-white', border: 'border-white/20' }
   return (
     <div
       className={cn(
         "flex w-16 h-8 p-1 rounded-full cursor-pointer transition-all duration-300",
-        "bg-transparent border border-white/20 backdrop-blur-sm",
+        `bg-transparent ${colors.border} backdrop-blur-sm`,
         className
       )}
       onClick={onToggle}
@@ -32,12 +37,12 @@ export function ThemeToggle({ className, isDark, onToggle }: ThemeToggleProps) {
         >
           {isDark ? (
             <Moon 
-              className="w-4 h-4 text-white" 
+              className={`w-4 h-4 ${colors.text === 'text-white' ? 'text-white' : 'text-foreground'}`}
               strokeWidth={1.5}
             />
           ) : (
             <Sun 
-              className="w-4 h-4 text-white" 
+              className={`w-4 h-4 ${colors.text === 'text-white' ? 'text-white' : 'text-foreground'}`}
               strokeWidth={1.5}
             />
           )}
@@ -52,12 +57,12 @@ export function ThemeToggle({ className, isDark, onToggle }: ThemeToggleProps) {
         >
           {isDark ? (
             <Sun 
-              className="w-4 h-4 text-white/70" 
+              className={`w-4 h-4 ${colors.text === 'text-white' ? 'text-white/70' : 'text-muted-foreground'}`}
               strokeWidth={1.5}
             />
           ) : (
             <Moon 
-              className="w-4 h-4 text-white/70" 
+              className={`w-4 h-4 ${colors.text === 'text-white' ? 'text-white/70' : 'text-muted-foreground'}`}
               strokeWidth={1.5}
             />
           )}

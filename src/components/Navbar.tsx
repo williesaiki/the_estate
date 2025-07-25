@@ -78,6 +78,33 @@ const Navbar = () => {
     }
   };
 
+  // Determine toggle colors based on theme and scroll position
+  const getToggleColors = () => {
+    // Special logic for landing page (home page)
+    if (location.pathname === '/') {
+      if (theme === 'dark') {
+        return isScrolled 
+          ? { text: 'text-foreground', border: 'border-border/30' }
+          : { text: 'text-white', border: 'border-white/20' };
+      } else {
+        // Light theme on landing: white text in hero, dark text after scroll
+        return isScrolled 
+          ? { text: 'text-foreground', border: 'border-border/30' }
+          : { text: 'text-white', border: 'border-white/20' };
+      }
+    } 
+    // Special logic for team page and agent pages (dark background)
+    else if (location.pathname === '/team' || location.pathname.startsWith('/zespol/') || location.pathname === '/offers') {
+      return isScrolled 
+        ? { text: 'text-foreground', border: 'border-border/30' }
+        : { text: 'text-white', border: 'border-white/20' };
+    } 
+    else {
+      // For all other pages: normal text colors
+      return { text: 'text-foreground', border: 'border-border/30' };
+    }
+  };
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 cubic-bezier(0.4, 0, 0.2, 1) ${
       isScrolled ? 'navbar-blur shadow-lg' : 'bg-transparent border-b border-transparent'
@@ -134,6 +161,7 @@ const Navbar = () => {
               language={language}
               onToggle={() => setLanguage(language === 'pl' ? 'en' : 'pl')}
               className="transition-opacity duration-200"
+              toggleColors={getToggleColors()}
             />
 
             {/* Theme Toggle */}
@@ -141,6 +169,7 @@ const Navbar = () => {
               isDark={theme === 'dark'}
               onToggle={toggleTheme}
               className="transition-opacity duration-200"
+              toggleColors={getToggleColors()}
             />
           </div>
 
@@ -150,12 +179,14 @@ const Navbar = () => {
               language={language}
               onToggle={() => setLanguage(language === 'pl' ? 'en' : 'pl')}
               className="transition-opacity duration-200"
+              toggleColors={getToggleColors()}
             />
             
             <ThemeToggle
               isDark={theme === 'dark'}
               onToggle={toggleTheme}
               className="transition-opacity duration-200"
+              toggleColors={getToggleColors()}
             />
 
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>

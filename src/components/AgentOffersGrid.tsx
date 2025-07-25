@@ -44,12 +44,16 @@ const OfferCard = ({ offer, onShowDetails }: OfferCardProps) => {
   };
 
   return (
-    <div className="card-luxury group hover:shadow-gold transition-all duration-300">
-      <div className="relative overflow-hidden rounded-t-2xl mb-6">
+    <div 
+      className="property-card group cursor-pointer flex flex-col"
+      onClick={() => onShowDetails(offer)}
+    >
+      {/* Image Carousel */}
+      <div className="relative overflow-hidden rounded-t-2xl">
         <img 
           src={allImages[currentImageIndex]} 
           alt={offer.title}
-          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
         />
         
         {/* Image navigation arrows - only show if more than 1 image */}
@@ -93,52 +97,64 @@ const OfferCard = ({ offer, onShowDetails }: OfferCardProps) => {
         </div>
       </div>
       
-      <div className="space-y-4 flex-1 flex flex-col">
-        <div>
-          <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-200 line-clamp-2">
-            {offer.title}
-          </h3>
-          
-          <div className="flex items-center text-muted-foreground mb-3">
-            <MapPin className="h-4 w-4 mr-1 text-primary" />
-            <span className="text-sm">{offer.location}</span>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 mb-4">
-            <div className="flex items-center space-x-2">
-              <Home className="h-4 w-4 text-primary" />
-              <span className="text-sm text-muted-foreground">{offer.rooms} pokoje</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Square className="h-4 w-4 text-primary" />
-              <span className="text-sm text-muted-foreground">{offer.area} m²</span>
-            </div>
-          </div>
-
-          <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
-            {truncateText(offer.description, 120)}
-          </p>
+      {/* Content */}
+      <div className="p-6 flex flex-col flex-1">
+        {/* Location */}
+        <div className="flex items-center space-x-1 mb-2 text-muted-foreground">
+          <MapPin className="h-4 w-4" />
+          <span className="font-medium">{offer.location}</span>
         </div>
 
-        <div className="mt-auto pt-4 border-t border-border">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-2">
-              <User className="h-4 w-4 text-primary" />
-              <span className="text-sm font-medium text-foreground">
-                {offer.agent_name || 'Agent'}
-              </span>
-            </div>
-            {offer.agent_phone && (
-              <div className="flex items-center space-x-1 text-xs text-muted-foreground">
-                <Phone className="h-3 w-3" />
-                <span>{offer.agent_phone}</span>
-              </div>
-            )}
+        {/* Property Details */}
+        <div className="flex items-center space-x-4 mb-3 text-sm text-muted-foreground">
+          <div className="flex items-center space-x-1">
+            <Home className="h-4 w-4" />
+            <span>{offer.rooms} {offer.rooms === 1 ? 'pokój' : 'pokoje'}</span>
           </div>
-          
+          <div className="flex items-center space-x-1">
+            <Square className="h-4 w-4" />
+            <span>{offer.area.toFixed(2)} m²</span>
+          </div>
+          {offer.floor && (
+            <span>{offer.floor}. piętro</span>
+          )}
+        </div>
+
+        {/* Title/Description */}
+        <h3 className="text-lg font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-200 line-clamp-2 flex-1">
+          {offer.title}
+        </h3>
+
+        {/* Bottom section - always at bottom */}
+        <div className="mt-auto">
+          {/* Price */}
+          <div className="text-2xl font-bold text-white mb-4">
+            {offer.price.toLocaleString('pl-PL').replace(/,/g, ' ')} PLN
+          </div>
+
+          {/* Agent Info */}
+          {offer.agent_name && (
+            <div className="bg-muted/50 rounded-lg p-3 mb-4">
+              <div className="flex items-center space-x-2 text-sm">
+                <User className="h-4 w-4 text-muted-foreground" />
+                <span className="font-medium">{offer.agent_name}</span>
+              </div>
+              {offer.agent_phone && (
+                <div className="flex items-center space-x-2 text-sm text-muted-foreground mt-1">
+                  <Phone className="h-4 w-4" />
+                  <span>{offer.agent_phone}</span>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Action Button */}
           <Button 
-            className="w-full btn-luxury"
-            onClick={() => onShowDetails(offer)}
+            className="btn-luxury w-full group-hover:shadow-gold transition-all duration-300"
+            onClick={(e) => {
+              e.stopPropagation();
+              onShowDetails(offer);
+            }}
           >
             Zobacz ofertę
           </Button>
@@ -163,7 +179,7 @@ const AgentOffersGrid = ({ offers }: AgentOffersGridProps) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {offers.map((offer, index) => (
           <div 
             key={offer.id}
