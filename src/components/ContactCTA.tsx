@@ -14,44 +14,47 @@ const ContactCTA = () => {
         <div className="absolute inset-0 bg-black/70"></div>
       </div>
       
+      {/* Gradient Overlay at top */}
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent z-5" />
+      
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 py-20">
-        <div className="max-w-4xl mx-auto">
-          <div className="border border-white/20 p-12 md:p-16">
-            <div className="grid md:grid-cols-2 gap-12">
+        <div className="max-w-3xl mx-auto">
+          <div className="border border-white/20 p-8 md:p-10">
+            <div className="grid md:grid-cols-2 gap-8">
               {/* Left Side - Main Message */}
               <div className="text-white">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
                   Jesteś zainteresowany współpracą?
                 </h2>
-                <p className="text-2xl md:text-3xl font-light mb-8">
+                <p className="text-xl md:text-2xl font-light mb-6">
                   Skontaktuj się z nami!
                 </p>
               </div>
               
               {/* Right Side - Contact Info */}
-              <div className="text-white space-y-6">
+              <div className="text-white space-y-4">
                 <div>
-                  <p className="text-xl font-medium">+ 48 512 330 513</p>
+                  <p className="text-lg font-medium">+ 48 512 330 513</p>
                 </div>
                 
                 <div>
-                  <p className="text-xl">office@theestate.pl</p>
+                  <p className="text-lg">office@theestate.pl</p>
                 </div>
                 
                 <div>
-                  <p className="text-lg">Mokotowska 3/12</p>
+                  <p className="text-base">Mokotowska 3/12</p>
                 </div>
                 
-                <div className="pt-6">
-                  <p className="text-lg mb-2">Odwiedź nas na Instagramie!</p>
-                  <p className="text-lg font-medium">@theestatewarsaw</p>
+                <div className="pt-4">
+                  <p className="text-base mb-1">Odwiedź nas na Instagramie!</p>
+                  <p className="text-base font-medium">@theestatewarsaw</p>
                 </div>
               </div>
             </div>
             
             {/* Social Media Icons */}
-            <div className="flex gap-6 mt-12 pt-8 border-t border-white/20">
+            <div className="flex gap-6 mt-8 pt-6 border-t border-white/20">
               <a href="#" className="text-white hover:text-primary transition-colors">
                 <Facebook className="w-6 h-6" />
               </a>
