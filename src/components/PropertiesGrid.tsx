@@ -56,7 +56,7 @@ const PropertiesGrid = () => {
           {offers.map((property, index) => (
             <div 
               key={property.id} 
-              className="property-card group"
+              className="property-card group flex flex-col"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Image */}
@@ -70,12 +70,12 @@ const PropertiesGrid = () => {
                   }}
                 />
                 <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
-                  {property.price.toLocaleString()} PLN
+                  {property.price.toLocaleString('pl-PL').replace(/,/g, ' ')} PLN
                 </div>
               </div>
 
               {/* Content */}
-              <div className="p-6">
+              <div className="p-6 flex flex-col flex-1">
                 {/* Location */}
                 <div className="flex items-center space-x-1 mb-2 text-muted-foreground">
                   <MapPin className="h-4 w-4" />
@@ -98,35 +98,38 @@ const PropertiesGrid = () => {
                 </div>
 
                 {/* Title/Description */}
-                <h3 className="text-lg font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-200 line-clamp-2">
+                <h3 className="text-lg font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-200 line-clamp-2 flex-1">
                   {property.title}
                 </h3>
 
-                {/* Price */}
-                <div className="text-2xl font-bold text-primary mb-4">
-                  {property.price.toLocaleString()} PLN
-                </div>
-
-                {/* Agent Info */}
-                {property.agent_name && (
-                  <div className="bg-muted/50 rounded-lg p-3 mb-4">
-                    <div className="flex items-center space-x-2 text-sm">
-                      <User className="h-4 w-4 text-muted-foreground" />
-                      <span className="font-medium">{property.agent_name}</span>
-                    </div>
-                    {property.agent_phone && (
-                      <div className="flex items-center space-x-2 text-sm text-muted-foreground mt-1">
-                        <Phone className="h-4 w-4" />
-                        <span>{property.agent_phone}</span>
-                      </div>
-                    )}
+                {/* Bottom section - always at bottom */}
+                <div className="mt-auto">
+                  {/* Price */}
+                  <div className="text-2xl font-bold text-primary mb-4">
+                    {property.price.toLocaleString('pl-PL').replace(/,/g, ' ')} PLN
                   </div>
-                )}
 
-                {/* Action Button */}
-                <Button className="btn-luxury w-full group-hover:shadow-gold transition-all duration-300">
-                  {t.offers.viewOffer}
-                </Button>
+                  {/* Agent Info */}
+                  {property.agent_name && (
+                    <div className="bg-muted/50 rounded-lg p-3 mb-4">
+                      <div className="flex items-center space-x-2 text-sm">
+                        <User className="h-4 w-4 text-muted-foreground" />
+                        <span className="font-medium">{property.agent_name}</span>
+                      </div>
+                      {property.agent_phone && (
+                        <div className="flex items-center space-x-2 text-sm text-muted-foreground mt-1">
+                          <Phone className="h-4 w-4" />
+                          <span>{property.agent_phone}</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Action Button */}
+                  <Button className="btn-luxury w-full group-hover:shadow-gold transition-all duration-300">
+                    {t.offers.viewOffer}
+                  </Button>
+                </div>
               </div>
             </div>
           ))}

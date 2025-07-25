@@ -160,10 +160,10 @@ const OfferDetailsModal: React.FC<OfferDetailsModalProps> = ({ offer, isOpen, on
                   {/* Price */}
                   <div className="text-center py-4 border-b border-border">
                     <div className="text-3xl font-bold text-foreground mb-2">
-                      {offer.price.toLocaleString()}
+                      {offer.price.toLocaleString('pl-PL').replace(/,/g, ' ')}
                     </div>
                     <div className="text-lg text-muted-foreground">
-                      {Math.round(offer.price / offer.area).toLocaleString()} zł / m²
+                      {Math.round(offer.price / offer.area).toLocaleString('pl-PL').replace(/,/g, ' ')} zł / m²
                     </div>
                   </div>
                   

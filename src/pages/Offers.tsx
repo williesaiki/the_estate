@@ -127,13 +127,15 @@ const Offers = () => {
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-subtle">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-6xl font-serif font-light text-foreground mb-6 animate-fade-in">
-              {t.offers.title}
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in-up">
-              {t.offers.subtitle}
-            </p>
+          <div className="text-center mb-16 flex flex-col justify-center min-h-[200px]">
+            <div className="mt-8">
+              <h1 className="text-5xl md:text-6xl font-serif font-light text-foreground mb-6 animate-fade-in">
+                {t.offers.title}
+              </h1>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in-up">
+                {t.offers.subtitle}
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -160,7 +162,7 @@ const Offers = () => {
             {filteredOffers.map((property, index) => (
               <div 
                 key={property.id} 
-                className="property-card group cursor-pointer"
+                className="property-card group cursor-pointer flex flex-col"
                 style={{ animationDelay: `${index * 0.1}s` }}
                 onClick={() => handleOfferClick(property)}
               >
@@ -174,7 +176,7 @@ const Offers = () => {
                 </div>
 
                 {/* Content */}
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-1">
                   {/* Location */}
                   <div className="flex items-center space-x-1 mb-2 text-muted-foreground">
                     <MapPin className="h-4 w-4" />
@@ -197,41 +199,44 @@ const Offers = () => {
                   </div>
 
                   {/* Title/Description */}
-                  <h3 className="text-lg font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-200 line-clamp-2">
+                  <h3 className="text-lg font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-200 line-clamp-2 flex-1">
                     {property.title}
                   </h3>
 
-                  {/* Price */}
-                  <div className="text-2xl font-bold text-white mb-4">
-                    {property.price.toLocaleString()} PLN
-                  </div>
-
-                  {/* Agent Info */}
-                  {property.agent_name && (
-                    <div className="bg-muted/50 rounded-lg p-3 mb-4">
-                      <div className="flex items-center space-x-2 text-sm">
-                        <User className="h-4 w-4 text-muted-foreground" />
-                        <span className="font-medium">{property.agent_name}</span>
-                      </div>
-                      {property.agent_phone && (
-                        <div className="flex items-center space-x-2 text-sm text-muted-foreground mt-1">
-                          <Phone className="h-4 w-4" />
-                          <span>{property.agent_phone}</span>
-                        </div>
-                      )}
+                  {/* Bottom section - always at bottom */}
+                  <div className="mt-auto">
+                    {/* Price */}
+                    <div className="text-2xl font-bold text-white mb-4">
+                      {property.price.toLocaleString('pl-PL').replace(/,/g, ' ')} PLN
                     </div>
-                  )}
 
-                  {/* Action Button */}
-                  <Button 
-                    className="btn-luxury w-full group-hover:shadow-gold transition-all duration-300"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleOfferClick(property);
-                    }}
-                  >
-                    {t.offers.viewOffer}
-                  </Button>
+                    {/* Agent Info */}
+                    {property.agent_name && (
+                      <div className="bg-muted/50 rounded-lg p-3 mb-4">
+                        <div className="flex items-center space-x-2 text-sm">
+                          <User className="h-4 w-4 text-muted-foreground" />
+                          <span className="font-medium">{property.agent_name}</span>
+                        </div>
+                        {property.agent_phone && (
+                          <div className="flex items-center space-x-2 text-sm text-muted-foreground mt-1">
+                            <Phone className="h-4 w-4" />
+                            <span>{property.agent_phone}</span>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Action Button */}
+                    <Button 
+                      className="btn-luxury w-full group-hover:shadow-gold transition-all duration-300"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleOfferClick(property);
+                      }}
+                    >
+                      {t.offers.viewOffer}
+                    </Button>
+                  </div>
                 </div>
               </div>
             ))}
