@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -15,6 +15,11 @@ const AgentOffers = () => {
   const navigate = useNavigate();
   const { language } = useApp();
   const t = translations[language];
+
+  // Reset scroll position when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [agentSlug]);
 
   // Convert slug back to agent data
   const agent = mockTeamMembers.find(member => {
