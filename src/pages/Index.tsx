@@ -3,6 +3,7 @@ import Hero from '@/components/Hero';
 import OffersSlider from '@/components/OffersSlider';
 import HomePreview from '@/components/HomePreview';
 import Testimonials from '@/components/Testimonials';
+import ContactCTA from '@/components/ContactCTA';
 import Footer from '@/components/Footer';
 import { useEstiCRMOffers } from '@/hooks/useEstiCRMOffers';
 
@@ -17,6 +18,7 @@ const Index = () => {
       <OffersSlider />
       <HomePreview />
       <Testimonials />
+      <ContactCTA />
       <Footer />
     </div>
   );
