@@ -6,7 +6,7 @@ const ContactCTA = () => {
     <section className="relative bg-background overflow-hidden">
       {/* Background Image with Overlay */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-top bg-no-repeat"
         style={{
           backgroundImage: `url('https://cdn.prod.website-files.com/64f34c2162f4f8d189da8e6c/6784efd301afec174bd980cc_04cf1f58daef6d65989d4baced6a0a0a.jpg')`
         }}
