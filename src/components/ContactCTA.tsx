@@ -8,7 +8,7 @@ const ContactCTA = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('/lovable-uploads/5684176d-828c-4e6d-a8ef-ad5b3dd63782.png')`
+          backgroundImage: `url('https://cdn.prod.website-files.com/64f34c2162f4f8d189da8e6c/6784efd301afec174bd980cc_04cf1f58daef6d65989d4baced6a0a0a.jpg')`
         }}
       >
         <div className="absolute inset-0 bg-black/70"></div>
