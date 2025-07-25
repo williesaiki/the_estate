@@ -53,7 +53,7 @@ const Navbar = () => {
       }
     } 
     // Special logic for team page and agent pages (dark background)
-    else if (location.pathname === '/team' || location.pathname.startsWith('/zespol/')) {
+    else if (location.pathname === '/team' || location.pathname.startsWith('/zespol/') || location.pathname === '/offers') {
       return isScrolled 
         ? 'text-foreground/80 hover:text-primary' 
         : 'text-white/90 hover:text-white';
@@ -69,7 +69,7 @@ const Navbar = () => {
       return isHeroScrolled 
         ? 'filter brightness-0 dark:brightness-100' 
         : 'filter brightness-100';
-    } else if (location.pathname === '/team' || location.pathname.startsWith('/zespol/')) {
+    } else if (location.pathname === '/team' || location.pathname.startsWith('/zespol/') || location.pathname === '/offers') {
       return isScrolled 
         ? 'filter brightness-0 dark:brightness-100' 
         : 'filter brightness-100';
