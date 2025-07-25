@@ -41,11 +41,11 @@ const PropertyImageCarousel: React.FC<PropertyImageCarouselProps> = ({
       
 
       {/* Navigation buttons */}
-      <Button variant="ghost" size="icon" className="absolute left-2 top-1/2 -translate-y-1/2 bg-transparent hover:bg-black/20 text-white shadow-lg h-10 w-10 rounded-full z-50" onClick={prevImage}>
+      <Button variant="ghost" size="icon" className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 backdrop-blur-md hover:bg-black/60 text-white shadow-lg h-10 w-10 rounded-full z-50" onClick={prevImage}>
         <ChevronLeft className="h-5 w-5 drop-shadow-lg" />
       </Button>
 
-      <Button variant="ghost" size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 bg-transparent hover:bg-black/20 text-white shadow-lg h-10 w-10 rounded-full z-50" onClick={nextImage}>
+      <Button variant="ghost" size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 backdrop-blur-md hover:bg-black/60 text-white shadow-lg h-10 w-10 rounded-full z-50" onClick={nextImage}>
         <ChevronRight className="h-5 w-5 drop-shadow-lg" />
       </Button>
 

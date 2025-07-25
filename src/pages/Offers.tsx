@@ -139,14 +139,14 @@ const Offers = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-12 bg-background">
+      <section className="py-8 bg-background">
         <div className="container mx-auto px-4 max-w-[1400px]">
           <OffersFilter offers={offers} onFiltersChange={handleFiltersChange} />
         </div>
       </section>
 
       {/* Properties Grid */}
-      <section className="py-16">
+      <section className="py-12">
         <div className="container mx-auto px-4 max-w-[1400px]">
           {/* Results Counter */}
           <div className="mb-8">
