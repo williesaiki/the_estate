@@ -14,11 +14,11 @@ const ContactCTA = () => {
         <div className="absolute inset-0 bg-black/70"></div>
       </div>
       
-      {/* Gradient Overlay at top */}
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent z-5" />
+      {/* Gradient Overlay at top - longer to cover opinions */}
+      <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-background to-transparent z-5" />
       
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 py-32">
+      <div className="relative z-10 container mx-auto px-4 py-40">
         <div className="max-w-2xl mx-auto">
           <div className="border border-white/20 p-6 md:p-8">
             <div className="grid md:grid-cols-2 gap-8">
