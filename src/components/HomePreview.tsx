@@ -106,6 +106,93 @@ const HomePreview = () => {
           })}
         </div>
 
+        {/* Experience Section */}
+        <div className="mt-20">
+          <div className="text-center mb-16">
+            <h3 className="text-3xl md:text-4xl font-serif font-light text-foreground mb-6">
+              Mamy doświadczenie w każdym elemencie transakcji
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
+            {[
+              {
+                title: 'Dla kupujących',
+                icon: '🏠',
+                services: [
+                  'Dom jedno lub wielorodzinny',
+                  'Mieszkania i apartamenty', 
+                  'Miejsce parkingowe',
+                  'Kampery'
+                ]
+              },
+              {
+                title: 'Dla sprzedających',
+                icon: '🏢',
+                services: [
+                  'Dom jedno lub wielorodzinny',
+                  'Mieszkania i apartamenty',
+                  'Miejsce parkingowe', 
+                  'Kampery'
+                ]
+              },
+              {
+                title: 'Dla najemców',
+                icon: '🗝️',
+                services: [
+                  'Domy',
+                  'Mieszkania i apartamenty',
+                  'Miejsce parkingowe',
+                  'Kampery'
+                ]
+              },
+              {
+                title: 'Dla wynajmujących',
+                icon: '🏡',
+                services: [
+                  'Domy', 
+                  'Mieszkania i apartamenty',
+                  'Miejsce parkingowe',
+                  'Kampery'
+                ]
+              },
+              {
+                title: 'Marketing',
+                icon: '📸',
+                services: [
+                  'Sesja zdjęciowa nieruchomości',
+                  'Zamieszczanie ogłoszeń',
+                  'Profesjonalne nagrania z drona',
+                  'Miejsce parkingowe'
+                ]
+              }
+            ].map((category, index) => (
+              <div 
+                key={category.title}
+                className="card-luxury p-8 text-center group"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                  {category.icon}
+                </div>
+                <h4 className="text-lg font-semibold text-foreground mb-6 group-hover:text-primary transition-colors duration-200">
+                  {category.title}
+                </h4>
+                <ul className="space-y-3 text-sm text-muted-foreground">
+                  {category.services.map((service, serviceIndex) => (
+                    <li 
+                      key={serviceIndex}
+                      className="transition-colors duration-200 group-hover:text-foreground"
+                    >
+                      {service}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Featured Team Members Preview */}
         <div className="mt-20">
           <div className="text-center mb-12">
