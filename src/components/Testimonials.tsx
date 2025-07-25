@@ -6,58 +6,52 @@ import { translations } from '@/lib/translations';
 
 const testimonials = [
   {
-    text: "Ta platforma zrewolucjonizowała nasze operacje, usprawniając finanse i zarządzanie nieruchomościami. Dzięki niej jesteśmy produktywni nawet zdalnie.",
-    image: "https://images.unsplash.com/photo-1494790108755-2616b612b1e5?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    name: "Anna Kowalska",
-    role: "Kierownik Operacyjny",
+    text: "Sprzedałam mieszkanie z pomocą pośrednika – pana Marcina Skoczka – i jestem bardzo zadowolona ze współpracy. Pan Marcin przejął na siebie wszystkie formalności i prowadził je profesjonalnie.",
+    name: "Alena Vanli",
   },
   {
-    text: "Wdrożenie systemu było szybkie i płynne. Przyjazny interfejs sprawił, że szkolenie zespołu przebiegło bez problemów.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    name: "Marcin Nowak",
-    role: "Kierownik IT",
+    text: "Serdeczne podziękowania dla Pana Bartosza Barana. Zrobiliśmy wspólnie kilka wymagających tematów mieszkaniowych. Jeśli poszukują Państwo kogoś kto nie boi się wyzwań - polecam!",
+    name: "Daisy Boo",
   },
   {
-    text: "Zespół wsparcia jest wyjątkowy, pomagają przez cały proces i zapewniają ciągłą pomoc, gwarantując nasze zadowolenie.",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    name: "Katarzyna Wiśniewska",
-    role: "Kierownik Wsparcia Klienta",
+    text: "Miałam przyjemność współpracować z Panem Oliwierem Aleksandrem przy sprzedaży mieszkania i z pełnym przekonaniem mogę polecić jego usługi. Proces sprzedaży przebiegł sprawnie.",
+    name: "Malgorzata Korczak",
   },
   {
-    text: "Bezproblemowa integracja systemu poprawiła nasze operacje biznesowe i efektywność. Zdecydowanie polecam za intuicyjny interfejs.",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    name: "Tomasz Lewandowski",
-    role: "Prezes",
+    text: "Pragnę serdecznie podziękować Pani Milenie Bonisławskiej za profesjonalizm, zaangażowanie i wsparcie podczas procesu sprzedaży mojej nieruchomości. Wiedza Pani Mileny jest imponująca.",
+    name: "Agnieszka Mank",
   },
   {
-    text: "Zaawansowane funkcje i szybkie wsparcie przekształciły nasz sposób pracy, czyniąc nas znacznie bardziej efektywnymi.",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    name: "Agnieszka Kamińska",
-    role: "Kierownik Projektów",
+    text: "Bardzo polecam! Pan Paweł Tamowski z The Estate wykazał się prawdziwym profesjonalizmem podczas naszej współpracy. Przejawiał inicjatywę i zaangażowanie.",
+    name: "Karol Abramczyk",
   },
   {
-    text: "Płynne wdrożenie przeszło nasze oczekiwania. Usprawniło procesy, poprawiając ogólną wydajność biznesową.",
-    image: "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    name: "Monika Szymańska",
-    role: "Analityk Biznesowy",
+    text: "Jestem zadowolona ze współpracy z Panem Adamem. Profesjonalne podejście i duża wiedza o rynku nieruchomości bardzo pomogły w sprawnym przeprowadzeniu sprzedaży.",
+    name: "Justyna Wróbel",
   },
   {
-    text: "Nasze funkcje biznesowe poprawiły się dzięki przyjaznemu projektowi i pozytywnym opiniom klientów.",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    name: "Paweł Zieliński",
-    role: "Dyrektor Marketingu",
+    text: "Jestem bardzo wdzięczny za współpracę z Panem Olivierem Aleksander, który przeprowadził mnie przez cały proces zakupu nieruchomości od A do Z. Pomógł mi znaleźć wymarzone mieszkanie.",
+    name: "Kacper Miriuk",
   },
   {
-    text: "Dostarczyli rozwiązanie, które przekroczyło oczekiwania, rozumiejąc nasze potrzeby i usprawniając operacje.",
-    image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    name: "Magdalena Wójcik",
-    role: "Kierownik Sprzedaży",
+    text: "Profesjonalne i skuteczne biuro nieruchomości. Szczególnie polecam Panią Milenę Bonisławską - przeprowadziła transakcję bardzo sprawnie, była kontaktowa i pomogła we wszystkich sprawach okołozakupowych.",
+    name: "Dzień dobry",
   },
   {
-    text: "Korzystając z tego systemu, nasza obecność online i konwersje znacznie się poprawiły, zwiększając wydajność biznesową.",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    name: "Łukasz Dąbrowski",
-    role: "Kierownik E-commerce",
+    text: "Serdecznie polecam współpracę z panią Arianą Zgórzak! Od pierwszego kontaktu wyróżniała się profesjonalizmem i świetną komunikacją. Dzięki jej wsparciu cały proces przebiegł bezproblemowo.",
+    name: "Klaudia Cieślak",
+  },
+  {
+    text: "Pełen profesjonalizm i zaangażowanie. Szczególne podziękowania dla Pana Oliwiera za kompleksowe przeprowadzenie sprzedaży mieszkania od A do Z. Współpraca i obsługa klienta na bardzo wysokim poziomie.",
+    name: "Ewa Gromadzka",
+  },
+  {
+    text: "Serdecznie polecam współpracę z Panem Pawłem Tamowskim. Sprzedaż na odległość poprowadzona wzorowo. Super kontakt i pełen profesjonalizm w poprowadzeniu całej procedury sprzedażowej.",
+    name: "Michal Kieres",
+  },
+  {
+    text: "Bardzo polecam The Estate Warsaw. Transakcja przeprowadzona sprawnie i profesjonalnie. Pan Bartosz w pełni profesjonalnie przeprowadził transakcje. 100% polecam.",
+    name: "Mateusz Piwowar",
   },
 ];
 
