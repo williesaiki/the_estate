@@ -55,13 +55,13 @@ const Team = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-subtle">
+      <section className="pt-24 pb-16 bg-[hsl(220_13%_9%)]">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-6xl font-serif font-light text-foreground mb-6 animate-fade-in">
+            <h1 className="text-5xl md:text-6xl font-serif font-light text-white mb-6 animate-fade-in">
               {t.team.title}
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in-up">
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto animate-fade-in-up">
               Poznaj ekspertów, którzy codziennie pracują nad realizacją Twoich marzeń o idealnej nieruchomości.
             </p>
           </div>

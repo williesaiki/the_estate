@@ -39,7 +39,7 @@ const Navbar = () => {
 
   // Determine text colors based on theme and scroll position
   const getTextClasses = () => {
-    // Special logic only for landing page (home page)
+    // Special logic for landing page (home page)
     if (location.pathname === '/') {
       if (theme === 'dark') {
         return isScrolled 
@@ -51,7 +51,14 @@ const Navbar = () => {
           ? 'text-foreground/80 hover:text-primary' 
           : 'text-white/90 hover:text-white';
       }
-    } else {
+    } 
+    // Special logic for team page and agent pages (dark background)
+    else if (location.pathname === '/team' || location.pathname.startsWith('/zespol/')) {
+      return isScrolled 
+        ? 'text-foreground/80 hover:text-primary' 
+        : 'text-white/90 hover:text-white';
+    } 
+    else {
       // For all other pages: normal text colors
       return 'text-foreground/80 hover:text-primary';
     }
@@ -60,6 +67,10 @@ const Navbar = () => {
   const getLogoClasses = () => {
     if (location.pathname === '/') {
       return isHeroScrolled 
+        ? 'filter brightness-0 dark:brightness-100' 
+        : 'filter brightness-100';
+    } else if (location.pathname === '/team' || location.pathname.startsWith('/zespol/')) {
+      return isScrolled 
         ? 'filter brightness-0 dark:brightness-100' 
         : 'filter brightness-100';
     } else {
