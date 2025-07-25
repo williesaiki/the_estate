@@ -1,115 +1,100 @@
-import React, { useState, useEffect } from 'react';
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { mockTestimonials } from '@/data/mockData';
+import React from 'react';
+import { TestimonialsColumn } from "@/components/ui/testimonials-columns-1";
+import { motion } from "motion/react";
 import { useApp } from '@/contexts/AppContext';
 import { translations } from '@/lib/translations';
+
+const testimonials = [
+  {
+    text: "Ta platforma zrewolucjonizowała nasze operacje, usprawniając finanse i zarządzanie nieruchomościami. Dzięki niej jesteśmy produktywni nawet zdalnie.",
+    image: "https://images.unsplash.com/photo-1494790108755-2616b612b1e5?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    name: "Anna Kowalska",
+    role: "Kierownik Operacyjny",
+  },
+  {
+    text: "Wdrożenie systemu było szybkie i płynne. Przyjazny interfejs sprawił, że szkolenie zespołu przebiegło bez problemów.",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    name: "Marcin Nowak",
+    role: "Kierownik IT",
+  },
+  {
+    text: "Zespół wsparcia jest wyjątkowy, pomagają przez cały proces i zapewniają ciągłą pomoc, gwarantując nasze zadowolenie.",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    name: "Katarzyna Wiśniewska",
+    role: "Kierownik Wsparcia Klienta",
+  },
+  {
+    text: "Bezproblemowa integracja systemu poprawiła nasze operacje biznesowe i efektywność. Zdecydowanie polecam za intuicyjny interfejs.",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    name: "Tomasz Lewandowski",
+    role: "Prezes",
+  },
+  {
+    text: "Zaawansowane funkcje i szybkie wsparcie przekształciły nasz sposób pracy, czyniąc nas znacznie bardziej efektywnymi.",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    name: "Agnieszka Kamińska",
+    role: "Kierownik Projektów",
+  },
+  {
+    text: "Płynne wdrożenie przeszło nasze oczekiwania. Usprawniło procesy, poprawiając ogólną wydajność biznesową.",
+    image: "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    name: "Monika Szymańska",
+    role: "Analityk Biznesowy",
+  },
+  {
+    text: "Nasze funkcje biznesowe poprawiły się dzięki przyjaznemu projektowi i pozytywnym opiniom klientów.",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    name: "Paweł Zieliński",
+    role: "Dyrektor Marketingu",
+  },
+  {
+    text: "Dostarczyli rozwiązanie, które przekroczyło oczekiwania, rozumiejąc nasze potrzeby i usprawniając operacje.",
+    image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    name: "Magdalena Wójcik",
+    role: "Kierownik Sprzedaży",
+  },
+  {
+    text: "Korzystając z tego systemu, nasza obecność online i konwersje znacznie się poprawiły, zwiększając wydajność biznesową.",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    name: "Łukasz Dąbrowski",
+    role: "Kierownik E-commerce",
+  },
+];
+
+const firstColumn = testimonials.slice(0, 3);
+const secondColumn = testimonials.slice(3, 6);
+const thirdColumn = testimonials.slice(6, 9);
 
 const Testimonials = () => {
   const { language } = useApp();
   const t = translations[language];
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % mockTestimonials.length);
-    }, 6000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % mockTestimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + mockTestimonials.length) % mockTestimonials.length);
-  };
 
   return (
-    <section className="py-20 bg-background">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-serif font-light text-foreground mb-6 animate-fade-in">
+    <section className="bg-background my-20 relative">
+      <div className="container z-10 mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true }}
+          className="flex flex-col items-center justify-center max-w-[540px] mx-auto"
+        >
+          <div className="flex justify-center">
+            <div className="border py-1 px-4 rounded-lg">Opinie</div>
+          </div>
+
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tighter mt-5">
             {t.testimonials.title}
           </h2>
-        </div>
+          <p className="text-center mt-5 opacity-75">
+            Zobacz co mówią o nas nasi klienci.
+          </p>
+        </motion.div>
 
-        <div className="max-w-4xl mx-auto relative">
-          <div className="overflow-hidden">
-            <div 
-              className="flex transition-transform duration-700 ease-luxury"
-              style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}
-            >
-              {mockTestimonials.map((testimonial) => (
-                <div key={testimonial.id} className="w-full flex-shrink-0 px-8">
-                  <div className="card-luxury text-center max-w-3xl mx-auto">
-                    {/* Stars */}
-                    <div className="flex justify-center space-x-1 mb-6">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-primary text-primary" />
-                      ))}
-                    </div>
-
-                    {/* Quote */}
-                    <blockquote className="text-xl md:text-2xl text-foreground font-light leading-relaxed mb-8 italic">
-                      "{testimonial.text}"
-                    </blockquote>
-
-                    {/* Author */}
-                    <div className="flex items-center justify-center space-x-4">
-                      {testimonial.image && (
-                        <img 
-                          src={testimonial.image} 
-                          alt={testimonial.name}
-                          className="w-12 h-12 rounded-full object-cover"
-                        />
-                      )}
-                      <div>
-                        <div className="font-semibold text-foreground">
-                          {testimonial.name}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Navigation */}
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={prevTestimonial}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </Button>
-          
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={nextTestimonial}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-card/80 backdrop-blur-sm border-border/50 hover:bg-card"
-          >
-            <ChevronRight className="h-6 w-6" />
-          </Button>
-
-          {/* Dots */}
-          <div className="flex justify-center space-x-3 mt-12">
-            {mockTestimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentTestimonial(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentTestimonial 
-                    ? 'bg-primary scale-125' 
-                    : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
-                }`}
-              />
-            ))}
-          </div>
+        <div className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[740px] overflow-hidden">
+          <TestimonialsColumn testimonials={firstColumn} duration={15} />
+          <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={19} />
+          <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={17} />
         </div>
       </div>
     </section>
