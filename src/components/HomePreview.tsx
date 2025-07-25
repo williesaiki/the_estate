@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Home, Users, Package, Mail } from 'lucide-react';
+import { ArrowRight, Home, Users, Package, Mail, ShoppingCart, Building2, Key, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { mockTeamMembers, mockProducts } from '@/data/mockData';
@@ -118,7 +118,7 @@ const HomePreview = () => {
             {[
               {
                 title: 'Dla kupujących',
-                icon: '🏠',
+                icon: ShoppingCart,
                 services: [
                   'Dom jedno lub wielorodzinny',
                   'Mieszkania i apartamenty', 
@@ -128,7 +128,7 @@ const HomePreview = () => {
               },
               {
                 title: 'Dla sprzedających',
-                icon: '🏢',
+                icon: Building2,
                 services: [
                   'Dom jedno lub wielorodzinny',
                   'Mieszkania i apartamenty',
@@ -138,7 +138,7 @@ const HomePreview = () => {
               },
               {
                 title: 'Dla najemców',
-                icon: '🗝️',
+                icon: Key,
                 services: [
                   'Domy',
                   'Mieszkania i apartamenty',
@@ -148,7 +148,7 @@ const HomePreview = () => {
               },
               {
                 title: 'Dla wynajmujących',
-                icon: '🏡',
+                icon: Home,
                 services: [
                   'Domy', 
                   'Mieszkania i apartamenty',
@@ -158,7 +158,7 @@ const HomePreview = () => {
               },
               {
                 title: 'Marketing',
-                icon: '📸',
+                icon: Camera,
                 services: [
                   'Sesja zdjęciowa nieruchomości',
                   'Zamieszczanie ogłoszeń',
@@ -166,30 +166,33 @@ const HomePreview = () => {
                   'Miejsce parkingowe'
                 ]
               }
-            ].map((category, index) => (
-              <div 
-                key={category.title}
-                className="card-luxury p-8 text-center group"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                  {category.icon}
+            ].map((category, index) => {
+              const Icon = category.icon;
+              return (
+                <div 
+                  key={category.title}
+                  className="card-luxury p-8 text-center group"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="bg-primary/10 w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
+                    <Icon className="h-8 w-8 text-primary" />
+                  </div>
+                  <h4 className="text-lg font-semibold text-foreground mb-6 group-hover:text-primary transition-colors duration-200">
+                    {category.title}
+                  </h4>
+                  <ul className="space-y-3 text-sm text-muted-foreground">
+                    {category.services.map((service, serviceIndex) => (
+                      <li 
+                        key={serviceIndex}
+                        className="transition-colors duration-200 group-hover:text-foreground"
+                      >
+                        {service}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <h4 className="text-lg font-semibold text-foreground mb-6 group-hover:text-primary transition-colors duration-200">
-                  {category.title}
-                </h4>
-                <ul className="space-y-3 text-sm text-muted-foreground">
-                  {category.services.map((service, serviceIndex) => (
-                    <li 
-                      key={serviceIndex}
-                      className="transition-colors duration-200 group-hover:text-foreground"
-                    >
-                      {service}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
