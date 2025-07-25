@@ -55,13 +55,13 @@ const ContactCTA = () => {
             
             {/* Social Media Icons */}
             <div className="flex gap-6 mt-8 pt-6 border-t border-white/20">
-              <a href="#" className="text-white hover:text-primary transition-colors">
+              <a href="https://www.facebook.com/theestatewarsaw/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors">
                 <Facebook className="w-6 h-6" />
               </a>
-              <a href="#" className="text-white hover:text-primary transition-colors">
+              <a href="https://www.instagram.com/theestatewarsaw/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors">
                 <Instagram className="w-6 h-6" />
               </a>
-              <a href="#" className="text-white hover:text-primary transition-colors">
+              <a href="https://linkedin.com/company/theestatewarsaw" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors">
                 <Linkedin className="w-6 h-6" />
               </a>
             </div>
