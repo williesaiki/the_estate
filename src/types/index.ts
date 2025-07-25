@@ -18,6 +18,8 @@ export interface TeamMember {
   position: string;
   image: string;
   description: string;
+  phone?: string;
+  email?: string;
 }
 
 export interface Testimonial {
