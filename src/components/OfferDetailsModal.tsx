@@ -56,7 +56,7 @@ const OfferDetailsModal: React.FC<OfferDetailsModalProps> = ({ offer, isOpen, on
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-6">
             {/* Gallery Section */}
             <div className="lg:col-span-2 space-y-4">
-              <div className="relative overflow-hidden rounded-xl aspect-[4/3] group shadow-2xl">
+              <div className="relative overflow-hidden rounded-xl aspect-[5/3] group shadow-2xl">
                 <img 
                   src={images[currentImageIndex]} 
                   alt={`${offer.title} - zdjęcie ${currentImageIndex + 1}`}
@@ -130,16 +130,28 @@ const OfferDetailsModal: React.FC<OfferDetailsModalProps> = ({ offer, isOpen, on
               )}
               
               {/* Description moved under gallery */}
-              <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 shadow-xl">
-                <h3 className="text-xl font-semibold mb-4 text-slate-200">Opis nieruchomości</h3>
-                <div className="text-slate-300 leading-relaxed text-base space-y-3">
+              <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-8 shadow-xl">
+                <h3 className="text-2xl font-semibold mb-6 text-slate-200">Opis nieruchomości</h3>
+                <div className="text-slate-300 leading-relaxed text-lg space-y-4">
                   {offer.description.split('\n').map((paragraph, index) => (
-                    <p key={index} className="text-slate-300">
+                    <p key={index} className="text-slate-300 text-lg">
                       {paragraph}
                     </p>
                   ))}
                 </div>
               </div>
+
+              {/* Location Map moved under description */}
+              {offer.latitude && offer.longitude && (
+                <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 shadow-xl">
+                  <h3 className="text-xl font-semibold mb-4 text-slate-200">Lokalizacja</h3>
+                  <PropertyMap 
+                    latitude={offer.latitude} 
+                    longitude={offer.longitude}
+                    propertyTitle={offer.title}
+                  />
+                </div>
+              )}
             </div>
 
             {/* Enhanced Details Section */}
@@ -181,56 +193,6 @@ const OfferDetailsModal: React.FC<OfferDetailsModalProps> = ({ offer, isOpen, on
                   </div>
                 </div>
               </div>
-
-              {/* Enhanced Amenities */}
-              <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 shadow-xl">
-                <h3 className="text-xl font-semibold mb-4 text-slate-200">Dodatkowe udogodnienia</h3>
-                <div className="grid grid-cols-1 gap-3">
-                  <div className="flex items-center space-x-3 py-2">
-                    <Wifi className="h-5 w-5 text-slate-400" />
-                    <span className="text-slate-200">Internet światłowodowy</span>
-                  </div>
-                  <div className="flex items-center space-x-3 py-2">
-                    <Trees className="h-5 w-5 text-slate-400" />
-                    <span className="text-slate-200">Balkon z widokiem</span>
-                  </div>
-                  <div className="flex items-center space-x-3 py-2">
-                    <Shield className="h-5 w-5 text-slate-400" />
-                    <span className="text-slate-200">Ochrona 24/7</span>
-                  </div>
-                  <div className="flex items-center space-x-3 py-2">
-                    <Building className="h-5 w-5 text-slate-400" />
-                    <span className="text-slate-200">Winda</span>
-                  </div>
-                </div>
-                
-                {offer.amenities && offer.amenities.length > 0 && (
-                  <div className="mt-4 pt-4 border-t border-slate-700/50">
-                    <div className="flex flex-wrap gap-2">
-                      {offer.amenities.map((amenity, index) => (
-                        <span 
-                          key={index}
-                        className="px-3 py-1 bg-slate-700/50 text-slate-300 rounded-full text-sm border border-slate-600/50"
-                        >
-                          {amenity}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Location Map */}
-              {offer.latitude && offer.longitude && (
-                <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 shadow-xl">
-                  <h3 className="text-xl font-semibold mb-4 text-slate-200">Lokalizacja</h3>
-                  <PropertyMap
-                    latitude={offer.latitude} 
-                    longitude={offer.longitude}
-                    propertyTitle={offer.title}
-                  />
-                </div>
-              )}
 
               {/* Agent Info */}
               {offer.agent_name && (
