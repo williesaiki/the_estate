@@ -1,4 +1,5 @@
 import React from 'react';
+import { Phone, Mail } from 'lucide-react';
 import { mockTeamMembers } from '@/data/mockData';
 import { useApp } from '@/contexts/AppContext';
 import { translations } from '@/lib/translations';
@@ -69,13 +70,16 @@ const AboutTeam = () => {
                 {member.name}
               </h3>
               
-              <p className="text-primary font-medium mb-4">
-                {member.position}
-              </p>
-              
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {member.description}
-              </p>
+              <div className="space-y-2">
+                <div className="flex items-center justify-center space-x-2 text-muted-foreground">
+                  <Phone className="h-4 w-4 text-primary" />
+                  <span className="text-sm">{member.phone}</span>
+                </div>
+                <div className="flex items-center justify-center space-x-2 text-muted-foreground">
+                  <Mail className="h-4 w-4 text-primary" />
+                  <span className="text-sm">{member.email}</span>
+                </div>
+              </div>
             </div>
           ))}
         </div>

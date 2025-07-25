@@ -143,13 +143,16 @@ const Team = () => {
                   {member.name}
                 </h3>
                 
-                <p className="text-primary font-medium mb-4">
-                  {member.position}
-                </p>
-                
-                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-                  {member.description}
-                </p>
+                <div className="space-y-2 mb-6">
+                  <div className="flex items-center justify-center space-x-3 text-muted-foreground">
+                    <Phone className="h-4 w-4 text-primary" />
+                    <span className="text-sm">{member.phone}</span>
+                  </div>
+                  <div className="flex items-center justify-center space-x-3 text-muted-foreground">
+                    <Mail className="h-4 w-4 text-primary" />
+                    <span className="text-sm">{member.email}</span>
+                  </div>
+                </div>
 
                 <Button variant="outline" className="btn-ghost-luxury">
                   Kontakt
