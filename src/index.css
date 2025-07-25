@@ -134,9 +134,8 @@
   
   /* Premium Card Styles */
   .card-luxury {
-    @apply bg-card/80 backdrop-blur-lg border border-[hsl(220_13%_9%/0.08)];
+    @apply bg-card/80 backdrop-blur-lg border border-[hsl(220_13%_9%/0.15)];
     @apply rounded-2xl p-6 shadow-card hover:shadow-luxury;
-    @apply hover:border-[hsl(220_13%_9%/0.15)];
     @apply transition-all duration-500 ease-out;
     @apply hover:scale-[1.02] hover:-translate-y-2;
     @apply transform-gpu;
