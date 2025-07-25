@@ -98,156 +98,150 @@ const Offers = () => {
     navigate('/offers');
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Navbar />
-        <div className="flex justify-center items-center min-h-[60vh]">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Navbar />
-        <div className="flex justify-center items-center min-h-[60vh]">
-          <p className="text-red-500">Błąd podczas ładowania ofert: {error}</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-[hsl(220_13%_9%)]">
+      <section className="pt-24 pb-12 bg-[hsl(220_13%_9%)]">
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16 flex flex-col justify-center min-h-[200px]">
-            <div className="mt-8">
-              <h1 className="text-5xl md:text-6xl font-serif font-light text-white mb-6 animate-fade-in">
-                {t.offers.title}
-              </h1>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto animate-fade-in-up">
-                {t.offers.subtitle}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Filters */}
-      <section className="py-8 bg-background">
-        <div className="container mx-auto px-4 max-w-[1400px]">
-          <OffersFilter offers={offers} onFiltersChange={handleFiltersChange} />
-        </div>
-      </section>
-
-      {/* Properties Grid */}
-      <section className="py-12">
-        <div className="container mx-auto px-4 max-w-[1400px]">
-          {/* Results Counter */}
-          <div className="mb-8">
-            <p className="text-muted-foreground">
-              Znaleziono <span className="font-semibold text-foreground">{filteredOffers.length}</span> 
-              {filteredOffers.length === 1 ? ' ofertę' : filteredOffers.length < 5 ? ' oferty' : ' ofert'}
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-4xl md:text-5xl font-serif font-light text-white mb-4">
+              Nasze oferty
+            </h1>
+            <p className="text-gray-300 max-w-2xl mx-auto">
+              Sprawdź aktualne oferty nieruchomości dostępne w naszym portfelu
             </p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {filteredOffers.map((property, index) => (
-              <div 
-                key={property.id} 
-                className="property-card group cursor-pointer flex flex-col"
-                style={{ animationDelay: `${index * 0.1}s` }}
-                onClick={() => handleOfferClick(property)}
+        </div>
+      </section>
+
+      {/* Filters and Content Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-6">
+          <OffersFilter offers={offers} onFiltersChange={handleFiltersChange} />
+
+          {loading && (
+            <div className="text-center py-12 mt-8">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+              <p className="mt-4 text-muted-foreground">Ładowanie ofert...</p>
+            </div>
+          )}
+
+          {error && (
+            <div className="text-center py-12 mt-8">
+              <p className="text-destructive mb-4">Błąd podczas ładowania ofert: {error}</p>
+              <Button 
+                onClick={() => window.location.reload()} 
+                variant="outline"
               >
-                {/* Image Carousel */}
-                <div onClick={(e) => e.stopPropagation()}>
-                  <PropertyImageCarousel
-                    images={property.images && property.images.length > 0 ? property.images : [property.image]}
-                    title={property.title}
-                    price={property.price}
-                  />
-                </div>
+                Spróbuj ponownie
+              </Button>
+            </div>
+          )}
 
-                {/* Content */}
-                <div className="p-6 flex flex-col flex-1">
-                  {/* Location */}
-                  <div className="flex items-center space-x-1 mb-2 text-muted-foreground">
-                    <MapPin className="h-4 w-4" />
-                    <span className="font-medium">{property.location}</span>
-                  </div>
-
-                  {/* Property Details */}
-                  <div className="flex items-center space-x-4 mb-3 text-sm text-muted-foreground">
-                    <div className="flex items-center space-x-1">
-                      <Home className="h-4 w-4" />
-                      <span>{property.rooms} {property.rooms === 1 ? 'pokój' : 'pokoje'}</span>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <Square className="h-4 w-4" />
-                      <span>{property.area.toFixed(2)} m²</span>
-                    </div>
-                    {property.floor && (
-                      <span>{property.floor}. piętro</span>
-                    )}
-                  </div>
-
-                  {/* Title/Description */}
-                  <h3 className="text-lg font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-200 line-clamp-2 flex-1">
-                    {property.title}
-                  </h3>
-
-                  {/* Bottom section - always at bottom */}
-                  <div className="mt-auto">
-                    {/* Price */}
-                    <div className="text-2xl font-bold text-white mb-4">
-                      {property.price.toLocaleString('pl-PL').replace(/,/g, ' ')} PLN
+          {!loading && !error && (
+            <div className="mt-8">
+              {/* Results Counter */}
+              <div className="mb-8">
+                <p className="text-muted-foreground">
+                  Znaleziono <span className="font-semibold text-foreground">{filteredOffers.length}</span> 
+                  {filteredOffers.length === 1 ? ' ofertę' : filteredOffers.length < 5 ? ' oferty' : ' ofert'}
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                {filteredOffers.map((property, index) => (
+                  <div 
+                    key={property.id} 
+                    className="property-card group cursor-pointer flex flex-col"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                    onClick={() => handleOfferClick(property)}
+                  >
+                    {/* Image Carousel */}
+                    <div onClick={(e) => e.stopPropagation()}>
+                      <PropertyImageCarousel
+                        images={property.images && property.images.length > 0 ? property.images : [property.image]}
+                        title={property.title}
+                        price={property.price}
+                      />
                     </div>
 
-                    {/* Agent Info */}
-                    {property.agent_name && (
-                      <div className="bg-muted/50 rounded-lg p-3 mb-4">
-                        <div className="flex items-center space-x-2 text-sm">
-                          <User className="h-4 w-4 text-muted-foreground" />
-                          <span className="font-medium">{property.agent_name}</span>
+                    {/* Content */}
+                    <div className="p-6 flex flex-col flex-1">
+                      {/* Location */}
+                      <div className="flex items-center space-x-1 mb-2 text-muted-foreground">
+                        <MapPin className="h-4 w-4" />
+                        <span className="font-medium">{property.location}</span>
+                      </div>
+
+                      {/* Property Details */}
+                      <div className="flex items-center space-x-4 mb-3 text-sm text-muted-foreground">
+                        <div className="flex items-center space-x-1">
+                          <Home className="h-4 w-4" />
+                          <span>{property.rooms} {property.rooms === 1 ? 'pokój' : 'pokoje'}</span>
                         </div>
-                        {property.agent_phone && (
-                          <div className="flex items-center space-x-2 text-sm text-muted-foreground mt-1">
-                            <Phone className="h-4 w-4" />
-                            <span>{property.agent_phone}</span>
-                          </div>
+                        <div className="flex items-center space-x-1">
+                          <Square className="h-4 w-4" />
+                          <span>{property.area.toFixed(2)} m²</span>
+                        </div>
+                        {property.floor && (
+                          <span>{property.floor}. piętro</span>
                         )}
                       </div>
-                    )}
 
-                    {/* Action Button */}
-                    <Button 
-                      className="btn-luxury w-full group-hover:shadow-gold transition-all duration-300"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleOfferClick(property);
-                      }}
-                    >
-                      {t.offers.viewOffer}
-                    </Button>
+                      {/* Title/Description */}
+                      <h3 className="text-lg font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-200 line-clamp-2 flex-1">
+                        {property.title}
+                      </h3>
+
+                      {/* Bottom section - always at bottom */}
+                      <div className="mt-auto">
+                        {/* Price */}
+                        <div className="text-2xl font-bold text-white mb-4">
+                          {property.price.toLocaleString('pl-PL').replace(/,/g, ' ')} PLN
+                        </div>
+
+                        {/* Agent Info */}
+                        {property.agent_name && (
+                          <div className="bg-muted/50 rounded-lg p-3 mb-4">
+                            <div className="flex items-center space-x-2 text-sm">
+                              <User className="h-4 w-4 text-muted-foreground" />
+                              <span className="font-medium">{property.agent_name}</span>
+                            </div>
+                            {property.agent_phone && (
+                              <div className="flex items-center space-x-2 text-sm text-muted-foreground mt-1">
+                                <Phone className="h-4 w-4" />
+                                <span>{property.agent_phone}</span>
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Action Button */}
+                        <Button 
+                          className="btn-luxury w-full group-hover:shadow-gold transition-all duration-300"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleOfferClick(property);
+                          }}
+                        >
+                          {t.offers.viewOffer}
+                        </Button>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
 
-          {/* Load More */}
-          <div className="text-center mt-16">
-            <Button variant="outline" className="btn-ghost-luxury">
-              Załaduj więcej ofert
-            </Button>
-          </div>
+              {/* Load More */}
+              <div className="text-center mt-16">
+                <Button variant="outline" className="btn-ghost-luxury">
+                  Załaduj więcej ofert
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

@@ -27,8 +27,8 @@ export function LanguageToggle({ className, language, onToggle }: LanguageToggle
           className={cn(
             "flex justify-center items-center w-6 h-6 rounded-full transition-transform duration-300 text-xs font-bold",
             isPolish 
-              ? "transform translate-x-0 bg-primary/20 backdrop-blur-sm text-primary" 
-              : "transform translate-x-8 bg-primary/20 backdrop-blur-sm text-primary"
+              ? "transform translate-x-0 bg-white/20 backdrop-blur-sm text-white" 
+              : "transform translate-x-8 bg-white/20 backdrop-blur-sm text-white"
           )}
         >
           {isPolish ? "PL" : "EN"}
@@ -37,8 +37,8 @@ export function LanguageToggle({ className, language, onToggle }: LanguageToggle
           className={cn(
             "flex justify-center items-center w-6 h-6 rounded-full transition-transform duration-300 text-xs font-medium",
             isPolish 
-              ? "bg-transparent text-muted-foreground" 
-              : "transform -translate-x-8 text-muted-foreground"
+              ? "bg-transparent text-white/70" 
+              : "transform -translate-x-8 text-white/70"
           )}
         >
           {isPolish ? "EN" : "PL"}

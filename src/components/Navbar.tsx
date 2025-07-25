@@ -89,7 +89,7 @@ const Navbar = () => {
             <img 
               src="https://cdn.prod.website-files.com/64f34c2162f4f8d189da8e6c/64f34c2162f4f8d189da8e68_Group.svg" 
               alt="Logo" 
-              className={`h-8 w-auto transition-all duration-300 ${getLogoClasses()}`}
+              className={`h-12 w-auto transition-all duration-300 font-serif ${getLogoClasses()}`}
             />
           </Link>
 
@@ -97,31 +97,31 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-8">
             <Link 
               to="/about"
-              className={`transition-colors duration-200 font-medium ${getTextClasses()}`}
+              className={`transition-colors duration-200 font-serif font-light ${getTextClasses()}`}
             >
               {t.nav.about}
             </Link>
             <Link 
               to="/offers"
-              className={`transition-colors duration-200 font-medium ${getTextClasses()}`}
+              className={`transition-colors duration-200 font-serif font-light ${getTextClasses()}`}
             >
               {t.nav.offers}
             </Link>
             <Link 
               to="/team"
-              className={`transition-colors duration-200 font-medium ${getTextClasses()}`}
+              className={`transition-colors duration-200 font-serif font-light ${getTextClasses()}`}
             >
               {t.nav.team}
             </Link>
             <Link 
               to="/products"
-              className={`transition-colors duration-200 font-medium ${getTextClasses()}`}
+              className={`transition-colors duration-200 font-serif font-light ${getTextClasses()}`}
             >
               {t.nav.products}
             </Link>
             <Link 
               to="/contact"
-              className={`transition-colors duration-200 font-medium ${getTextClasses()}`}
+              className={`transition-colors duration-200 font-serif font-light ${getTextClasses()}`}
             >
               {t.nav.contact}
             </Link>

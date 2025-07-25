@@ -37,7 +37,7 @@ export function ThemeToggle({ className, isDark, onToggle }: ThemeToggleProps) {
             />
           ) : (
             <Sun 
-              className="w-4 h-4 text-gray-700" 
+              className="w-4 h-4 text-white" 
               strokeWidth={1.5}
             />
           )}
@@ -52,12 +52,12 @@ export function ThemeToggle({ className, isDark, onToggle }: ThemeToggleProps) {
         >
           {isDark ? (
             <Sun 
-              className="w-4 h-4 text-gray-500" 
+              className="w-4 h-4 text-white/70" 
               strokeWidth={1.5}
             />
           ) : (
             <Moon 
-              className="w-4 h-4 text-black" 
+              className="w-4 h-4 text-white/70" 
               strokeWidth={1.5}
             />
           )}
