@@ -1,9 +1,14 @@
 import React from 'react';
 import { Facebook, Instagram, Linkedin } from 'lucide-react';
+import SpaceAnimation from './SpaceAnimation';
 
 const ContactCTA = () => {
   return (
     <section className="relative bg-background overflow-hidden">
+      {/* Space Animation Background */}
+      <SpaceAnimation particleCount={15} className="z-5" />
+      
+      {/* Background Image with Overlay */}
       {/* Background Image with Overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-top bg-no-repeat"

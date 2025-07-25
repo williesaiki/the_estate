@@ -1,4 +1,5 @@
 import React from 'react';
+import SpaceAnimation from './SpaceAnimation';
 import { useApp } from '@/contexts/AppContext';
 import { translations } from '@/lib/translations';
 
@@ -15,6 +16,9 @@ const Hero = () => {
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Space Animation Background */}
+      <SpaceAnimation particleCount={25} />
+      
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img 
