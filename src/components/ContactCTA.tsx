@@ -18,9 +18,9 @@ const ContactCTA = () => {
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent z-5" />
       
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 py-20">
-        <div className="max-w-3xl mx-auto">
-          <div className="border border-white/20 p-8 md:p-10">
+      <div className="relative z-10 container mx-auto px-4 py-32">
+        <div className="max-w-2xl mx-auto">
+          <div className="border border-white/20 p-6 md:p-8">
             <div className="grid md:grid-cols-2 gap-8">
               {/* Left Side - Main Message */}
               <div className="text-white">
