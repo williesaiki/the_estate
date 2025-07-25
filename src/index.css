@@ -144,7 +144,7 @@
   /* Navbar Blur Effect */
   .navbar-blur {
     @apply bg-background/80 backdrop-blur-lg border-b border-border/50;
-    @apply transition-all duration-300 ease-out;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   /* Hero Text Animations */
