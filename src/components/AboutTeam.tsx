@@ -1,5 +1,7 @@
 import React from 'react';
 import { Phone, Mail } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 import { mockTeamMembers } from '@/data/mockData';
 import { useApp } from '@/contexts/AppContext';
 import { translations } from '@/lib/translations';
@@ -8,6 +10,21 @@ import officeHero from '@/assets/office-hero.jpg';
 const AboutTeam = () => {
   const { language } = useApp();
   const t = translations[language];
+  const navigate = useNavigate();
+
+  const generateAgentSlug = (name: string) => {
+    return name.toLowerCase()
+      .replace(/ł/g, 'l')
+      .replace(/ą/g, 'a')
+      .replace(/ć/g, 'c')
+      .replace(/ę/g, 'e')
+      .replace(/ń/g, 'n')
+      .replace(/ó/g, 'o')
+      .replace(/ś/g, 's')
+      .replace(/ź/g, 'z')
+      .replace(/ż/g, 'z')
+      .replace(/\s+/g, '-');
+  };
 
   return (
     <section id="about" className="py-20 bg-gradient-subtle">
@@ -51,7 +68,7 @@ const AboutTeam = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {mockTeamMembers.map((member, index) => (
+          {mockTeamMembers.slice(0, 6).map((member, index) => (
             <div 
               key={member.id} 
               className="card-luxury text-center group"
@@ -70,7 +87,7 @@ const AboutTeam = () => {
                 {member.name}
               </h3>
               
-              <div className="space-y-2">
+              <div className="space-y-2 mb-4">
                 <div className="flex items-center justify-center space-x-2 text-muted-foreground">
                   <Phone className="h-4 w-4 text-primary" />
                   <span className="text-sm">{member.phone}</span>
@@ -80,6 +97,14 @@ const AboutTeam = () => {
                   <span className="text-sm">{member.email}</span>
                 </div>
               </div>
+
+              <Button 
+                variant="outline" 
+                className="btn-ghost-luxury"
+                onClick={() => navigate(`/zespol/${generateAgentSlug(member.name)}`)}
+              >
+                Zobacz oferty
+              </Button>
             </div>
           ))}
         </div>

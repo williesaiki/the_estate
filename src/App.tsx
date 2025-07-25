@@ -10,6 +10,7 @@ import Offers from "./pages/Offers";
 import Team from "./pages/Team";
 import Products from "./pages/Products";
 import Contact from "./pages/Contact";
+import AgentOffers from "./pages/AgentOffers";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/offers" element={<Offers />} />
           <Route path="/offers/:id" element={<Offers />} />
           <Route path="/team" element={<Team />} />
+          <Route path="/zespol/:agentSlug" element={<AgentOffers />} />
           <Route path="/products" element={<Products />} />
           <Route path="/contact" element={<Contact />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

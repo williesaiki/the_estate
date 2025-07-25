@@ -1,6 +1,7 @@
 import React from 'react';
-import { Mail, Phone, Linkedin } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { mockTeamMembers } from '@/data/mockData';
@@ -10,6 +11,21 @@ import { translations } from '@/lib/translations';
 const Team = () => {
   const { language } = useApp();
   const t = translations[language];
+  const navigate = useNavigate();
+
+  const generateAgentSlug = (name: string) => {
+    return name.toLowerCase()
+      .replace(/ł/g, 'l')
+      .replace(/ą/g, 'a')
+      .replace(/ć/g, 'c')
+      .replace(/ę/g, 'e')
+      .replace(/ń/g, 'n')
+      .replace(/ó/g, 'o')
+      .replace(/ś/g, 's')
+      .replace(/ź/g, 'z')
+      .replace(/ż/g, 'z')
+      .replace(/\s+/g, '-');
+  };
 
   const founders = [
     {
@@ -101,11 +117,11 @@ const Team = () => {
                 </div>
                 
                 <div className="flex justify-center space-x-4">
-                  <Button className="btn-luxury">
-                    Kontakt
-                  </Button>
-                  <Button variant="outline" size="icon" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                    <Linkedin className="h-4 w-4" />
+                  <Button 
+                    className="btn-luxury"
+                    onClick={() => navigate(`/zespol/${generateAgentSlug(founder.name)}`)}
+                  >
+                    Zobacz oferty
                   </Button>
                 </div>
               </div>
@@ -154,8 +170,12 @@ const Team = () => {
                   </div>
                 </div>
 
-                <Button variant="outline" className="btn-ghost-luxury">
-                  Kontakt
+                <Button 
+                  variant="outline" 
+                  className="btn-ghost-luxury"
+                  onClick={() => navigate(`/zespol/${generateAgentSlug(member.name)}`)}
+                >
+                  Zobacz oferty
                 </Button>
               </div>
             ))}
