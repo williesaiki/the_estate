@@ -68,42 +68,40 @@ const AgentOffers = () => {
       <Navbar />
       
       {/* Agent Header */}
-      <section className="pt-24 pb-12 bg-gradient-subtle">
+      <section className="pt-24 pb-12 bg-[hsl(220_13%_9%)]">
         <div className="container mx-auto px-6">
           <div className="flex items-center mb-8">
             <Button 
               variant="ghost" 
               onClick={() => navigate('/team')}
-              className="mr-4 text-muted-foreground hover:text-foreground"
+              className="mr-4 text-gray-300 hover:text-white"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
               Powrót do zespołu
             </Button>
           </div>
           
-          <div className="bg-[hsl(222.2_84%_4.9%)] rounded-2xl p-8 max-w-4xl mx-auto">
-            <div className="flex flex-col md:flex-row items-center gap-8">
-              <div className="relative">
-                <img 
-                  src={agent.image} 
-                  alt={agent.name}
-                  className="w-32 h-32 rounded-full object-cover shadow-luxury"
-                />
-              </div>
-              
-              <div className="text-center md:text-left">
-                <h1 className="text-4xl md:text-5xl font-serif font-light text-white mb-4">
-                  {agent.name}
-                </h1>
-                <div className="space-y-2 text-gray-300 mb-6">
-                  <div className="flex items-center justify-center md:justify-start space-x-2">
-                    <span>📞</span>
-                    <span>{agent.phone}</span>
-                  </div>
-                  <div className="flex items-center justify-center md:justify-start space-x-2">
-                    <span>✉️</span>
-                    <span>{agent.email}</span>
-                  </div>
+          <div className="flex flex-col md:flex-row items-center gap-8 max-w-4xl mx-auto">
+            <div className="relative">
+              <img 
+                src={agent.image} 
+                alt={agent.name}
+                className="w-32 h-32 rounded-full object-cover shadow-luxury"
+              />
+            </div>
+            
+            <div className="text-center md:text-left">
+              <h1 className="text-4xl md:text-5xl font-serif font-light text-white mb-4">
+                {agent.name}
+              </h1>
+              <div className="space-y-2 text-gray-300 mb-6">
+                <div className="flex items-center justify-center md:justify-start space-x-2">
+                  <span>📞</span>
+                  <span>{agent.phone}</span>
+                </div>
+                <div className="flex items-center justify-center md:justify-start space-x-2">
+                  <span>✉️</span>
+                  <span>{agent.email}</span>
                 </div>
               </div>
             </div>
