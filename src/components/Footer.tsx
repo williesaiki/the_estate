@@ -41,14 +41,20 @@ const Footer = () => {
             
             {/* Social Media */}
             <div className="flex space-x-4">
-              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary">
-                <Instagram className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary" asChild>
+                <a href="https://www.instagram.com/theestatewarsaw/" target="_blank" rel="noopener noreferrer">
+                  <Instagram className="h-5 w-5" />
+                </a>
               </Button>
-              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary">
-                <Facebook className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary" asChild>
+                <a href="https://www.facebook.com/theestatewarsaw/" target="_blank" rel="noopener noreferrer">
+                  <Facebook className="h-5 w-5" />
+                </a>
               </Button>
-              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary">
-                <Linkedin className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="hover:bg-primary/10 hover:text-primary" asChild>
+                <a href="https://linkedin.com/company/theestatewarsaw" target="_blank" rel="noopener noreferrer">
+                  <Linkedin className="h-5 w-5" />
+                </a>
               </Button>
             </div>
           </div>
@@ -90,15 +96,15 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3 text-secondary-foreground/80">
                 <MapPin className="h-5 w-5 text-primary" />
-                <span>{t.footer.address}</span>
+                <span>Mokotowska 3/12</span>
               </div>
               <div className="flex items-center space-x-3 text-secondary-foreground/80">
                 <Phone className="h-5 w-5 text-primary" />
-                <span>{t.footer.phone}</span>
+                <span>+48 512 330 513</span>
               </div>
               <div className="flex items-center space-x-3 text-secondary-foreground/80">
                 <Mail className="h-5 w-5 text-primary" />
-                <span>{t.footer.email}</span>
+                <span>office@theestate.pl</span>
               </div>
             </div>
           </div>

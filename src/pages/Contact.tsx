@@ -70,7 +70,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Adres</h3>
-                      <p className="text-muted-foreground">{t.footer.address}</p>
+                      <p className="text-muted-foreground">Mokotowska 3/12</p>
                     </div>
                   </div>
                   
@@ -80,7 +80,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Telefon</h3>
-                      <p className="text-muted-foreground">{t.footer.phone}</p>
+                      <p className="text-muted-foreground">+48 512 330 513</p>
                     </div>
                   </div>
                   
@@ -90,7 +90,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Email</h3>
-                      <p className="text-muted-foreground">{t.footer.email}</p>
+                      <p className="text-muted-foreground">office@theestate.pl</p>
                     </div>
                   </div>
                   
@@ -228,7 +228,7 @@ const Contact = () => {
                 <div className="text-center text-muted-foreground">
                   <MapPin className="h-12 w-12 mx-auto mb-4" />
                   <p>Mapa zostanie załadowana tutaj</p>
-                  <p className="text-sm">ul. Przykładowa 123, 00-000 Warszawa</p>
+                  <p className="text-sm">Mokotowska 3/12, Warszawa</p>
                 </div>
               </div>
             </div>
