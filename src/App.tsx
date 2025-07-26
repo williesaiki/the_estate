@@ -8,6 +8,7 @@ import { FavoritesProvider } from "@/contexts/FavoritesContext";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Offers from "./pages/Offers";
+import Favorites from "./pages/Favorites";
 import Team from "./pages/Team";
 import Products from "./pages/Products";
 import Contact from "./pages/Contact";
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/offers" element={<Offers />} />
             <Route path="/offers/:id" element={<Offers />} />
+            <Route path="/favorites" element={<Favorites />} />
             <Route path="/team" element={<Team />} />
             <Route path="/zespol/:agentSlug" element={<AgentOffers />} />
             <Route path="/products" element={<Products />} />
