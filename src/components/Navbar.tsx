@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useApp } from '@/contexts/AppContext';
+import { useFavorites } from '@/contexts/FavoritesContext';
+import FavoritesModal from '@/components/FavoritesModal';
 import { translations } from '@/lib/translations';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { LanguageToggle } from '@/components/ui/language-toggle';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Navbar = () => {
   const { language, setLanguage, theme, toggleTheme } = useApp();
+  const { favoritesCount } = useFavorites();
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHeroScrolled, setIsHeroScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
   const t = translations[language];
 
   useEffect(() => {
@@ -156,6 +160,21 @@ const Navbar = () => {
 
           {/* Desktop Controls */}
           <div className="hidden md:flex items-center space-x-4">
+            {/* Favorites Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsFavoritesOpen(true)}
+              className={`relative ${getTextClasses()}`}
+            >
+              <Heart size={20} />
+              {favoritesCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-semibold">
+                  {favoritesCount > 99 ? '99+' : favoritesCount}
+                </span>
+              )}
+            </Button>
+
             {/* Language Toggle */}
             <LanguageToggle
               language={language}
@@ -175,6 +194,21 @@ const Navbar = () => {
 
           {/* Mobile Menu */}
           <div className="md:hidden flex items-center space-x-2">
+            {/* Mobile Favorites Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsFavoritesOpen(true)}
+              className={`relative ${getTextClasses()}`}
+            >
+              <Heart size={18} />
+              {favoritesCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center font-semibold text-[10px]">
+                  {favoritesCount > 99 ? '99+' : favoritesCount}
+                </span>
+              )}
+            </Button>
+
             <LanguageToggle
               language={language}
               onToggle={() => setLanguage(language === 'pl' ? 'en' : 'pl')}
@@ -260,6 +294,11 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+      
+      <FavoritesModal 
+        isOpen={isFavoritesOpen} 
+        onClose={() => setIsFavoritesOpen(false)} 
+      />
     </nav>
   );
 };

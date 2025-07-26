@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PropertyImageCarousel from '@/components/PropertyImageCarousel';
 import OfferDetailsModal from '@/components/OfferDetailsModal';
+import FavoriteButton from '@/components/FavoriteButton';
 import OffersFilter, { FilterState } from '@/components/OffersFilter';
 import { useApp } from '@/contexts/AppContext';
 import { translations } from '@/lib/translations';
@@ -159,12 +160,15 @@ const Offers = () => {
                     onClick={() => handleOfferClick(property)}
                   >
                     {/* Image Carousel */}
-                    <div onClick={(e) => e.stopPropagation()}>
+                    <div className="relative" onClick={(e) => e.stopPropagation()}>
                       <PropertyImageCarousel
                         images={property.images && property.images.length > 0 ? property.images : [property.image]}
                         title={property.title}
                         price={property.price}
                       />
+                      <div className="absolute top-4 right-4">
+                        <FavoriteButton offer={property} size="sm" />
+                      </div>
                     </div>
 
                     {/* Content */}

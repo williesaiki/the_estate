@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, MapPin, Home, Square, User, Phone, Mail, Expand, Calendar, Building, Car, Wifi, Trees, Shield } from 'lucide-react';
 import { EstiCRMOffer } from '@/hooks/useEstiCRMOffers';
+import FavoriteButton from '@/components/FavoriteButton';
 import PropertyMap from './PropertyMap';
 
 interface OfferDetailsModalProps {
@@ -41,12 +42,17 @@ const OfferDetailsModal: React.FC<OfferDetailsModalProps> = ({ offer, isOpen, on
       <Dialog open={isOpen && !isGalleryFullscreen} onOpenChange={onClose}>
         <DialogContent className="max-w-[95vw] max-h-[90vh] overflow-auto bg-background border-border text-foreground transition-all duration-300">
           <DialogHeader className="border-b border-border pb-4">
-            <DialogTitle className="text-3xl font-serif text-foreground">
-              {offer.title}
-            </DialogTitle>
-            <div className="flex items-center space-x-2 text-muted-foreground mt-2">
-              <MapPin className="h-5 w-5" />
-              <span className="text-lg">{offer.location}</span>
+            <div className="flex items-start justify-between">
+              <div className="flex-1 mr-4">
+                <DialogTitle className="text-3xl font-serif text-foreground">
+                  {offer.title}
+                </DialogTitle>
+                <div className="flex items-center space-x-2 text-muted-foreground mt-2">
+                  <MapPin className="h-5 w-5" />
+                  <span className="text-lg">{offer.location}</span>
+                </div>
+              </div>
+              <FavoriteButton offer={offer} size="lg" />
             </div>
           </DialogHeader>
 

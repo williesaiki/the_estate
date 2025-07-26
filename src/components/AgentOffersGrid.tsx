@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { MapPin, Home, Square, Phone, Mail, User, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import OfferDetailsModal from '@/components/OfferDetailsModal';
+import FavoriteButton from '@/components/FavoriteButton';
 import { EstiCRMOffer } from '@/hooks/useEstiCRMOffers';
 
 interface AgentOffersGridProps {
@@ -90,7 +91,8 @@ const OfferCard = ({ offer, onShowDetails }: OfferCardProps) => {
             {offer.type === 'Mieszkanie' ? 'Mieszkanie' : offer.type}
           </span>
         </div>
-        <div className="absolute top-4 right-4">
+        <div className="absolute top-4 right-4 flex items-center space-x-2">
+          <FavoriteButton offer={offer} size="sm" />
           <span className="px-3 py-1 bg-background/90 text-foreground text-sm font-semibold rounded-full">
             {formatPrice(offer.price)} zł
           </span>
