@@ -83,14 +83,15 @@ const Favorites = () => {
             {offer.floor && <span>{offer.floor}. piętro</span>}
           </div>
 
-          <h3 className="text-lg font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-200 line-clamp-2 flex-1">
+          <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 mb-2">
             {offer.title}
           </h3>
 
+          <div className="text-2xl font-bold text-foreground mb-4">
+            {offer.price.toLocaleString('pl-PL').replace(/,/g, ' ')} PLN
+          </div>
+
           <div className="mt-auto">
-            <div className="text-2xl font-bold text-white mb-4">
-              {offer.price.toLocaleString('pl-PL').replace(/,/g, ' ')} PLN
-            </div>
 
             {offer.agent_name && <div className="bg-muted/50 rounded-lg p-3 mb-4">
                 <div className="flex items-center space-x-2 text-sm">

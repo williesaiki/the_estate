@@ -93,9 +93,6 @@ const OfferCard = ({ offer, onShowDetails }: OfferCardProps) => {
         </div>
         <div className="absolute top-4 right-4 flex items-center space-x-2">
           <FavoriteButton offer={offer} size="sm" />
-          <span className="px-3 py-1 bg-background/90 text-foreground text-sm font-semibold rounded-full">
-            {formatPrice(offer.price)} zł
-          </span>
         </div>
       </div>
       
@@ -123,16 +120,17 @@ const OfferCard = ({ offer, onShowDetails }: OfferCardProps) => {
         </div>
 
         {/* Title/Description */}
-        <h3 className="text-lg font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-200 line-clamp-2 flex-1">
+        <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 mb-2">
           {offer.title}
         </h3>
 
+        {/* Price */}
+        <div className="text-2xl font-bold text-foreground mb-4">
+          {offer.price.toLocaleString('pl-PL').replace(/,/g, ' ')} PLN
+        </div>
+
         {/* Bottom section - always at bottom */}
         <div className="mt-auto">
-          {/* Price */}
-          <div className="text-2xl font-bold text-white mb-4">
-            {offer.price.toLocaleString('pl-PL').replace(/,/g, ' ')} PLN
-          </div>
 
           {/* Agent Info */}
           {offer.agent_name && (

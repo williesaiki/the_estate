@@ -195,16 +195,17 @@ const Offers = () => {
                       </div>
 
                       {/* Title/Description */}
-                      <h3 className="text-lg font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-200 line-clamp-2 flex-1">
+                      <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 mb-2">
                         {property.title}
                       </h3>
 
+                      {/* Price */}
+                      <div className="text-2xl font-bold text-foreground mb-4">
+                        {property.price.toLocaleString('pl-PL').replace(/,/g, ' ')} PLN
+                      </div>
+
                       {/* Bottom section - always at bottom */}
                       <div className="mt-auto">
-                        {/* Price */}
-                        <div className="text-2xl font-bold text-white mb-4">
-                          {property.price.toLocaleString('pl-PL').replace(/,/g, ' ')} PLN
-                        </div>
 
                         {/* Agent Info */}
                         {property.agent_name && (
