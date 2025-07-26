@@ -7,66 +7,51 @@ import OfferDetailsModal from '@/components/OfferDetailsModal';
 import FavoriteButton from '@/components/FavoriteButton';
 import { useFavorites } from '@/contexts/FavoritesContext';
 import { EstiCRMOffer } from '@/hooks/useEstiCRMOffers';
-
 const Favorites = () => {
-  const { favoriteOffers } = useFavorites();
+  const {
+    favoriteOffers
+  } = useFavorites();
   const [selectedOffer, setSelectedOffer] = useState<EstiCRMOffer | null>(null);
-
   const formatPrice = (price: number): string => {
     return price.toLocaleString('pl-PL').replace(/,/g, ' ');
   };
-
-  const OfferCard = ({ offer, onShowDetails }: { offer: EstiCRMOffer; onShowDetails: (offer: EstiCRMOffer) => void }) => {
+  const OfferCard = ({
+    offer,
+    onShowDetails
+  }: {
+    offer: EstiCRMOffer;
+    onShowDetails: (offer: EstiCRMOffer) => void;
+  }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    
     const allImages = [offer.image, ...(offer.images || [])].filter(Boolean);
-    
     const nextImage = () => {
-      setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
+      setCurrentImageIndex(prev => (prev + 1) % allImages.length);
     };
-    
     const prevImage = () => {
-      setCurrentImageIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
+      setCurrentImageIndex(prev => (prev - 1 + allImages.length) % allImages.length);
     };
-
-    return (
-      <div 
-        className="property-card group cursor-pointer flex flex-col"
-        onClick={() => onShowDetails(offer)}
-      >
+    return <div className="property-card group cursor-pointer flex flex-col" onClick={() => onShowDetails(offer)}>
         <div className="relative overflow-hidden rounded-t-2xl">
-          <img 
-            src={allImages[currentImageIndex]} 
-            alt={offer.title}
-            className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-          />
+          <img src={allImages[currentImageIndex]} alt={offer.title} className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" />
           
-          {allImages.length > 1 && (
-            <>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  prevImage();
-                }}
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-1 transition-all duration-200 opacity-0 group-hover:opacity-100"
-              >
+          {allImages.length > 1 && <>
+              <button onClick={e => {
+            e.stopPropagation();
+            prevImage();
+          }} className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-1 transition-all duration-200 opacity-0 group-hover:opacity-100">
                 <ChevronLeft className="h-4 w-4" />
               </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  nextImage();
-                }}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-1 transition-all duration-200 opacity-0 group-hover:opacity-100"
-              >
+              <button onClick={e => {
+            e.stopPropagation();
+            nextImage();
+          }} className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white rounded-full p-1 transition-all duration-200 opacity-0 group-hover:opacity-100">
                 <ChevronRight className="h-4 w-4" />
               </button>
               
               <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded-full">
                 {currentImageIndex + 1} / {allImages.length}
               </div>
-            </>
-          )}
+            </>}
           
           <div className="absolute top-4 left-4">
             <span className="px-3 py-1 bg-primary text-primary-foreground text-sm font-medium rounded-full">
@@ -76,9 +61,7 @@ const Favorites = () => {
           
           <div className="absolute top-4 right-4 flex items-center space-x-2">
             <FavoriteButton offer={offer} size="sm" />
-            <span className="px-3 py-1 bg-background/90 text-foreground text-sm font-semibold rounded-full">
-              {formatPrice(offer.price)} zł
-            </span>
+            
           </div>
         </div>
         
@@ -97,9 +80,7 @@ const Favorites = () => {
               <Square className="h-4 w-4" />
               <span>{offer.area.toFixed(2)} m²</span>
             </div>
-            {offer.floor && (
-              <span>{offer.floor}. piętro</span>
-            )}
+            {offer.floor && <span>{offer.floor}. piętro</span>}
           </div>
 
           <h3 className="text-lg font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-200 line-clamp-2 flex-1">
@@ -111,38 +92,28 @@ const Favorites = () => {
               {offer.price.toLocaleString('pl-PL').replace(/,/g, ' ')} PLN
             </div>
 
-            {offer.agent_name && (
-              <div className="bg-muted/50 rounded-lg p-3 mb-4">
+            {offer.agent_name && <div className="bg-muted/50 rounded-lg p-3 mb-4">
                 <div className="flex items-center space-x-2 text-sm">
                   <User className="h-4 w-4 text-muted-foreground" />
                   <span className="font-medium">{offer.agent_name}</span>
                 </div>
-                {offer.agent_phone && (
-                  <div className="flex items-center space-x-2 text-sm text-muted-foreground mt-1">
+                {offer.agent_phone && <div className="flex items-center space-x-2 text-sm text-muted-foreground mt-1">
                     <Phone className="h-4 w-4" />
                     <span>{offer.agent_phone}</span>
-                  </div>
-                )}
-              </div>
-            )}
+                  </div>}
+              </div>}
 
-            <Button 
-              className="btn-luxury w-full group-hover:shadow-gold transition-all duration-300"
-              onClick={(e) => {
-                e.stopPropagation();
-                onShowDetails(offer);
-              }}
-            >
+            <Button className="btn-luxury w-full group-hover:shadow-gold transition-all duration-300" onClick={e => {
+            e.stopPropagation();
+            onShowDetails(offer);
+          }}>
               Zobacz ofertę
             </Button>
           </div>
         </div>
-      </div>
-    );
+      </div>;
   };
-
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       <Navbar />
       
       {/* Hero Section */}
@@ -162,8 +133,7 @@ const Favorites = () => {
       {/* Content Section */}
       <section className="py-16">
         <div className="container mx-auto px-6">
-          {favoriteOffers.length === 0 ? (
-            <div className="text-center py-12">
+          {favoriteOffers.length === 0 ? <div className="text-center py-12">
               <div className="max-w-md mx-auto">
                 <div className="mb-6">
                   <div className="w-24 h-24 mx-auto mb-4 bg-muted rounded-full flex items-center justify-center">
@@ -176,16 +146,11 @@ const Favorites = () => {
                 <p className="text-muted-foreground mb-6">
                   Nie masz jeszcze żadnych ulubionych ofert. Przeglądaj nasze oferty i dodawaj te, które Ci się podobają.
                 </p>
-                <Button 
-                  onClick={() => window.location.href = '/offers'}
-                  className="btn-luxury"
-                >
+                <Button onClick={() => window.location.href = '/offers'} className="btn-luxury">
                   Przeglądaj oferty
                 </Button>
               </div>
-            </div>
-          ) : (
-            <>
+            </div> : <>
               {/* Results Counter */}
               <div className="mb-8">
                 <p className="text-muted-foreground">
@@ -195,35 +160,19 @@ const Favorites = () => {
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {favoriteOffers.map((offer, index) => (
-                  <div 
-                    key={offer.id}
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                    className="animate-fade-in"
-                  >
-                    <OfferCard 
-                      offer={offer} 
-                      onShowDetails={setSelectedOffer}
-                    />
-                  </div>
-                ))}
+                {favoriteOffers.map((offer, index) => <div key={offer.id} style={{
+              animationDelay: `${index * 0.1}s`
+            }} className="animate-fade-in">
+                    <OfferCard offer={offer} onShowDetails={setSelectedOffer} />
+                  </div>)}
               </div>
-            </>
-          )}
+            </>}
         </div>
       </section>
 
       <Footer />
       
-      {selectedOffer && (
-        <OfferDetailsModal
-          offer={selectedOffer}
-          isOpen={true}
-          onClose={() => setSelectedOffer(null)}
-        />
-      )}
-    </div>
-  );
+      {selectedOffer && <OfferDetailsModal offer={selectedOffer} isOpen={true} onClose={() => setSelectedOffer(null)} />}
+    </div>;
 };
-
 export default Favorites;
