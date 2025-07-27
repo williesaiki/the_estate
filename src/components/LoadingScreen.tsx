@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { motion } from 'motion/react';
 import logoSvg from '@/assets/logo.svg';
 
 interface LoadingScreenProps {
@@ -23,10 +24,17 @@ export const LoadingScreen = ({ onLoadComplete }: LoadingScreenProps) => {
     return (
       <div className="fixed inset-0 bg-black z-50 animate-fade-out pointer-events-none">
         <div className="flex items-center justify-center h-full">
-          <img 
+          <motion.img 
             src={logoSvg} 
             alt="Loading..." 
-            className="w-16 h-16 animate-[heartbeat_2s_ease-in-out_infinite]"
+            className="w-32 h-32"
+            initial={{ filter: "brightness(0.4)" }}
+            animate={{ filter: ["brightness(0.4)", "brightness(1)", "brightness(0.4)"] }}
+            transition={{
+              repeat: Infinity,
+              duration: 2,
+              ease: "linear",
+            }}
           />
         </div>
       </div>
@@ -35,10 +43,17 @@ export const LoadingScreen = ({ onLoadComplete }: LoadingScreenProps) => {
 
   return (
     <div className="fixed inset-0 bg-black z-50 flex items-center justify-center">
-      <img 
+      <motion.img 
         src={logoSvg} 
         alt="Loading..." 
-        className="w-16 h-16 animate-[heartbeat_2s_ease-in-out_infinite]"
+        className="w-32 h-32"
+        initial={{ filter: "brightness(0.4)" }}
+        animate={{ filter: ["brightness(0.4)", "brightness(1)", "brightness(0.4)"] }}
+        transition={{
+          repeat: Infinity,
+          duration: 2,
+          ease: "linear",
+        }}
       />
     </div>
   );
