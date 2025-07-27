@@ -205,6 +205,15 @@
       opacity: 0.3;
     }
   }
+
+  @keyframes heartbeat {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.6;
+    }
+  }
   
   /* Pill Buttons for Amenities */
   .pill-button {

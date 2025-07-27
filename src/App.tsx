@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -5,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppProvider } from "@/contexts/AppContext";
 import { FavoritesProvider } from "@/contexts/FavoritesContext";
+import { LoadingScreen } from "@/components/LoadingScreen";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Offers from "./pages/Offers";
@@ -17,7 +19,14 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  if (isLoading) {
+    return <LoadingScreen onLoadComplete={() => setIsLoading(false)} />;
+  }
+
+  return (
   <QueryClientProvider client={queryClient}>
     <AppProvider>
       <FavoritesProvider>
@@ -43,6 +52,7 @@ const App = () => (
       </FavoritesProvider>
     </AppProvider>
   </QueryClientProvider>
-);
+  );
+};
 
 export default App;
