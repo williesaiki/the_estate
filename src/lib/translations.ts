@@ -9,7 +9,7 @@ export const translations = {
     },
     hero: {
       title: 'The Estate Warsaw',
-      subtitle: 'Zmieniamy przestrzeń w coś co nazywasz \n domem'
+      subtitle: 'Zmieniamy przestrzeń w coś co nazywasz\ndomem'
     },
     offers: {
       title: 'Nasze Oferty',
@@ -54,7 +54,7 @@ export const translations = {
     },
     hero: {
       title: 'The Estate Warsaw',
-      subtitle: 'Exclusive properties in the heart of Warsaw'
+      subtitle: 'We turn space into a place\nyou call home'
     },
     offers: {
       title: 'Our Offers',
