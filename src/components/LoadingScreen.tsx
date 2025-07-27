@@ -14,30 +14,41 @@ export const LoadingScreen = ({ onLoadComplete }: LoadingScreenProps) => {
       setIsVisible(false);
       setTimeout(() => {
         onLoadComplete();
-      }, 500); // Wait for fade out animation
-    }, 1500); // Show loading for 1.5 seconds minimum
+      }, 300); // Shortened fade out time
+    }, 2000); // Show loading for 2 seconds
 
     return () => clearTimeout(timer);
   }, [onLoadComplete]);
 
   if (!isVisible) {
     return (
-      <div className="fixed inset-0 bg-black z-50 animate-fade-out pointer-events-none">
-        <div className="flex items-center justify-center h-full">
-          <motion.img 
-            src={logoSvg} 
-            alt="Loading..." 
-            className="w-32 h-32"
-            initial={{ filter: "brightness(0.4)" }}
-            animate={{ filter: ["brightness(0.4)", "brightness(1)", "brightness(0.4)"] }}
-            transition={{
-              repeat: Infinity,
-              duration: 2,
-              ease: "linear",
-            }}
-          />
-        </div>
-      </div>
+      <motion.div 
+        className="fixed inset-0 bg-black z-50 flex items-center justify-center pointer-events-none"
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 0 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+      >
+        <motion.img 
+          src={logoSvg} 
+          alt="Loading..." 
+          className="w-32 h-32"
+          style={{
+            filter: "brightness(1) drop-shadow(0 0 20px rgba(255,255,255,0.3))"
+          }}
+          animate={{
+            filter: [
+              "brightness(0.6) drop-shadow(0 0 10px rgba(255,255,255,0.1))",
+              "brightness(1.2) drop-shadow(0 0 30px rgba(255,255,255,0.6))",
+              "brightness(0.6) drop-shadow(0 0 10px rgba(255,255,255,0.1))"
+            ]
+          }}
+          transition={{
+            repeat: Infinity,
+            duration: 1.5,
+            ease: "easeInOut",
+          }}
+        />
+      </motion.div>
     );
   }
 
@@ -47,12 +58,20 @@ export const LoadingScreen = ({ onLoadComplete }: LoadingScreenProps) => {
         src={logoSvg} 
         alt="Loading..." 
         className="w-32 h-32"
-        initial={{ filter: "brightness(0.4)" }}
-        animate={{ filter: ["brightness(0.4)", "brightness(1)", "brightness(0.4)"] }}
+        style={{
+          filter: "brightness(1) drop-shadow(0 0 20px rgba(255,255,255,0.3))"
+        }}
+        animate={{
+          filter: [
+            "brightness(0.6) drop-shadow(0 0 10px rgba(255,255,255,0.1))",
+            "brightness(1.2) drop-shadow(0 0 30px rgba(255,255,255,0.6))",
+            "brightness(0.6) drop-shadow(0 0 10px rgba(255,255,255,0.1))"
+          ]
+        }}
         transition={{
           repeat: Infinity,
-          duration: 2,
-          ease: "linear",
+          duration: 1.5,
+          ease: "easeInOut",
         }}
       />
     </div>
