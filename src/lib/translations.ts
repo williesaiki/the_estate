@@ -9,7 +9,7 @@ export const translations = {
     },
     hero: {
       title: 'The Estate Warsaw',
-      subtitle: 'Ekskluzywne nieruchomości w sercu Warszawy'
+      subtitle: 'Zmieniamy przestrzeń w coś, co nazywasz domem'
     },
     offers: {
       title: 'Nasze Oferty',
