@@ -41,6 +41,14 @@ export const LoadingScreen = ({ onLoadComplete, isRouteChange = false }: Loading
             style={{
               background: "linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.4) 50%, transparent 65%)",
               backgroundSize: "200% 100%",
+              maskImage: `url(${logoSvg})`,
+              maskSize: "contain",
+              maskRepeat: "no-repeat",
+              maskPosition: "center",
+              WebkitMaskImage: `url(${logoSvg})`,
+              WebkitMaskSize: "contain",
+              WebkitMaskRepeat: "no-repeat",
+              WebkitMaskPosition: "center",
             }}
             initial={{ backgroundPosition: "200% 0" }}
             animate={{ backgroundPosition: "-200% 0" }}
@@ -68,6 +76,14 @@ export const LoadingScreen = ({ onLoadComplete, isRouteChange = false }: Loading
           style={{
             background: "linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.4) 50%, transparent 65%)",
             backgroundSize: "200% 100%",
+            maskImage: `url(${logoSvg})`,
+            maskSize: "contain",
+            maskRepeat: "no-repeat",
+            maskPosition: "center",
+            WebkitMaskImage: `url(${logoSvg})`,
+            WebkitMaskSize: "contain",
+            WebkitMaskRepeat: "no-repeat",
+            WebkitMaskPosition: "center",
           }}
           initial={{ backgroundPosition: "200% 0" }}
           animate={{ backgroundPosition: "-200% 0" }}
