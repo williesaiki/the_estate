@@ -39,7 +39,7 @@ export const LoadingScreen = ({ onLoadComplete, isRouteChange = false }: Loading
           <motion.div
             className="absolute inset-0 w-32 h-32"
             style={{
-              background: "linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.4) 50%, transparent 65%)",
+              background: "linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.8) 50%, transparent 65%)",
               backgroundSize: "200% 100%",
               maskImage: `url(${logoSvg})`,
               maskSize: "contain",
@@ -74,7 +74,7 @@ export const LoadingScreen = ({ onLoadComplete, isRouteChange = false }: Loading
         <motion.div
           className="absolute inset-0 w-32 h-32"
           style={{
-            background: "linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.4) 50%, transparent 65%)",
+            background: "linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.8) 50%, transparent 65%)",
             backgroundSize: "200% 100%",
             maskImage: `url(${logoSvg})`,
             maskSize: "contain",
