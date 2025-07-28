@@ -50,21 +50,23 @@ const App = () => {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <LoadingProvider>
-        <AppProvider>
-          <FavoritesProvider>
-            <TooltipProvider>
-              <Toaster />
-              <Sonner />
-              <BrowserRouter>
-                <AppRoutes />
-              </BrowserRouter>
-            </TooltipProvider>
-          </FavoritesProvider>
-        </AppProvider>
-      </LoadingProvider>
-    </QueryClientProvider>
+    <div className="bg-[#0a0a0a] min-h-screen">
+      <QueryClientProvider client={queryClient}>
+        <LoadingProvider>
+          <AppProvider>
+            <FavoritesProvider>
+              <TooltipProvider>
+                <Toaster />
+                <Sonner />
+                <BrowserRouter>
+                  <AppRoutes />
+                </BrowserRouter>
+              </TooltipProvider>
+            </FavoritesProvider>
+          </AppProvider>
+        </LoadingProvider>
+      </QueryClientProvider>
+    </div>
   );
 };
 
