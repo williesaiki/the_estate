@@ -65,13 +65,17 @@ const OfferDetailsModal: React.FC<OfferDetailsModalProps> = ({ offer, isOpen, on
     <>
       {/* Main Modal */}
       <Dialog open={isOpen && !isGalleryFullscreen} onOpenChange={onClose}>
-        <DialogContent 
-          className="max-w-[100vw] max-h-[100vh] w-full h-full p-0 border-0"
-          data-modal-content
-        >
-          <div className="relative w-full h-full bg-background">
-            {/* Image Gallery - 80% height */}
-            <div className="relative h-[80vh] w-full">
+        <DialogContent className="max-w-[90vw] max-h-[90vh] w-full h-full p-0 overflow-hidden bg-background border border-border">
+          <div className="relative w-full h-full flex flex-col">
+            {/* Image Gallery - slides up on scroll */}
+            <div 
+              className="relative transition-all duration-500 ease-out overflow-hidden"
+              style={{
+                height: scrollY > 50 ? '200px' : '60%',
+                transform: `translateY(${Math.min(scrollY * 0.5, 100)}px)`,
+                opacity: Math.max(0.3, 1 - scrollY * 0.003)
+              }}
+            >
               <img 
                 src={images[currentImageIndex]} 
                 alt={`${offer.title} - zdjęcie ${currentImageIndex + 1}`}
@@ -84,10 +88,10 @@ const OfferDetailsModal: React.FC<OfferDetailsModalProps> = ({ offer, isOpen, on
               {/* Close button */}
               <Button 
                 variant="ghost" 
-                className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm hover:bg-black/80 text-white z-50"
+                className="absolute top-4 left-4 bg-background/80 backdrop-blur-sm hover:bg-background text-foreground border border-border"
                 onClick={onClose}
               >
-                ← POWRÓT
+                ← Powrót
               </Button>
 
               {/* Gallery controls */}
@@ -96,7 +100,7 @@ const OfferDetailsModal: React.FC<OfferDetailsModalProps> = ({ offer, isOpen, on
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 backdrop-blur-sm hover:bg-black/80 text-white h-12 w-12 rounded-full transition-all"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-background/80 backdrop-blur-sm hover:bg-background/90 text-foreground border border-border h-12 w-12 rounded-full"
                     onClick={prevImage}
                   >
                     <ChevronLeft className="h-6 w-6" />
@@ -105,7 +109,7 @@ const OfferDetailsModal: React.FC<OfferDetailsModalProps> = ({ offer, isOpen, on
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 backdrop-blur-sm hover:bg-black/80 text-white h-12 w-12 rounded-full transition-all"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-background/80 backdrop-blur-sm hover:bg-background/90 text-foreground border border-border h-12 w-12 rounded-full"
                     onClick={nextImage}
                   >
                     <ChevronRight className="h-6 w-6" />
@@ -119,8 +123,10 @@ const OfferDetailsModal: React.FC<OfferDetailsModalProps> = ({ offer, isOpen, on
                   {images.map((_, index) => (
                     <button
                       key={index}
-                      className={`w-3 h-3 rounded-full transition-all ${
-                        index === currentImageIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/70'
+                      className={`w-3 h-3 rounded-full transition-all border ${
+                        index === currentImageIndex 
+                          ? 'bg-primary border-primary' 
+                          : 'bg-background/50 border-border hover:bg-background/70'
                       }`}
                       onClick={() => setCurrentImageIndex(index)}
                     />
@@ -134,155 +140,160 @@ const OfferDetailsModal: React.FC<OfferDetailsModalProps> = ({ offer, isOpen, on
                 <Button 
                   variant="ghost" 
                   size="icon" 
-                  className="bg-white/90 backdrop-blur-sm hover:bg-white text-black h-12 w-12 rounded-full transition-all"
+                  className="bg-background/80 backdrop-blur-sm hover:bg-background text-foreground border border-border h-12 w-12 rounded-full"
+                  onClick={openFullscreenGallery}
                 >
                   <Expand className="h-6 w-6" />
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className="bg-white/90 backdrop-blur-sm hover:bg-white text-black h-12 w-12 rounded-full transition-all"
-                >
-                  <User className="h-6 w-6" />
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className="bg-white/90 backdrop-blur-sm hover:bg-white text-black h-12 w-12 rounded-full transition-all"
-                >
-                  <Phone className="h-6 w-6" />
                 </Button>
               </div>
             </div>
 
             {/* Scrollable content area */}
-            <div className="h-[20vh] overflow-y-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-8">
-                {/* Left column - Title and Description */}
-                <div 
-                  className="lg:col-span-2 space-y-6"
-                  style={{
-                    transform: `translateY(${Math.max(0, scrollY * 0.3)}px)`,
-                    opacity: Math.max(0.3, 1 - scrollY * 0.003)
-                  }}
-                >
-                  {/* Title with animation */}
-                  <div className="animate-fade-in">
-                    <div className="flex items-center gap-2 text-muted-foreground mb-2">
-                      <MapPin className="h-5 w-5" />
-                      <span className="text-lg">{offer.location.toUpperCase()}</span>
-                    </div>
-                    <h1 className="text-5xl font-serif text-foreground leading-tight">
-                      {offer.title}
-                    </h1>
+            <div 
+              className="flex-1 overflow-y-auto bg-background"
+              onScroll={(e) => setScrollY(e.currentTarget.scrollTop)}
+            >
+              <div className="p-8 space-y-8">
+                {/* Header with title and location */}
+                <div className="animate-fade-in">
+                  <div className="flex items-center gap-2 text-muted-foreground mb-3">
+                    <MapPin className="h-5 w-5" />
+                    <span className="text-sm uppercase tracking-wide">{offer.location}</span>
                   </div>
-
+                  <h1 className="text-4xl font-serif text-foreground mb-4">
+                    {offer.title}
+                  </h1>
+                  
                   {/* Property details */}
-                  <div className="flex gap-8 text-muted-foreground animate-fade-in" style={{animationDelay: '0.1s'}}>
+                  <div className="flex gap-6 text-muted-foreground">
                     <div className="flex items-center gap-2">
-                      <Square className="h-5 w-5" />
+                      <Square className="h-4 w-4" />
                       <span>{offer.area.toFixed(2)} m²</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Home className="h-5 w-5" />
+                      <Home className="h-4 w-4" />
                       <span>{offer.rooms} pok.</span>
                     </div>
                     {offer.floor && (
                       <div className="flex items-center gap-2">
-                        <Building className="h-5 w-5" />
+                        <Building className="h-4 w-4" />
                         <span>{offer.floor}/4</span>
                       </div>
                     )}
                     <div className="flex items-center gap-2">
-                      <Calendar className="h-5 w-5" />
+                      <Calendar className="h-4 w-4" />
                       <span>2018</span>
                     </div>
                   </div>
-
-                  {/* Description */}
-                  <div className="animate-fade-in" style={{animationDelay: '0.2s'}}>
-                    <p className="text-lg text-muted-foreground leading-relaxed uppercase tracking-wide mb-4">
-                      FINALNA APARTMENTS TO NOWE, LUKSUSOWE APARTAMENTY POŁOŻONE NA GÓRNYM MOKOTOWIE
-                    </p>
-                    <div className="text-muted-foreground leading-relaxed space-y-4">
-                      {offer.description.split('\n').filter(paragraph => paragraph.trim()).map((paragraph, index) => (
-                        <p key={index} className="text-lg">
-                          {paragraph.trim()}
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Location Map */}
-                  {offer.latitude && offer.longitude && (
-                    <div className="animate-fade-in" style={{animationDelay: '0.3s'}}>
-                      <PropertyMap 
-                        latitude={offer.latitude} 
-                        longitude={offer.longitude}
-                        propertyTitle={offer.title}
-                      />
-                    </div>
-                  )}
                 </div>
 
-                {/* Right column - Price and Agent */}
-                <div className="space-y-6">
-                  {/* Price */}
-                  <div className="animate-fade-in" style={{animationDelay: '0.1s'}}>
-                    <div className="text-6xl font-bold text-foreground">
-                      {Math.round(offer.price / 1000000)} 000 000 zł
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  {/* Left column - Description and Map */}
+                  <div className="lg:col-span-2 space-y-8">
+                    {/* Price - mobile only */}
+                    <div className="lg:hidden bg-card rounded-lg p-6 border border-border animate-fade-in">
+                      <div className="text-3xl font-bold text-foreground mb-2">
+                        {offer.price.toLocaleString('pl-PL').replace(/,/g, ' ')} zł
+                      </div>
+                      <div className="text-lg text-muted-foreground">
+                        {Math.round(offer.price / offer.area).toLocaleString('pl-PL').replace(/,/g, ' ')} zł/m²
+                      </div>
                     </div>
-                    <div className="text-xl text-muted-foreground mt-2">
-                      {Math.round(offer.price / offer.area).toLocaleString('pl-PL').replace(/,/g, ' ')} zł/m²
+
+                    {/* Description */}
+                    <div className="bg-card rounded-lg p-6 border border-border animate-fade-in" style={{animationDelay: '0.1s'}}>
+                      <h3 className="text-xl font-semibold mb-4 text-foreground">Opis nieruchomości</h3>
+                      <div className="text-muted-foreground leading-relaxed space-y-4">
+                        {offer.description.split('\n').filter(paragraph => paragraph.trim()).map((paragraph, index) => (
+                          <p key={index}>
+                            {paragraph.trim()}
+                          </p>
+                        ))}
+                      </div>
                     </div>
+
+                    {/* Location Map */}
+                    {offer.latitude && offer.longitude && (
+                      <div className="bg-card rounded-lg p-6 border border-border animate-fade-in" style={{animationDelay: '0.2s'}}>
+                        <h3 className="text-xl font-semibold mb-4 text-foreground">Lokalizacja</h3>
+                        <PropertyMap 
+                          latitude={offer.latitude} 
+                          longitude={offer.longitude}
+                          propertyTitle={offer.title}
+                        />
+                      </div>
+                    )}
                   </div>
 
-                  {/* Agent Info */}
-                  {(offer.agent_name || agentData) && (
-                    <div className="animate-fade-in" style={{animationDelay: '0.2s'}}>
-                      <div className="flex items-start gap-4">
-                        {agentData && (
-                          <div className="w-20 h-20 rounded-full overflow-hidden flex-shrink-0">
-                            <img 
-                              src={agentData.image} 
-                              alt={agentData.name}
-                              className="w-full h-full object-cover"
-                              onError={(e) => {
-                                e.currentTarget.src = '/placeholder.svg';
-                              }}
-                            />
-                          </div>
-                        )}
-                        <div>
-                          <div className="font-medium text-foreground text-lg">
-                            {offer.agent_name || agentData?.name}
-                          </div>
-                          {(offer.agent_phone || agentData?.phone) && (
-                            <div className="text-muted-foreground">
-                              {offer.agent_phone || agentData?.phone}
-                            </div>
-                          )}
-                          {(offer.agent_email || agentData?.email) && (
-                            <div className="text-muted-foreground">
-                              {offer.agent_email || agentData?.email}
-                            </div>
-                          )}
+                  {/* Right column - Price and Agent */}
+                  <div className="space-y-6">
+                    {/* Price - desktop only */}
+                    <div className="hidden lg:block bg-card rounded-lg p-6 border border-border animate-fade-in">
+                      <div className="text-center">
+                        <div className="text-4xl font-bold text-foreground mb-2">
+                          {offer.price.toLocaleString('pl-PL').replace(/,/g, ' ')} zł
+                        </div>
+                        <div className="text-lg text-muted-foreground">
+                          {Math.round(offer.price / offer.area).toLocaleString('pl-PL').replace(/,/g, ' ')} zł/m²
                         </div>
                       </div>
                     </div>
-                  )}
 
-                  {/* Contact Buttons */}
-                  <div className="space-y-3 animate-fade-in" style={{animationDelay: '0.3s'}}>
-                    <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-4 text-lg rounded-lg">
-                      Zapisz PDF
-                    </Button>
-                    <Button variant="outline" className="w-full py-4 text-lg rounded-lg">
-                      Drukuj
-                    </Button>
-                    <Button variant="outline" className="w-full py-4 text-lg rounded-lg">
-                      Udostępnij
-                    </Button>
+                    {/* Agent Info */}
+                    {(offer.agent_name || agentData) && (
+                      <div className="bg-card rounded-lg p-6 border border-border animate-fade-in" style={{animationDelay: '0.1s'}}>
+                        <h3 className="text-lg font-semibold mb-4 text-foreground">Kontakt z agentem</h3>
+                        <div className="flex items-start gap-4">
+                          {agentData && (
+                            <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
+                              <img 
+                                src={agentData.image} 
+                                alt={agentData.name}
+                                className="w-full h-full object-cover"
+                                onError={(e) => {
+                                  e.currentTarget.src = '/placeholder.svg';
+                                }}
+                              />
+                            </div>
+                          )}
+                          <div className="flex-1">
+                            <div className="font-medium text-foreground mb-2">
+                              {offer.agent_name || agentData?.name}
+                            </div>
+                            {(offer.agent_phone || agentData?.phone) && (
+                              <div className="flex items-center gap-2 text-muted-foreground text-sm mb-1">
+                                <Phone className="h-4 w-4" />
+                                <span>{offer.agent_phone || agentData?.phone}</span>
+                              </div>
+                            )}
+                            {(offer.agent_email || agentData?.email) && (
+                              <div className="flex items-center gap-2 text-muted-foreground text-sm">
+                                <Mail className="h-4 w-4" />
+                                <span>{offer.agent_email || agentData?.email}</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Contact Buttons */}
+                    <div className="space-y-3 animate-fade-in" style={{animationDelay: '0.2s'}}>
+                      <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                        Skontaktuj się z agentem
+                      </Button>
+                      <div className="grid grid-cols-3 gap-2">
+                        <Button variant="outline" size="sm" className="text-xs">
+                          PDF
+                        </Button>
+                        <Button variant="outline" size="sm" className="text-xs">
+                          Drukuj
+                        </Button>
+                        <Button variant="outline" size="sm" className="text-xs">
+                          Udostępnij
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
