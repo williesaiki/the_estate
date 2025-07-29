@@ -18,17 +18,10 @@ const OfferDetailsModal: React.FC<OfferDetailsModalProps> = ({ offer, isOpen, on
   const [isGalleryFullscreen, setIsGalleryFullscreen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
 
-  if (!offer) return null;
-
-  const images = offer.images && offer.images.length > 0 ? offer.images : [offer.image];
-  
-  // Find agent data
-  const agentData = mockTeamMembers.find(member => 
-    member.name.toLowerCase().includes(offer.agent_name?.toLowerCase().split(' ')[0] || '') ||
-    member.name.toLowerCase().includes(offer.agent_name?.toLowerCase().split(' ')[1] || '')
-  );
-
+  // All hooks must be called before any conditional logic
   useEffect(() => {
+    if (!offer || !isOpen) return;
+    
     const handleScroll = (e: Event) => {
       const target = e.target as HTMLElement;
       setScrollY(target.scrollTop);
@@ -39,7 +32,18 @@ const OfferDetailsModal: React.FC<OfferDetailsModalProps> = ({ offer, isOpen, on
       modalContent.addEventListener('scroll', handleScroll);
       return () => modalContent.removeEventListener('scroll', handleScroll);
     }
-  }, [isOpen]);
+  }, [isOpen, offer]);
+
+  // Early return AFTER all hooks are called
+  if (!offer) return null;
+
+  const images = offer.images && offer.images.length > 0 ? offer.images : [offer.image];
+  
+  // Find agent data
+  const agentData = mockTeamMembers.find(member => 
+    member.name.toLowerCase().includes(offer.agent_name?.toLowerCase().split(' ')[0] || '') ||
+    member.name.toLowerCase().includes(offer.agent_name?.toLowerCase().split(' ')[1] || '')
+  );
 
   const nextImage = () => {
     setCurrentImageIndex(prev => (prev + 1) % images.length);
