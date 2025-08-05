@@ -36,14 +36,20 @@ export const LoadingScreen = ({ onLoadComplete, isRouteChange = false }: Loading
             alt="Loading..." 
             className="w-32 h-32 brightness-75"
           />
-          <motion.div
-            className="absolute inset-0 w-32 h-32"
-            style={{
-              background: "linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.8) 50%, transparent 65%)",
-              backgroundSize: "200% 100%",
-              mask: `url(${logoSvg}) center/contain no-repeat`,
-              WebkitMask: `url(${logoSvg}) center/contain no-repeat`,
-            }}
+        <motion.div
+          className="absolute inset-0 w-32 h-32"
+          style={{
+            background: "linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.8) 50%, transparent 65%)",
+            backgroundSize: "200% 100%",
+            maskImage: `url(${logoSvg})`,
+            maskSize: "contain",
+            maskRepeat: "no-repeat",
+            maskPosition: "center",
+            WebkitMaskImage: `url(${logoSvg})`,
+            WebkitMaskSize: "contain", 
+            WebkitMaskRepeat: "no-repeat",
+            WebkitMaskPosition: "center",
+          }}
             initial={{ backgroundPosition: "200% 0" }}
             animate={{ backgroundPosition: "-200% 0" }}
             transition={{
@@ -70,8 +76,14 @@ export const LoadingScreen = ({ onLoadComplete, isRouteChange = false }: Loading
           style={{
             background: "linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.8) 50%, transparent 65%)",
             backgroundSize: "200% 100%",
-            mask: `url(${logoSvg}) center/contain no-repeat`,
-            WebkitMask: `url(${logoSvg}) center/contain no-repeat`,
+            maskImage: `url(${logoSvg})`,
+            maskSize: "contain",
+            maskRepeat: "no-repeat",
+            maskPosition: "center",
+            WebkitMaskImage: `url(${logoSvg})`,
+            WebkitMaskSize: "contain",
+            WebkitMaskRepeat: "no-repeat", 
+            WebkitMaskPosition: "center",
           }}
           initial={{ backgroundPosition: "200% 0" }}
           animate={{ backgroundPosition: "-200% 0" }}
