@@ -41,14 +41,8 @@ export const LoadingScreen = ({ onLoadComplete, isRouteChange = false }: Loading
           style={{
             background: "linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.8) 50%, transparent 65%)",
             backgroundSize: "200% 100%",
-            maskImage: `url(${logoSvg})`,
-            maskSize: "contain",
-            maskRepeat: "no-repeat",
-            maskPosition: "center",
-            WebkitMaskImage: `url(${logoSvg})`,
-            WebkitMaskSize: "contain", 
-            WebkitMaskRepeat: "no-repeat",
-            WebkitMaskPosition: "center",
+            mask: `url("data:image/svg+xml;base64,${btoa(logoSvg.replace('<svg', '<svg fill="white"'))}") center/contain no-repeat`,
+            WebkitMask: `url("data:image/svg+xml;base64,${btoa(logoSvg.replace('<svg', '<svg fill="white"'))}") center/contain no-repeat`,
           }}
             initial={{ backgroundPosition: "200% 0" }}
             animate={{ backgroundPosition: "-200% 0" }}
@@ -76,14 +70,8 @@ export const LoadingScreen = ({ onLoadComplete, isRouteChange = false }: Loading
           style={{
             background: "linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.8) 50%, transparent 65%)",
             backgroundSize: "200% 100%",
-            maskImage: `url(${logoSvg})`,
-            maskSize: "contain",
-            maskRepeat: "no-repeat",
-            maskPosition: "center",
-            WebkitMaskImage: `url(${logoSvg})`,
-            WebkitMaskSize: "contain",
-            WebkitMaskRepeat: "no-repeat", 
-            WebkitMaskPosition: "center",
+            mask: `url("data:image/svg+xml;base64,${btoa(logoSvg.replace('<svg', '<svg fill="white"'))}") center/contain no-repeat`,
+            WebkitMask: `url("data:image/svg+xml;base64,${btoa(logoSvg.replace('<svg', '<svg fill="white"'))}") center/contain no-repeat`,
           }}
           initial={{ backgroundPosition: "200% 0" }}
           animate={{ backgroundPosition: "-200% 0" }}
