@@ -11,13 +11,8 @@ const OffersSlider = () => {
   const t = translations[language];
   const { offers: allOffers, loading, error } = useEstiCRMOffers();
 
-  // Filter offers with price per m2 above 24,000 PLN and show first 3
-  const properties = allOffers
-    .filter(offer => {
-      const pricePerM2 = offer.price / offer.area;
-      return pricePerM2 > 24000;
-    })
-    .slice(0, 3);
+  // Show first 8 offers
+  const properties = allOffers.slice(0, 8);
 
   const handleViewOffer = (offer: EstiCRMOffer) => {
     // Handle view offer action - could open modal, navigate to detail page, etc.

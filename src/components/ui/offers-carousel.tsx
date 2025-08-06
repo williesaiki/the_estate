@@ -66,7 +66,7 @@ const Slide = ({ offer, index, current, handleSlideClick, onViewOffer, t }: Slid
       <li
         ref={slideRef}
         className="flex flex-1 flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out w-[70vmin] h-[70vmin] mx-[4vmin] z-10 cursor-pointer"
-        onClick={() => handleSlideClick(index)}
+        onClick={() => onViewOffer(offer)}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{
@@ -105,45 +105,32 @@ const Slide = ({ offer, index, current, handleSlideClick, onViewOffer, t }: Slid
         </div>
 
         <article
-          className={`relative p-[4vmin] transition-opacity duration-1000 ease-in-out ${
+          className={`absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/70 to-transparent transition-opacity duration-1000 ease-in-out ${
             current === index ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
         >
-          <h3 className="text-lg md:text-2xl lg:text-3xl font-serif font-light mb-4 relative text-white">
+          <h3 className="text-lg md:text-xl font-serif font-light mb-2 text-white">
             {offer.title}
           </h3>
           
-          <div className="flex items-center justify-center space-x-2 mb-4 text-white/80">
-            <MapPin className="h-4 w-4" />
-            <span className="text-sm md:text-base">{offer.location}</span>
+          <div className="flex items-center space-x-2 mb-2 text-white/80">
+            <MapPin className="h-3 w-3" />
+            <span className="text-xs md:text-sm">{offer.location}</span>
           </div>
           
-          <div className="flex items-center justify-center space-x-6 mb-4 text-xs md:text-sm text-white/70">
+          <div className="flex items-center space-x-4 mb-2 text-xs text-white/70">
             <div className="flex items-center space-x-1">
-              <Home className="h-4 w-4" />
+              <Home className="h-3 w-3" />
               <span>{offer.rooms} {t.offers.rooms}</span>
             </div>
             <div className="flex items-center space-x-1">
-              <Square className="h-4 w-4" />
+              <Square className="h-3 w-3" />
               <span>{offer.area} m²</span>
             </div>
           </div>
           
-          <div className="text-xl md:text-2xl font-bold text-white mb-6">
+          <div className="text-lg md:text-xl font-bold text-white">
             {offer.price.toLocaleString()} zł
-          </div>
-          
-          <div className="flex justify-center">
-            <Button 
-              onClick={(e) => {
-                e.stopPropagation();
-                onViewOffer(offer);
-              }}
-              className="mt-2 px-6 py-2 w-fit mx-auto text-sm bg-white text-black h-10 border border-transparent flex justify-center items-center rounded-full hover:shadow-lg transition duration-200 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
-            >
-              {t.offers.viewOffer}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
           </div>
         </article>
       </li>
@@ -164,7 +151,9 @@ const CarouselControl = ({
 }: CarouselControlProps) => {
   return (
     <button
-      className={`w-12 h-12 flex items-center mx-3 justify-center bg-white/10 backdrop-blur-sm border border-white/20 rounded-full focus:border-primary focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 text-white hover:bg-white/20 ${
+      className={`absolute top-1/2 -translate-y-1/2 ${
+        type === "previous" ? "-left-16" : "-right-16"
+      } w-12 h-12 flex items-center justify-center bg-white dark:bg-black/80 border border-border rounded-full focus:border-primary focus:outline-none hover:scale-105 active:scale-95 transition-all duration-200 text-foreground shadow-lg z-20 ${
         type === "previous" ? "rotate-180" : ""
       }`}
       title={title}
@@ -237,36 +226,17 @@ export default function OffersCarousel({ offers, onViewOffer, t }: OffersCarouse
         ))}
       </ul>
 
-      <div className="absolute flex justify-center w-full top-[calc(100%+1rem)]">
-        <CarouselControl
-          type="previous"
-          title={t.offers.previous || "Go to previous slide"}
-          handleClick={handlePreviousClick}
-        />
+      <CarouselControl
+        type="previous"
+        title={t.offers.previous || "Go to previous slide"}
+        handleClick={handlePreviousClick}
+      />
 
-        <CarouselControl
-          type="next"
-          title={t.offers.next || "Go to next slide"}
-          handleClick={handleNextClick}
-        />
-      </div>
-      
-      {/* Dots Indicator */}
-      <div className="absolute flex justify-center w-full top-[calc(100%+4rem)]">
-        <div className="flex space-x-2">
-          {offers.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrent(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === current 
-                  ? 'bg-white scale-125' 
-                  : 'bg-white/40 hover:bg-white/60'
-              }`}
-            />
-          ))}
-        </div>
-      </div>
+      <CarouselControl
+        type="next"
+        title={t.offers.next || "Go to next slide"}
+        handleClick={handleNextClick}
+      />
     </div>
   );
 }
