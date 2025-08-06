@@ -105,20 +105,25 @@ const Slide = ({ offer, index, current, handleSlideClick, onViewOffer, t }: Slid
         </div>
 
         <article
-          className={`absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/70 to-transparent transition-opacity duration-1000 ease-in-out ${
+          className={`absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 via-black/70 to-transparent transition-all duration-150 ease-in-out ${
             current === index ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
+          style={{
+            transform:
+              current === index
+                ? "translate3d(calc(var(--x) / 30), calc(var(--y) / 30), 0)"
+                : "none",
+          }}
         >
-          <h3 className="text-lg md:text-xl font-serif font-light mb-2 text-white">
+          <h3 className="text-lg md:text-xl font-serif font-light mb-3 text-white text-center">
             {offer.title}
           </h3>
           
-          <div className="flex items-center space-x-2 mb-2 text-white/80">
-            <MapPin className="h-3 w-3" />
-            <span className="text-xs md:text-sm">{offer.location}</span>
-          </div>
-          
-          <div className="flex items-center space-x-4 mb-2 text-xs text-white/70">
+          <div className="flex items-center justify-center space-x-4 mb-3 text-xs text-white/80">
+            <div className="flex items-center space-x-1">
+              <MapPin className="h-3 w-3" />
+              <span>{offer.location}</span>
+            </div>
             <div className="flex items-center space-x-1">
               <Home className="h-3 w-3" />
               <span>{offer.rooms} {t.offers.rooms}</span>
@@ -129,8 +134,8 @@ const Slide = ({ offer, index, current, handleSlideClick, onViewOffer, t }: Slid
             </div>
           </div>
           
-          <div className="text-lg md:text-xl font-bold text-white">
-            {offer.price.toLocaleString()} zł
+          <div className="text-lg md:text-xl font-bold text-white text-center">
+            {offer.price.toLocaleString('pl-PL').replace(/,/g, ' ')} PLN
           </div>
         </article>
       </li>

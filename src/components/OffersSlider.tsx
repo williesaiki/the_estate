@@ -51,7 +51,7 @@ const OffersSlider = () => {
   return (
     <section id="offers" className="py-20 bg-gradient-subtle">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-serif font-light text-foreground mb-6 animate-fade-in">
             {t.offers.title}
           </h2>
@@ -60,7 +60,7 @@ const OffersSlider = () => {
           </p>
         </div>
 
-        <div className="relative overflow-hidden w-full h-full py-20">
+        <div className="relative overflow-hidden w-full h-full py-12">
           <OffersCarousel 
             offers={properties} 
             onViewOffer={handleViewOffer}
