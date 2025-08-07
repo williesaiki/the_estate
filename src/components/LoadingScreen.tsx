@@ -41,17 +41,19 @@ export const LoadingScreen = ({ onLoadComplete, isRouteChange = false }: Loading
           style={{
             background: "linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.8) 50%, transparent 65%)",
             backgroundSize: "200% 100%",
-            mask: `url(${logoSvg}) center/contain no-repeat`,
-            WebkitMask: `url(${logoSvg}) center/contain no-repeat`,
+            mask: `url(${logoSvg}) center/32px 32px no-repeat`,
+            WebkitMask: `url(${logoSvg}) center/32px 32px no-repeat`,
+            maskSize: "32px 32px",
+            WebkitMaskSize: "32px 32px",
           }}
-            initial={{ backgroundPosition: "200% 0" }}
-            animate={{ backgroundPosition: "-200% 0" }}
-            transition={{
-              repeat: Infinity,
-              duration: 2,
-              ease: "linear",
-            }}
-          />
+          initial={{ backgroundPosition: "200% 0" }}
+          animate={{ backgroundPosition: "-200% 0" }}
+          transition={{
+            repeat: Infinity,
+            duration: 2,
+            ease: "linear",
+          }}
+        />
         </div>
       </motion.div>
     );
@@ -70,8 +72,10 @@ export const LoadingScreen = ({ onLoadComplete, isRouteChange = false }: Loading
           style={{
             background: "linear-gradient(110deg, transparent 35%, rgba(255,255,255,0.8) 50%, transparent 65%)",
             backgroundSize: "200% 100%",
-            mask: `url(${logoSvg}) center/contain no-repeat`,
-            WebkitMask: `url(${logoSvg}) center/contain no-repeat`,
+            mask: `url(${logoSvg}) center/32px 32px no-repeat`,
+            WebkitMask: `url(${logoSvg}) center/32px 32px no-repeat`,
+            maskSize: "32px 32px",
+            WebkitMaskSize: "32px 32px",
           }}
           initial={{ backgroundPosition: "200% 0" }}
           animate={{ backgroundPosition: "-200% 0" }}
