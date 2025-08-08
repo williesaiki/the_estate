@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Mail, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -98,55 +99,101 @@ const About = () => {
             </h2>
           </div>
 
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
-              {founders.map((founder, index) => (
-                <div 
-                  key={founder.id} 
-                  className="bg-card/10 backdrop-blur-sm rounded-3xl p-8 text-center hover:bg-card/20 transition-all duration-500"
-                  style={{ animationDelay: `${index * 0.2}s` }}
-                >
-                  <div className="relative mb-8">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              {/* Left side - Images */}
+              <div className="flex justify-center">
+                <div className="flex items-center space-x-8">
+                  <div className="relative">
                     <img 
-                      src={founder.image} 
-                      alt={founder.name}
-                      className="w-48 h-48 rounded-full mx-auto object-cover shadow-luxury"
+                      src={founders[0].image} 
+                      alt={founders[0].name}
+                      className="w-64 h-64 rounded-full object-cover shadow-luxury"
                     />
-                    <div className="absolute inset-0 w-48 h-48 rounded-full mx-auto bg-gradient-luxury opacity-20"></div>
+                    <div className="absolute inset-0 w-64 h-64 rounded-full bg-gradient-luxury opacity-20"></div>
                   </div>
                   
-                  <h3 className="text-3xl font-serif font-light text-secondary-foreground mb-2">
-                    {founder.name}
-                  </h3>
-                  
-                  <p className="text-primary font-medium text-lg mb-6">
-                    {founder.position}
-                  </p>
-                  
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-center space-x-3 text-secondary-foreground/80">
-                      <Phone className="h-5 w-5 text-primary" />
-                      <span>{founder.phone}</span>
-                    </div>
-                    <div className="flex items-center justify-center space-x-3 text-secondary-foreground/80">
-                      <Mail className="h-5 w-5 text-primary" />
-                      <span>{founder.email}</span>
-                    </div>
+                  <div className="relative">
+                    <img 
+                      src={founders[1].image} 
+                      alt={founders[1].name}
+                      className="w-64 h-64 rounded-full object-cover shadow-luxury"
+                    />
+                    <div className="absolute inset-0 w-64 h-64 rounded-full bg-gradient-luxury opacity-20"></div>
                   </div>
-                  
-                  <Button className="btn-luxury mt-6">
-                    Zobacz oferty
-                  </Button>
                 </div>
-              ))}
-            </div>
+              </div>
 
-            <div className="text-center bg-card/5 backdrop-blur-sm rounded-2xl p-8">
-              <p className="text-lg text-secondary-foreground/90 font-light leading-relaxed max-w-4xl mx-auto">
-                Stworzyliśmy The Estate dla osób takich jak my - ambitnych, głodnych 
-                sukcesu i ciekawych świata. Chcemy się wspólnie rozwijać i tworzyć miejsce, 
-                które zmieni rynek pośrednictwa.
-              </p>
+              {/* Right side - Info */}
+              <div className="space-y-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {founders.map((founder, index) => (
+                    <div key={founder.id} className="space-y-4">
+                      <h3 className="text-2xl font-serif font-light text-secondary-foreground">
+                        {founder.name}
+                      </h3>
+                      <p className="text-primary font-medium text-lg">
+                        {founder.position}
+                      </p>
+                      <div className="space-y-2">
+                        <div className="flex items-center space-x-3 text-secondary-foreground/80">
+                          <Phone className="h-4 w-4 text-primary" />
+                          <span className="text-sm">{founder.phone}</span>
+                        </div>
+                        <div className="flex items-center space-x-3 text-secondary-foreground/80">
+                          <Mail className="h-4 w-4 text-primary" />
+                          <span className="text-sm">{founder.email}</span>
+                        </div>
+                      </div>
+                      <Button variant="outline" className="btn-ghost-luxury">
+                        Zobacz oferty
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="bg-card/5 backdrop-blur-sm rounded-2xl p-8">
+                  <p className="text-lg text-secondary-foreground/90 font-light leading-relaxed">
+                    Stworzyliśmy The Estate dla osób takich jak my - ambitnych, głodnych 
+                    sukcesu i ciekawych świata. Chcemy się wspólnie rozwijać i tworzyć miejsce, 
+                    które zmieni rynek pośrednictwa.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Forbes Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              <div className="space-y-8 animate-fade-in">
+                <h2 className="text-4xl md:text-5xl font-serif font-light text-foreground">
+                  The Estate Warsaw w Forbes!
+                </h2>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Na łamach majowego wydania prestiżowego magazynu Forbes pojawił się wywiad 
+                  z założycielami naszej agencji. Łukasz Paziewski i Jakub Mikołajczuk opowiadali 
+                  o tym jaka jest geneza naszego brandu. Podkreślali dlaczego wyróżniamy się na 
+                  rynku i jakie innowacyjne rozwiązania zastosowaliśmy przy budowie naszej marki.
+                </p>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Dzięki nim tworzymy jedną z najbardziej postępowych agencji. Z wywiadu dowiecie 
+                  się, dlaczego warto zaufać The Estate Warsaw i jak chcemy się dalej rozwijać!
+                </p>
+              </div>
+              
+              <div className="relative animate-slide-in-right">
+                <img 
+                  src="https://cdn.prod.website-files.com/64f34c2162f4f8d189da8e6c/66aa3d7f965297e53acde8df_Capture-2024-07-31-153438.png"
+                  alt="The Estate Warsaw w Forbes" 
+                  className="rounded-3xl shadow-luxury w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-luxury opacity-10 rounded-3xl"></div>
+              </div>
             </div>
           </div>
         </div>
