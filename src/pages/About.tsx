@@ -113,6 +113,8 @@ const About = () => {
                     <div className="absolute inset-0 w-64 h-64 rounded-full bg-gradient-luxury opacity-20"></div>
                   </div>
                   
+                  <div className="text-6xl font-light text-secondary-foreground/30">&</div>
+                  
                   <div className="relative">
                     <img 
                       src={founders[1].image} 
