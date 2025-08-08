@@ -101,68 +101,66 @@ const About = () => {
           </div>
 
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              {/* Left side - Images */}
-              <div className="flex justify-center">
-                <div className="flex items-center space-x-8">
-                  <div className="relative">
-                    <img 
-                      src={founders[0].image} 
-                      alt={founders[0].name}
-                      className="w-64 h-64 rounded-full object-cover shadow-luxury"
-                    />
-                    <div className="absolute inset-0 w-64 h-64 rounded-full bg-gradient-luxury opacity-20"></div>
-                  </div>
-                  
-                  <div className="text-6xl font-light text-secondary-foreground/30">&</div>
-                  
-                  <div className="relative">
-                    <img 
-                      src={founders[1].image} 
-                      alt={founders[1].name}
-                      className="w-64 h-64 rounded-full object-cover shadow-luxury"
-                    />
-                    <div className="absolute inset-0 w-64 h-64 rounded-full bg-gradient-luxury opacity-20"></div>
-                  </div>
+            {/* Overlapping Images */}
+            <div className="flex justify-center mb-16">
+              <div className="relative flex items-center">
+                <div className="relative">
+                  <img 
+                    src={founders[0].image} 
+                    alt={founders[0].name}
+                    className="w-80 h-80 rounded-full object-cover shadow-luxury border-4 border-secondary"
+                  />
+                  <div className="absolute inset-0 w-80 h-80 rounded-full bg-gradient-luxury opacity-10"></div>
+                </div>
+                
+                <div className="relative -ml-20 z-10">
+                  <img 
+                    src={founders[1].image} 
+                    alt={founders[1].name}
+                    className="w-80 h-80 rounded-full object-cover shadow-luxury border-4 border-secondary"
+                  />
+                  <div className="absolute inset-0 w-80 h-80 rounded-full bg-gradient-luxury opacity-10"></div>
                 </div>
               </div>
+            </div>
 
-              {/* Right side - Info */}
-              <div className="space-y-12">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {founders.map((founder, index) => (
-                    <div key={founder.id} className="space-y-4">
-                      <h3 className="text-2xl font-serif font-light text-secondary-foreground">
-                        {founder.name}
-                      </h3>
-                      <p className="text-primary font-medium text-lg">
-                        {founder.position}
-                      </p>
-                      <div className="space-y-2">
-                        <div className="flex items-center space-x-3 text-secondary-foreground/80">
-                          <Phone className="h-4 w-4 text-primary" />
-                          <span className="text-sm">{founder.phone}</span>
-                        </div>
-                        <div className="flex items-center space-x-3 text-secondary-foreground/80">
-                          <Mail className="h-4 w-4 text-primary" />
-                          <span className="text-sm">{founder.email}</span>
-                        </div>
-                      </div>
-                      <Button variant="outline" className="btn-ghost-luxury">
-                        Zobacz oferty
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="bg-card/5 backdrop-blur-sm rounded-2xl p-8">
-                  <p className="text-lg text-secondary-foreground/90 font-light leading-relaxed">
-                    Stworzyliśmy The Estate dla osób takich jak my - ambitnych, głodnych 
-                    sukcesu i ciekawych świata. Chcemy się wspólnie rozwijać i tworzyć miejsce, 
-                    które zmieni rynek pośrednictwa.
+            {/* Founders Info */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-16">
+              {founders.map((founder, index) => (
+                <div key={founder.id} className="text-center space-y-6">
+                  <div className="flex items-center justify-center space-x-4">
+                    <h3 className="text-3xl font-serif font-light text-secondary-foreground">
+                      {founder.name}
+                    </h3>
+                    <span className="text-2xl font-light text-secondary-foreground/50">&</span>
+                  </div>
+                  <p className="text-xl font-medium text-secondary-foreground/70">
+                    {founder.position}
                   </p>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-center space-x-3 text-secondary-foreground/80">
+                      <Phone className="h-5 w-5 text-primary" />
+                      <span className="text-lg">{founder.phone}</span>
+                    </div>
+                    <div className="flex items-center justify-center space-x-3 text-secondary-foreground/80">
+                      <Mail className="h-5 w-5 text-primary" />
+                      <span className="text-lg">{founder.email}</span>
+                    </div>
+                  </div>
+                  <Button variant="outline" className="btn-ghost-luxury mt-6">
+                    Zobacz oferty
+                  </Button>
                 </div>
-              </div>
+              ))}
+            </div>
+
+            {/* Bottom Text */}
+            <div className="text-center max-w-4xl mx-auto">
+              <p className="text-xl text-secondary-foreground/90 font-light leading-relaxed">
+                Stworzyliśmy The Estate dla osób takich jak my - ambitnych, głodnych 
+                sukcesu i ciekawych świata. Chcemy się wspólnie rozwijać i tworzyć miejsce, 
+                które zmieni rynek pośrednictwa.
+              </p>
             </div>
           </div>
         </div>
