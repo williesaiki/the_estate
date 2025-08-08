@@ -59,12 +59,10 @@ const About = () => {
                 Nasza Historia
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                {t.about.content}
+                The Estate Warsaw powstało jako odpowiedź na potrzebę zmiany pośrednictwa na rynku nieruchomości na lepsze. Jest to miejsce zrzeszające profesjonalistów w pełnym tego słowa znaczeniu. Jako pierwsi w Polsce wprowadziliśmy rewolucyjny model prowadzenia agencji pośrednictwa nieruchomości, w którym agent zachowuje 100% swojego wynagrodzenia, co znacznie przekłada się na jego skuteczność i zaangażowanie oraz gwarantuje mu większą niezależność.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Specjalizujemy się w nieruchomościach premium w najlepszych lokalizacjach Warszawy. 
-                Nasz zespół łączy pasję do architektury z głęboką znajomością rynku, 
-                oferując klientom nie tylko nieruchomości, ale kompletne doświadczenie luksusu.
+                Jesteśmy gronem agentów z wieloletnim doświadczeniem, których łączy wspólna pasja i chęć nieustannego rozwoju. Specjalizujemy się w sprzedaży i wynajmie nieruchomości na terenie Warszawy, ale również całej Polski. Wspieramy inwestorów oraz sami inwestujemy w nieruchomości.
               </p>
               <div className="grid grid-cols-2 gap-8 text-center">
                 <div className="space-y-2">
@@ -79,9 +77,12 @@ const About = () => {
             </div>
             
             <div className="relative animate-slide-in-right">
-              <img 
-                src={officeHero}
-                alt="Our Office" 
+              <video 
+                src="https://cdn.prod.website-files.com/64f34c2162f4f8d189da8e6c/651d6fb33d3620e76a6d2d80_FAB5067A-EA11-4329-9A5E-29C13AF2CF85-transcode.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
                 className="rounded-3xl shadow-luxury w-full h-[500px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-luxury opacity-10 rounded-3xl"></div>
